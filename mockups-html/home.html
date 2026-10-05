@@ -1,0 +1,221 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+  </head>
+
+  <body>
+    <header>
+      <div id="barra-topo">
+        <p>Frete grátis acima de R$ 499</p>
+        <p>Central de ajuda</p>
+      </div>
+      <div id="barra-principal">
+        <div class="logo">
+          <img
+            class="logo-imagem"
+            src="../assets/logo_hardware_hub.png"
+            alt="Logo da HardwareHub"
+          />
+          <p class="logo-hardware">Hardware</p>
+          <p class="logo-hub">Hub</p>
+        </div>
+        <div id="campo-busca">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input placeholder="Busque hardware e serviços..." />
+        </div>
+        <p id="link-monte-pc">Monte seu PC</p>
+        <i class="fa-solid fa-user"></i>
+        <i class="fa-solid fa-cart-shopping"></i>
+      </div>
+      <nav>
+        <ul id="menu-principal">
+          <li><a href="#hardware">Hardware</a></li>
+          <li><a href="#perifericos">Periféricos</a></li>
+          <li><a href="#computadores">Computadores</a></li>
+          <li><a href="#servicos">Serviços</a></li>
+          <li><a id="link-ofertas" href="#ofertas">Ofertas</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <div id="banner">
+        <div id="banner-selo">
+          <p>SEMANA GAMER ATÉ 20% OFF</p>
+        </div>
+        <h2>Performance sem <br />limites.</h2>
+        <p id="banner-descricao">
+          Eleve seu setup com hardware de última geração, preços <br />especiais
+          e montagem feita por especialistas.
+        </p>
+        <div id="banner-botoes">
+          <button id="botao-ofertas">
+            <i class="fa-solid fa-arrow-right-long"></i>
+            Comprar ofertas
+          </button>
+          <button id="botao-monte-pc">Monte seu PC</button>
+        </div>
+      </div>
+
+      <div id="beneficios">
+        <div class="beneficio">
+          <div class="beneficio-icone">
+            <i class="fa-solid fa-truck"></i>
+          </div>
+
+          <div class="beneficio-texto">
+            <p class="beneficio-titulo">Frete grátis</p>
+            <p class="beneficio-descricao">Em compras acima de R$ 499</p>
+          </div>
+        </div>
+
+        <div class="beneficio">
+          <div class="beneficio-icone">
+            <i class="fa-regular fa-credit-card"></i>
+          </div>
+
+          <div class="beneficio-texto">
+            <p class="beneficio-titulo">Até 12x sem juros</p>
+            <p class="beneficio-descricao">Nos principais cartões</p>
+          </div>
+        </div>
+
+        <div class="beneficio">
+          <div class="beneficio-icone">
+            <i class="fa-solid fa-shield-halved"></i>
+          </div>
+
+          <div class="beneficio-texto">
+            <p class="beneficio-titulo">Garantia e segurança</p>
+            <p class="beneficio-descricao">Compra 100% protegida</p>
+          </div>
+        </div>
+
+        <div class="beneficio">
+          <div class="beneficio-icone">
+            <i class="fa-solid fa-headset"></i>
+          </div>
+
+          <div class="beneficio-texto">
+            <p class="beneficio-titulo">Suporte especialista</p>
+            <p class="beneficio-descricao">Antes e depois da compra</p>
+          </div>
+        </div>
+      </div>
+
+      <div id="mais-vendidos">
+        <h2>ESCOLHAS DA COMUNIDADE</h2>
+
+        <div id="mais-vendidos-cabecalho">
+          <div id="mais-vendidos-titulo">
+            <h3>Mais vendidos</h3>
+            <p>Os componentes preferidos para upgrades e novos setups.</p>
+          </div>
+
+          <div id="ver-catalogo">
+            <i class="fa-solid fa-arrow-right-long"></i>
+            <p>Ver catálogo</p>
+          </div>
+        </div>
+
+        <div id="grade-produtos">
+          <div class="produto">
+            <img
+              src="../assets/geoforce_rtx.jpg"
+              alt="GeForce RTX 4070 SUPER 12GB"
+            />
+            <p class="produto-categoria">Placa de vídeo</p>
+            <p class="produto-nome">GeForce RTX 4070 SUPER 12GB</p>
+
+            <div class="produto-estoque">
+              <p>Em estoque</p>
+            </div>
+            <p class="produto-preco-antigo">R$4.899,90</p>
+            <p class="produto-preco">R$ 4.299,90</p>
+            <button class="produto-botao">Adicionar</button>
+          </div>
+
+          <div class="produto">
+            <img src="../assets/ryzen7.jpeg" alt="Ryzen 7 7800X3D" />
+            <p class="produto-categoria">Processador</p>
+            <p class="produto-nome">Ryzen 7 7800X3D</p>
+
+            <div class="produto-estoque">
+              <p>Últimas unidades</p>
+            </div>
+            <p class="produto-preco-antigo">Sem desconto</p>
+            <p class="produto-preco">R$ 2.499,90</p>
+            <button class="produto-botao">Adicionar</button>
+          </div>
+
+          <div class="produto">
+            <img src="../assets/teclado.jpeg" alt="Teclado Mecânico K75 RGB" />
+            <p class="produto-categoria">Periféricos</p>
+            <p class="produto-nome">Teclado Mecânico K75 RGB</p>
+
+            <div class="produto-estoque">
+              <p>Em estoque</p>
+            </div>
+            <p class="produto-preco-antigo">Sem desconto</p>
+            <p class="produto-preco">R$ 449,90</p>
+            <button class="produto-botao">Adicionar</button>
+          </div>
+
+          <div class="produto">
+            <img src="../assets/monitor.jpeg" alt="Monitor QHD 27” 180Hz" />
+            <p class="produto-categoria">Monitores</p>
+            <p class="produto-nome">Monitor QHD 27” 180Hz</p>
+
+            <div class="produto-estoque">
+              <p>Indisponível</p>
+            </div>
+            <p class="produto-preco-antigo">Sem desconto</p>
+            <p class="produto-preco">R$ 1.899,90</p>
+            <button class="produto-botao">Avise-me</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div id="rodape-marca">
+        <div class="logo">
+          <img
+            class="logo-imagem"
+            src="../assets/logo_hardware_hub.png"
+            alt="Logo da HardwareHub"
+          />
+          <p class="logo-hardware">Hardware</p>
+          <p class="logo-hub">Hub</p>
+        </div>
+
+        <p id="rodape-slogan">
+          Tecnologia certa, montagem segura e suporte de <br />verdade.
+        </p>
+
+        <div id="rodape-selo-seguranca">
+          <i class="fa-solid fa-check"></i>
+          <p>Compra 100% segura</p>
+        </div>
+      </div>
+
+      <div id="rodape-links">
+        <p class="rodape-link">Institucional</p>
+        <p class="rodape-link">Atendimento</p>
+        <p class="rodape-link">Pagamento</p>
+        <p class="rodape-link">Sobre nós</p>
+        <p class="rodape-link">Central de Ajuda</p>
+        <p class="rodape-link">Pix e cartão</p>
+      </div>
+
+      <p id="rodape-copyright">2026 HardwareHub</p>
+    </footer>
+  </body>
+</html>

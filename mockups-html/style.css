@@ -1,0 +1,522 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+
+:root {
+  --azul: rgb(37, 99, 235);
+  --azul-claro: rgb(239, 246, 255);
+  --cinza-claro: rgb(248, 250, 252);
+  --cinza-rodape: rgb(165, 165, 165);
+  --borda: rgb(150, 150, 150);
+  --raio-botao: 0.3rem;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: rgb(114, 114, 114);
+}
+
+i {
+  color: black;
+}
+
+/* ---------- Cabeçalho ---------- */
+
+header {
+  padding-bottom: 0.7rem;
+  border-bottom: 0.1rem solid rgb(232, 232, 232);
+}
+
+#barra-topo {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 4rem;
+  background-color: rgb(11, 18, 32);
+  color: rgb(206, 206, 206);
+  font-size: 0.6rem;
+}
+
+#barra-principal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.4rem;
+  padding: 1rem 4rem;
+}
+
+/* Logo (cabeçalho e rodapé) */
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo-imagem {
+  width: 1.7rem;
+}
+
+.logo-hardware,
+.logo-hub {
+  font-size: 1rem;
+}
+
+.logo-hardware {
+  padding-left: 0.5rem;
+  color: black;
+}
+
+.logo-hub {
+  color: rgb(6, 182, 212);
+}
+
+#campo-busca {
+  display: flex;
+  flex: 1;
+  gap: 1rem;
+  padding: 0.5rem;
+  background-color: var(--cinza-claro);
+  border: 1px solid white;
+  border-radius: 10px;
+}
+
+#campo-busca:focus-within {
+  border-color: var(--borda);
+}
+
+#campo-busca input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+
+#link-monte-pc {
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: var(--azul);
+}
+
+nav ul {
+  display: flex;
+  gap: 1rem;
+  padding: 0 4rem;
+  list-style: none;
+  font-size: 0.7rem;
+}
+
+#link-ofertas {
+  color: rgb(220, 38, 38);
+}
+
+/* ---------- Conteúdo principal ---------- */
+
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1.6rem 4rem;
+  background-color: var(--cinza-claro);
+}
+
+/* Banner */
+#banner {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.6rem 2rem;
+  border-radius: 20px;
+  color: white;
+  background-image:
+    linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.7),
+      rgba(0, 0, 0, 0) 30%,
+      rgba(0, 0, 0, 0) 70%,
+      rgba(0, 0, 0, 0.7)
+    ),
+    url("../assets/pc_fundo.jpeg");
+  background-size: cover;
+  background-position: center;
+}
+
+#banner-selo {
+  width: fit-content;
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  background-color: var(--azul-claro);
+  color: var(--azul);
+  font-size: 0.7rem;
+}
+
+#banner h2 {
+  font-size: 2rem;
+}
+
+#banner-descricao {
+  font-size: 0.7rem;
+  color: rgb(221, 221, 221);
+}
+
+#banner-botoes {
+  display: flex;
+  gap: 0.6rem;
+  padding-top: 0.5rem;
+}
+
+/* Botões (banner e cards de produto) */
+#botao-ofertas,
+#botao-monte-pc,
+.produto-botao {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: var(--raio-botao);
+}
+
+#botao-ofertas,
+.produto-botao {
+  background-color: var(--azul);
+  color: aliceblue;
+}
+
+#botao-ofertas {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+#botao-ofertas i {
+  color: aliceblue;
+}
+
+#botao-monte-pc {
+  background-color: rgb(242, 242, 242);
+  color: black;
+}
+
+/* Benefícios */
+#beneficios {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.beneficio {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.beneficio-icone {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 10rem;
+  background-color: var(--azul-claro);
+}
+
+.beneficio-texto {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.beneficio-titulo {
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.beneficio-descricao {
+  font-size: 0.7rem;
+}
+
+/* Mais vendidos */
+#mais-vendidos {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+#mais-vendidos h2 {
+  font-size: 0.7rem;
+}
+
+#mais-vendidos-cabecalho {
+  display: flex;
+  justify-content: space-between;
+}
+
+#mais-vendidos-titulo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+#mais-vendidos-titulo h3 {
+  font-size: 1.5rem;
+}
+
+#mais-vendidos-titulo p {
+  font-size: 0.8rem;
+}
+
+#ver-catalogo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+#ver-catalogo p {
+  font-size: 0.9rem;
+}
+
+/* Elementos em destaque na cor azul */
+#mais-vendidos h2,
+#ver-catalogo i,
+#ver-catalogo p,
+.beneficio-icone i,
+.produto-categoria {
+  color: var(--azul);
+}
+
+/* Cards de produto */
+#grade-produtos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 15rem);
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.produto {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 1rem 1.5rem;
+  border: 1px solid var(--borda);
+  border-radius: 0.7rem;
+}
+
+.produto-categoria {
+  font-size: 0.6rem;
+  font-weight: bold;
+}
+
+.produto-nome {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  height: 2.4rem;
+  font-size: 0.9rem;
+  line-height: 1.2rem;
+  color: black;
+}
+
+.produto-estoque p {
+  font-size: 0.7rem;
+}
+
+.produto-preco-antigo {
+  font-size: 0.5rem;
+  text-decoration: line-through;
+}
+
+.produto-preco {
+  font-size: 1.3rem;
+}
+
+/* ---------- Rodapé ---------- */
+
+footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 2rem 4rem;
+  background-color: black;
+}
+
+footer .logo-hardware {
+  color: white;
+}
+
+#rodape-marca {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+#rodape-selo-seguranca {
+  display: flex;
+  gap: 0.3rem;
+}
+
+#rodape-selo-seguranca p,
+#rodape-selo-seguranca i {
+  color: rgb(84, 166, 3);
+  font-size: 0.7rem;
+}
+
+#rodape-links {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, auto);
+  gap: 0.1rem 1rem;
+  align-content: start;
+}
+
+/* Textos cinza do rodapé */
+#rodape-slogan,
+#rodape-links p,
+#rodape-copyright {
+  color: var(--cinza-rodape);
+  font-size: 0.7rem;
+}
+
+/* ---------- Responsividade ---------- */
+
+/* Tablet */
+@media (max-width: 900px) {
+  #barra-topo,
+  #barra-principal,
+  nav ul,
+  main,
+  footer {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
+  #beneficios {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem 1.5rem;
+  }
+}
+
+/* Celular */
+@media (max-width: 600px) {
+  #barra-topo,
+  #barra-principal,
+  nav ul,
+  main,
+  footer {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  /* Cabeçalho: logo + ícones na primeira linha, busca embaixo */
+  #barra-principal {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 0.8rem 1rem;
+  }
+
+  #link-monte-pc {
+    margin-left: auto;
+  }
+
+  #campo-busca {
+    order: 1;
+    flex: 1 1 100%;
+  }
+
+  /* Menu rola na horizontal em vez de quebrar */
+  nav ul {
+    overflow-x: auto;
+    white-space: nowrap;
+    gap: 1.2rem;
+    font-size: 0.8rem;
+  }
+
+  /* Banner */
+  #banner {
+    padding: 1.2rem 1rem;
+  }
+
+  #banner h2 {
+    font-size: 1.6rem;
+  }
+
+  /* Deixa o texto fluir sem quebras forçadas */
+  #banner br,
+  #rodape-slogan br {
+    display: none;
+  }
+
+  /* Mais vendidos */
+  #mais-vendidos-cabecalho {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  /* Benefícios (frete grátis, parcelamento etc.) empilhados em coluna */
+  #beneficios {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  /* minmax(0, 1fr) impede que imagens grandes estiquem as colunas */
+  #grade-produtos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.7rem;
+    margin-top: 0.5rem;
+  }
+
+  .produto {
+    gap: 0.2rem;
+    padding: 0.6rem;
+  }
+
+  .produto img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 0.4rem;
+  }
+
+  .produto-nome {
+    height: 2.2rem;
+    font-size: 0.8rem;
+    line-height: 1.1rem;
+  }
+
+  .produto-preco {
+    font-size: 1.05rem;
+  }
+
+  .produto-botao {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.75rem;
+  }
+
+  /* Rodapé */
+  footer {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  #rodape-links {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Celulares pequenos */
+@media (max-width: 480px) {
+  #banner-botoes {
+    flex-direction: column;
+  }
+
+  #botao-ofertas {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 340px) {
+  #grade-produtos {
+    grid-template-columns: 1fr;
+  }
+}
