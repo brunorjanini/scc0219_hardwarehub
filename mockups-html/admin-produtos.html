@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Produtos e serviços | HardwareHub Admin</title>
+    <link rel="stylesheet" href="admin.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+  </head>
+
+  <body>
+    <aside id="menu-lateral">
+      <div class="logo">
+        <img
+          class="logo-imagem"
+          src="../assets/logo_hardware_hub.png"
+          alt="Logo da HardwareHub"
+        />
+        <p class="logo-hardware">Hardware</p>
+        <p class="logo-hub">Hub</p>
+      </div>
+
+      <p id="menu-lateral-titulo">Produtos e serviços</p>
+
+      <input type="checkbox" id="menu-toggle" />
+      <label for="menu-toggle" id="botao-menu" aria-label="Abrir menu">
+        <i class="fa-solid fa-bars"></i>
+      </label>
+
+      <nav aria-label="Menu administrativo">
+        <ul id="menu-admin">
+          <li><a class="menu-link" href="#dashboard">Dashboard</a></li>
+          <li>
+            <a
+              class="menu-link menu-link-ativo"
+              href="#produtos-servicos"
+              aria-current="page"
+              >Produtos e serviços</a
+            >
+          </li>
+          <li><a class="menu-link" href="#clientes">Clientes</a></li>
+          <li>
+            <a class="menu-link" href="#administradores">Administradores</a>
+          </li>
+        </ul>
+      </nav>
+
+      <div id="usuario-logado">
+        <p>Marina Costa</p>
+        <p>Superadministradora</p>
+      </div>
+    </aside>
+
+    <div id="area-principal">
+      <header id="cabecalho-pagina">
+        <div>
+          <p id="cabecalho-titulo">Produtos e serviços</p>
+          <p id="cabecalho-subtitulo">Painel administrativo HardwareHub</p>
+        </div>
+        <div id="cabecalho-avatar" title="Marina Costa"></div>
+      </header>
+
+      <main>
+        <div id="titulo-pagina">
+          <div id="titulo-pagina-texto">
+            <h1>Produtos e serviços</h1>
+            <p>Gerencie catálogo, preços, serviços e estoque.</p>
+          </div>
+
+          <button id="botao-novo-produto">
+            <i class="fa-solid fa-plus"></i>
+            Novo produto
+          </button>
+        </div>
+
+        <div id="filtros">
+          <div class="filtro" id="filtro-busca">
+            <label for="busca">Buscar</label>
+            <div id="campo-busca">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input
+                id="busca"
+                type="search"
+                placeholder="Nome, SKU ou categoria"
+              />
+            </div>
+          </div>
+
+          <div class="filtro" id="filtro-status">
+            <label for="seletor-status">Status</label>
+            <select id="seletor-status">
+              <option>Todos</option>
+              <option>Ativo</option>
+              <option>Sem estoque</option>
+            </select>
+          </div>
+
+          <div class="filtro" id="filtro-categoria">
+            <label for="seletor-categoria">Categoria</label>
+            <select id="seletor-categoria">
+              <option>Todos</option>
+              <option>Placas de vídeo</option>
+              <option>Processadores</option>
+              <option>Armazenamento</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="resumo-lista">
+          <span class="chip chip-azul">128 itens</span>
+          <span class="chip">6 selecionados</span>
+          <span class="chip chip-vermelho">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            12 sem estoque
+          </span>
+        </div>
+
+        <div id="tabela-produtos">
+          <table>
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Detalhe</th>
+                <th>Informação</th>
+                <th>Status</th>
+                <th class="celula-acoes">Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="celula-nome">RTX 4070 SUPER</td>
+                <td class="celula-detalhe">Placas de vídeo</td>
+                <td class="celula-informacao">R$ 4.299,90</td>
+                <td class="celula-status">
+                  <span class="badge badge-ativo">Ativo</span>
+                </td>
+                <td class="celula-acoes">
+                  <button
+                    class="botao-acoes"
+                    aria-label="Mais ações para RTX 4070 SUPER"
+                  >
+                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                  </button>
+                </td>
+              </tr>
+
+              <tr>
+                <td class="celula-nome">Ryzen 7 7800X3D</td>
+                <td class="celula-detalhe">Processadores</td>
+                <td class="celula-informacao">R$ 2.499,90</td>
+                <td class="celula-status">
+                  <span class="badge badge-ativo">Ativo</span>
+                </td>
+                <td class="celula-acoes">
+                  <button
+                    class="botao-acoes"
+                    aria-label="Mais ações para Ryzen 7 7800X3D"
+                  >
+                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                  </button>
+                </td>
+              </tr>
+
+              <tr>
+                <td class="celula-nome">SSD NVMe 1TB</td>
+                <td class="celula-detalhe">Armazenamento</td>
+                <td class="celula-informacao">R$ 449,90</td>
+                <td class="celula-status">
+                  <span class="badge badge-sem-estoque">Sem estoque</span>
+                </td>
+                <td class="celula-acoes">
+                  <button
+                    class="botao-acoes"
+                    aria-label="Mais ações para SSD NVMe 1TB"
+                  >
+                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div id="paginacao">
+          <p id="paginacao-resumo">Exibindo 1–20 de 128</p>
+          <div id="paginacao-botoes">
+            <button class="botao-paginacao" disabled>Anterior</button>
+            <button class="botao-paginacao">Próxima</button>
+          </div>
+        </div>
+
+        <div id="notificacao" role="status">
+          <i class="fa-regular fa-circle-check"></i>
+          <div id="notificacao-texto">
+            <p id="notificacao-titulo">Produto atualizado</p>
+            <p id="notificacao-descricao">
+              As alterações de estoque foram salvas com sucesso.
+            </p>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

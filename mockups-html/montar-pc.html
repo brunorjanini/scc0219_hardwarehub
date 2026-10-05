@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Monte seu PC | HardwareHub</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="montar-pc.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+  </head>
+
+  <body>
+    <header>
+      <div id="barra-topo">
+        <p>Frete grátis acima de R$ 499</p>
+        <p>Central de ajuda</p>
+      </div>
+      <div id="barra-principal">
+        <div class="logo">
+          <img
+            class="logo-imagem"
+            src="../assets/logo_hardware_hub.png"
+            alt="Logo da HardwareHub"
+          />
+          <p class="logo-hardware">Hardware</p>
+          <p class="logo-hub">Hub</p>
+        </div>
+        <div id="campo-busca">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input placeholder="Busque hardware e serviços..." />
+        </div>
+        <p id="link-monte-pc">Monte seu PC</p>
+        <i class="fa-solid fa-user"></i>
+        <i class="fa-solid fa-cart-shopping"></i>
+      </div>
+      <nav>
+        <ul id="menu-principal">
+          <li><a href="#hardware">Hardware</a></li>
+          <li><a href="#perifericos">Periféricos</a></li>
+          <li><a href="#computadores">Computadores</a></li>
+          <li><a href="#servicos">Serviços</a></li>
+          <li><a id="link-ofertas" href="#ofertas">Ofertas</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <div id="montador-intro">
+        <div id="montador-titulo">
+          <p id="montador-rotulo">MONTADOR INTELIGENTE</p>
+          <h1>Monte seu PC</h1>
+          <p id="montador-subtitulo">
+            Escolha as peças. Nós validamos a compatibilidade em tempo real.
+          </p>
+        </div>
+
+        <div id="progresso">
+          <p>5 de 8 componentes selecionados</p>
+          <div id="progresso-barra">
+            <div id="progresso-barra-preenchida"></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="alerta-compatibilidade" role="status">
+        <i class="fa-solid fa-shield-halved"></i>
+        <p>
+          Configuração compatível. Consumo estimado: 542W • Fonte recomendada:
+          750W.
+        </p>
+      </div>
+
+      <div id="montador-conteudo">
+        <div id="lista-componentes">
+          <div class="componente">
+            <div class="componente-icone">
+              <i class="fa-regular fa-circle-check"></i>
+            </div>
+            <div class="componente-info">
+              <p class="componente-categoria">Processador</p>
+              <p class="componente-nome">AMD Ryzen 7 7800X3D</p>
+            </div>
+            <p class="componente-preco">R$ 2.499</p>
+            <button class="componente-botao">Trocar</button>
+          </div>
+
+          <div class="componente">
+            <div class="componente-icone">
+              <i class="fa-regular fa-circle-check"></i>
+            </div>
+            <div class="componente-info">
+              <p class="componente-categoria">Placa-mãe</p>
+              <p class="componente-nome">ASUS TUF Gaming B650M-Plus</p>
+            </div>
+            <p class="componente-preco">R$ 1.299</p>
+            <button class="componente-botao">Trocar</button>
+          </div>
+
+          <div class="componente">
+            <div class="componente-icone">
+              <i class="fa-regular fa-circle-check"></i>
+            </div>
+            <div class="componente-info">
+              <p class="componente-categoria">Placa de vídeo</p>
+              <p class="componente-nome">GeForce RTX 4070 SUPER 12GB</p>
+            </div>
+            <p class="componente-preco">R$ 4.299</p>
+            <button class="componente-botao">Trocar</button>
+          </div>
+
+          <div class="componente">
+            <div class="componente-icone">
+              <i class="fa-regular fa-circle-check"></i>
+            </div>
+            <div class="componente-info">
+              <p class="componente-categoria">Memória</p>
+              <p class="componente-nome">Kingston Fury 32GB DDR5 6000MHz</p>
+            </div>
+            <p class="componente-preco">R$ 899</p>
+            <button class="componente-botao">Trocar</button>
+          </div>
+
+          <div class="componente componente-alerta">
+            <div class="componente-icone">
+              <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <div class="componente-info">
+              <p class="componente-categoria">Fonte</p>
+              <p class="componente-nome">Corsair CX650 650W 80 Plus Bronze</p>
+              <p class="componente-aviso">
+                Potência próxima do limite recomendado
+              </p>
+            </div>
+            <p class="componente-preco">R$ 499</p>
+            <button class="componente-botao">Trocar</button>
+          </div>
+
+          <div class="componente componente-vazio">
+            <div class="componente-icone">
+              <i class="fa-solid fa-plus"></i>
+            </div>
+            <div class="componente-info">
+              <p class="componente-categoria">Armazenamento</p>
+              <p class="componente-nome">Escolha um SSD ou HD</p>
+            </div>
+            <p class="componente-preco">–</p>
+            <button class="componente-botao">Escolher</button>
+          </div>
+        </div>
+
+        <div id="resumo-setup">
+          <h2>Resumo do setup</h2>
+
+          <div id="metricas">
+            <div class="metrica metrica-jogos">
+              <div class="metrica-texto">
+                <p>Jogos em 1440p</p>
+                <p class="metrica-nivel">Excelente</p>
+              </div>
+              <div class="metrica-barra">
+                <div class="metrica-barra-preenchida"></div>
+              </div>
+            </div>
+
+            <div class="metrica metrica-criacao">
+              <div class="metrica-texto">
+                <p>Criação de conteúdo</p>
+                <p class="metrica-nivel">Excelente</p>
+              </div>
+              <div class="metrica-barra">
+                <div class="metrica-barra-preenchida"></div>
+              </div>
+            </div>
+
+            <div class="metrica metrica-custo-beneficio">
+              <div class="metrica-texto">
+                <p>Custo-benefício</p>
+                <p class="metrica-nivel">Muito bom</p>
+              </div>
+              <div class="metrica-barra">
+                <div class="metrica-barra-preenchida"></div>
+              </div>
+            </div>
+          </div>
+
+          <div id="resumo-total">
+            <p id="total-rotulo">Total</p>
+            <p id="total-valor">R$ 9.495</p>
+          </div>
+
+          <button id="botao-adicionar-configuracao" disabled>
+            <i class="fa-solid fa-cart-shopping"></i>
+            Adicionar configuração
+          </button>
+
+          <p id="resumo-aviso">Selecione armazenamento para continuar</p>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div id="rodape-marca">
+        <div class="logo">
+          <img
+            class="logo-imagem"
+            src="../assets/logo_hardware_hub.png"
+            alt="Logo da HardwareHub"
+          />
+          <p class="logo-hardware">Hardware</p>
+          <p class="logo-hub">Hub</p>
+        </div>
+
+        <p id="rodape-slogan">
+          Tecnologia certa, montagem segura e suporte de <br />verdade.
+        </p>
+
+        <div id="rodape-selo-seguranca">
+          <i class="fa-solid fa-check"></i>
+          <p>Compra 100% segura</p>
+        </div>
+      </div>
+
+      <div id="rodape-links">
+        <p class="rodape-link">Institucional</p>
+        <p class="rodape-link">Atendimento</p>
+        <p class="rodape-link">Pagamento</p>
+        <p class="rodape-link">Sobre nós</p>
+        <p class="rodape-link">Central de Ajuda</p>
+        <p class="rodape-link">Pix e cartão</p>
+      </div>
+
+      <p id="rodape-copyright">2026 HardwareHub</p>
+    </footer>
+  </body>
+</html>
