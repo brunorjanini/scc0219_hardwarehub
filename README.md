@@ -1,4 +1,4 @@
-# HardwareHub — Loja Online de Hardware
+# HardwareHub: Loja Online de Hardware
 
 Trabalho da disciplina **SCC0219 - Introduction to Web Development**.
 
@@ -10,7 +10,7 @@ Trabalho da disciplina **SCC0219 - Introduction to Web Development**.
 | Gabriel dos Santos Alves | 14614032 |
 | Leonardo Ribeiro Zanatta | 5521484  |
 
-**Milestone atual:** 1 — Mockups da loja
+**Milestone atual:** 1 Mockup da loja
 
 ---
 
@@ -90,13 +90,13 @@ flowchart TD
 
 ### 2.3 Mockups das telas
 
-O mockup completo, com todas as telas, está na pasta `docs` em formato PDF: [Mockup completo (PDF)](docs/mockup-completo.pdf). As telas implementadas em HTML5/CSS3 (abrir no navegador) estão listadas abaixo.
+O mockup completo, com todas as telas, está na pasta `docs` em formato PDF: [Mockup completo (PDF)](docs/mockup.pdf). As telas implementadas em HTML5/CSS3 (abrir no navegador) estão listadas abaixo.
 
-| ID  | Tela                     | Mockup                         |
-| --- | ------------------------ | ------------------------------ |
-| C01 | Home (com área de login) | [HTML](mockups-html/home.html) |
-
-Protótipo navegável no Figma: [link do Figma]
+| ID  | Tela                     | Mockup                                   |
+| --- | ------------------------ | ---------------------------------------- |
+| C01 | Home (com área de login) | [HTML](mockups-html/home.html)           |
+| C06 | Montador de PC           | [HTML](mockups-html/montar-pc.html)      |
+| A02 | Produtos e serviços      | [HTML](mockups-html/admin-produtos.html) |
 
 ### 2.4 Informações salvas no servidor
 
