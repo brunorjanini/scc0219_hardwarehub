@@ -20,6 +20,7 @@ export default function BuilderSummary({
   busy,
   feedback,
   onAdd,
+  children,
 }) {
   const chosenAssembly = withAssembly ? assembly : null;
   const total = buildTotal(parts, chosenAssembly);
@@ -108,6 +109,9 @@ export default function BuilderSummary({
           </>
         )}
       </div>
+
+      {/* Extra actions (the "Salvar montagem" form) */}
+      {children}
     </aside>
   );
 }

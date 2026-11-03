@@ -507,6 +507,86 @@
   }
 }
 
+/* ---- Save build (summary) ---- */
+.builder-save {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--borda);
+}
+
+.builder-save-toggle {
+  width: 100%;
+}
+
+.builder-save-toggle:disabled {
+  border-color: var(--borda);
+  color: rgb(100, 116, 139);
+  opacity: 1;
+  cursor: not-allowed;
+}
+
+.builder-save-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.builder-save-form label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--escuro);
+}
+
+.builder-save-form input {
+  min-height: 44px;
+  padding: 0 0.7rem;
+  border: 1px solid var(--borda);
+  border-radius: var(--raio-campo);
+  font-size: 0.9rem;
+  color: var(--escuro);
+}
+
+.builder-save-form input:focus-visible {
+  outline: 3px solid var(--ciano);
+  outline-offset: 1px;
+}
+
+.builder-save-form input[aria-invalid="true"] {
+  border-color: rgb(185, 28, 28);
+}
+
+.builder-save-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.builder-save-actions .link-button {
+  flex: 1;
+}
+
+.builder-save-error {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: rgb(185, 28, 28);
+}
+
+.builder-save-done {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: center;
+  color: rgb(21, 128, 61);
+}
+
+.builder-save-done a {
+  color: var(--azul);
+}
+
+.builder-opened {
+  text-align: left;
+}
+
 /* ---- Phones: price and buttons go below the text ---- */
 @media (max-width: 700px) {
   .builder-slot-row,

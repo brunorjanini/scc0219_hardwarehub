@@ -11,6 +11,7 @@ import { readProfileForm, toProfileChanges, validateProfile } from "../utils/cli
 import { validatePasswordChange } from "../utils/validators";
 import { formatDateTime, formatPrice } from "../utils/format";
 import { catalogPath } from "../utils/catalogQuery";
+import SavedBuilds from "../components/account/SavedBuilds";
 
 // Feedback line under a form: errors are alerts, successes are status
 function FormMessage({ message }) {
@@ -293,6 +294,7 @@ export default function Account() {
       </div>
 
       <OrderHistory />
+      <SavedBuilds />
     </div>
   );
 }

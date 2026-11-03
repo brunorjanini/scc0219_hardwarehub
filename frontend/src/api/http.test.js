@@ -27,6 +27,11 @@ describe("toQuery", () => {
   it("encodes values", () => {
     expect(toQuery({ email: "a+b@x.com" })).toBe("?email=a%2Bb%40x.com");
   });
+
+  it("repeats the key for arrays, skipping empty items", () => {
+    expect(toQuery({ _dependent: ["carts", "", "builds"] })).toBe("?_dependent=carts&_dependent=builds");
+    expect(toQuery({ _dependent: [] })).toBe("");
+  });
 });
 
 describe("request", () => {

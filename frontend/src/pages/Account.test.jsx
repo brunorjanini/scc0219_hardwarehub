@@ -27,6 +27,12 @@ vi.mock("../api/users", async (importOriginal) => ({
   updateUser: vi.fn(),
   findUsersByEmail: vi.fn(),
 }));
+// Saved builds have their own tests (SavedBuilds.test.jsx)
+vi.mock("../api/builds", () => ({
+  listBuildsByUser: vi.fn(async () => []),
+  createBuild: vi.fn(),
+  deleteBuild: vi.fn(),
+}));
 
 // Stored password of the seed client
 const STORED = { ...CLIENT, password: "Password123" };

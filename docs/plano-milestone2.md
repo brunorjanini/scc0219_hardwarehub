@@ -12,7 +12,7 @@
 - [x] 8. Compatibility engine and Builder page
 - [x] 9. Builder summary and Add to Cart
 - [x] 10. (stretch) Dashboard from real data
-- [ ] 11. (stretch) Saved builds
+- [x] 11. (stretch) Saved builds
 - [ ] 12. Accessibility, responsiveness, quality pass
 - [ ] 13. Docs, test script, build verification
 
@@ -117,7 +117,7 @@ sequenceDiagram
 
 ## Notas para continuar
 
-Estado após as Tasks 1–10. Leia antes de começar a próxima task.
+Estado após as Tasks 1–11. Leia antes de começar a próxima task.
 
 ### Ambiente (Windows desta máquina)
 
@@ -196,6 +196,7 @@ Estado após as Tasks 1–10. Leia antes de começar a próxima task.
 - Situação ao fim da Task 8: 401 testes passando (32 arquivos), lint sem erros, build ok (mesmo aviso).
 - Situação ao fim da Task 9: 420 testes passando (33 arquivos), lint sem erros nem avisos, build ok (mesmo aviso de bundle).
 - Situação ao fim da Task 10: 446 testes passando (35 arquivos), lint sem erros nem avisos, build ok (mesmo aviso de bundle).
+- Situação ao fim da Task 11: 466 testes passando (38 arquivos), lint sem erros nem avisos, build ok (mesmo aviso de bundle).
 - Teste instável: numa rodada com build e lint ao mesmo tempo (52 s em vez de 37 s), `Cart.test.jsx > lists the items with subtotals and the total` estourou o `findByRole` (espera padrão de 1 s). Passou sozinho e na rodada seguinte. Para a Task 12: aumentar o `asyncUtilTimeout` do Testing Library em `test/setup.js` (ex.: `configure({ asyncUtilTimeout: 3000 })`) ou rodar a suíte sem outros processos pesados.
 
 ### Montador de PC (Task 8) — base para a Task 9
@@ -224,9 +225,17 @@ Estado após as Tasks 1–10. Leia antes de começar a próxima task.
 - A página carrega pedidos, produtos e usuários juntos e tem o botão "Atualizar"; os números antigos ficam na tela durante a recarga.
 - Testes de página fixam só o `Date` (`vi.useFakeTimers({ toFake: ["Date"] })`), assim `user-event` e `waitFor` continuam com timers reais.
 
+### Montagens salvas (Task 11)
+
+- `/builds`: `{ id, userId, name, parts: { slot: productId }, total, createdAt }` (`api/builds.js`). Só os ids das peças são salvos; `total` é o preço no dia, para mostrar mudanças de preço depois.
+- Montador: "Salvar montagem" no resumo abre um campo de nome (sugestão "Montagem de 3 de novembro", até 60 caracteres). Precisa de pelo menos uma peça; montagens incompletas podem ser salvas. Visitantes vão para o login; admins não veem a opção. Componente: `components/builder/SaveBuildForm.jsx`.
+- Minha conta: seção "Minhas montagens" (`components/account/SavedBuilds.jsx`, âncora `#montagens`), da mais nova para a mais antiga, com o preço de hoje e avisos de peças que saíram do catálogo ou ficaram sem estoque. "Abrir no montador" navega para `/monte-seu-pc` com `state.openBuild`; a montagem aberta substitui a que estava no montador (o texto da seção avisa). Excluir pede confirmação.
+- Excluir um cliente agora também apaga as montagens dele: `deleteUser` manda `?_dependent=carts&_dependent=builds` (`toQuery` repete a chave quando o valor é um array; o json-server lê chaves repetidas como lista).
+- Testes: `components/account/SavedBuilds.test.jsx`, incluindo a demo (salvar, limpar o montador, sair, entrar de novo e reabrir pela Minha conta). `Account.test.jsx` mocka `api/builds`.
+
 ### Pendências conhecidas (para a Task 12 ou 13)
 
-- Build avisa que o bundle JS passa de 500 kB (~558 kB após a Task 6). Carregar as páginas do admin sob demanda (`lazy`) resolve.
+- Build avisa que o bundle JS passa de 500 kB (~600 kB após a Task 11). Carregar as páginas do admin sob demanda (`lazy`) resolve.
 - `Logo.jsx` usa alt "Dark theme logo"/"Light theme logo"; trocar por "HardwareHub".
 - Links do rodapé (`Footer.jsx`) não levam a lugar nenhum.
 - Para a seção "Problems" do README: senhas em texto puro (só no mock) e compras simultâneas dos últimos itens podem passar as duas, porque json-server não tem transações.

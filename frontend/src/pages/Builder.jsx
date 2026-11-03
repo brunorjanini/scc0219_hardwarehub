@@ -5,6 +5,9 @@ import { RotateCcw } from "lucide-react";
 import BuilderSlot from "../components/builder/BuilderSlot";
 import BuilderStatus from "../components/builder/BuilderStatus";
 import BuilderSummary from "../components/builder/BuilderSummary";
+import SaveBuildForm from "../components/builder/SaveBuildForm";
+import { createBuild } from "../api/builds";
+import { toBuildRecord } from "../utils/savedBuilds";
 import { usePagedList } from "../hooks/usePagedList";
 import { useAuth } from "../contexts/useAuth";
 import { useCart } from "../contexts/useCart";
@@ -15,6 +18,7 @@ import {
   ASSEMBLY_SERVICE_ID,
   addBlockReason,
   buildCartEntries,
+  cleanSelection,
   loadSelection,
   rankOptions,
   resolveParts,
@@ -44,7 +48,12 @@ export default function Builder() {
 
   const [reloadKey, setReloadKey] = useState(0);
   const catalog = usePagedList(listProducts, CATALOG_FILTERS, reloadKey);
-  const [selection, setSelection] = useState(loadSelection);
+  // "Abrir no montador" (My Account) sends a saved build in the navigation
+  // state; it replaces the build in progress
+  const [openedBuild] = useState(() => location.state?.openBuild ?? null);
+  const [selection, setSelection] = useState(() =>
+    openedBuild ? cleanSelection(openedBuild.parts) : loadSelection(),
+  );
   const [openSlot, setOpenSlot] = useState(null);
   const [withAssembly, setWithAssembly] = useState(false);
   const [adding, setAdding] = useState({ busy: false, feedback: NO_FEEDBACK });
@@ -66,6 +75,25 @@ export default function Builder() {
   useEffect(() => {
     if (ready) saveSelection(withoutSlots(selection, missing));
   }, [ready, selection, missing]);
+
+  // Drop the opened build from history, so a refresh keeps later changes
+  useEffect(() => {
+    if (location.state?.openBuild) {
+      navigate({ search: location.search }, { replace: true, state: null });
+    }
+  }, [location.state, location.search, navigate]);
+
+  async function saveBuild(name) {
+    try {
+      await createBuild(toBuildRecord({ userId: user.id, name, parts }));
+      return {};
+    } catch (error) {
+      return { error: error.message };
+    }
+  }
+
+  const isClient = user?.type === "user";
+  const saveBlocked = result.selectedCount === 0 ? "Escolha pelo menos uma peça para salvar." : "";
 
   // Focus goes back to the slot button after choosing, removing or closing
   const focusToggle = (slot) => document.getElementById(toggleId(slot))?.focus();
@@ -133,6 +161,12 @@ export default function Builder() {
   } else {
     content = (
       <>
+        {openedBuild && (
+          <p className="page-message builder-opened" role="status">
+            Montagem “{openedBuild.name}” aberta no montador.
+          </p>
+        )}
+
         <BuilderStatus result={result} />
 
         {missing.length > 0 && (
@@ -187,7 +221,16 @@ export default function Builder() {
             busy={adding.busy}
             feedback={adding.feedback}
             onAdd={addToCart}
-          />
+          >
+            {/* Saved builds belong to clients; guests log in first */}
+            {(isClient || !user) && (
+              <SaveBuildForm
+                blockedReason={saveBlocked}
+                onSave={saveBuild}
+                onRequireLogin={user ? undefined : () => navigate("/login", { state: { from: location } })}
+              />
+            )}
+          </BuilderSummary>
         </div>
       </>
     );

@@ -17,11 +17,14 @@ export class ApiError extends Error {
 
 // Builds a query string from an object, skipping empty values.
 // Keys are kept as-is so json-server v1 operators like "price:lte" work.
+// An array repeats the key (?_dependent=carts&_dependent=builds).
 export function toQuery(params = {}) {
   const search = new URLSearchParams();
   for (const [key, value] of Object.entries(params)) {
-    if (value === undefined || value === null || value === "") continue;
-    search.append(key, String(value));
+    for (const item of Array.isArray(value) ? value : [value]) {
+      if (item === undefined || item === null || item === "") continue;
+      search.append(key, String(item));
+    }
   }
   const query = search.toString();
   return query ? `?${query}` : "";

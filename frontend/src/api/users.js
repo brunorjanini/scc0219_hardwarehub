@@ -56,9 +56,10 @@ export function updateUser(id, changes) {
 }
 
 // Deleting a user makes json-server set `userId` to null in every other
-// collection (it does that for any "<name>Id" field). `_dependent=carts`
-// then removes carts left with userId null, so the cart goes away with
-// the client. Orders stay, with userId null, so sales history is kept.
+// collection (it does that for any "<name>Id" field). `_dependent` then
+// removes the carts and saved builds left with userId null, so they go
+// away with the client. Orders stay, with userId null, so sales history
+// is kept.
 export function deleteUser(id) {
-  return http.delete(`/users/${encodeURIComponent(id)}`, { _dependent: "carts" });
+  return http.delete(`/users/${encodeURIComponent(id)}`, { _dependent: ["carts", "builds"] });
 }

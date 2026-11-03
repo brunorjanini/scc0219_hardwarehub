@@ -40,10 +40,10 @@ describe("users API", () => {
     );
   });
 
-  it("deletes a user together with their cart", async () => {
+  it("deletes a user together with their cart and saved builds", async () => {
     const fetchMock = stubFetch(null);
     await deleteUser("7");
-    expect(fetchMock.mock.calls[0][0]).toBe(`${API_URL}/users/7?_dependent=carts`);
+    expect(fetchMock.mock.calls[0][0]).toBe(`${API_URL}/users/7?_dependent=carts&_dependent=builds`);
     expect(fetchMock.mock.calls[0][1]).toMatchObject({ method: "DELETE" });
   });
 });

@@ -150,8 +150,143 @@
   outline-offset: 2px;
 }
 
+/* Focus target after deleting a build */
+.account-box h2:focus-visible {
+  outline: 3px solid var(--ciano);
+  outline-offset: 2px;
+}
+
+/* ---- Saved builds ---- */
+.saved-builds-hint {
+  margin-top: -0.5rem;
+}
+
+.saved-builds {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  list-style: none;
+}
+
+.saved-build {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--borda);
+  border-radius: 0.6rem;
+}
+
+.saved-build-icon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.5rem;
+  background-color: var(--azul-claro);
+  color: var(--azul);
+}
+
+.saved-build-icon svg {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.saved-build-info {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.saved-build-info h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--escuro);
+}
+
+.saved-build-meta {
+  font-size: 0.8rem;
+  font-weight: 400;
+}
+
+.saved-build-price {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--escuro);
+}
+
+.saved-build-price span {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--cinza-texto);
+}
+
+.saved-build-flag {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: rgb(194, 65, 12);
+}
+
+.saved-build-flag svg {
+  flex-shrink: 0;
+  width: 0.95rem;
+  height: 0.95rem;
+  margin-top: 0.1rem;
+}
+
+.saved-build-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.saved-build-delete {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--borda);
+  border-radius: var(--raio-campo);
+  background-color: white;
+  color: rgb(185, 28, 28);
+  cursor: pointer;
+}
+
+.saved-build-delete:hover {
+  background-color: var(--vermelho-claro);
+}
+
+.saved-build-delete:focus-visible {
+  outline: 3px solid var(--ciano);
+  outline-offset: 2px;
+}
+
+.saved-build-delete svg {
+  width: 1rem;
+  height: 1rem;
+}
+
 @media (max-width: 900px) {
   .account-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .saved-build {
+    flex-wrap: wrap;
+  }
+
+  .saved-build-actions {
+    width: 100%;
+    margin-left: 3.4rem;
   }
 }
