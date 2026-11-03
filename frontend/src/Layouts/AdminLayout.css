@@ -2,6 +2,7 @@
 .layout {
   display: flex;
   flex-direction: row;
+  min-height: 100vh;
 }
 
 /* Logo inside the sidebar */
@@ -11,10 +12,15 @@
   padding-top: 1rem;
 }
 
-/* Sidebar container: fixed width, full viewport height */
+/* Sidebar container: fixed width, full viewport height.
+   Sticky, so it stays in view while long admin pages scroll. */
 .navbar {
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
+  align-self: flex-start;
+  position: sticky;
+  top: 0;
   background-color: var(--escuro);
   width: 15rem;
   height: 100vh;
@@ -105,4 +111,5 @@
 /* The page covers all the horizontal space */
 .layout > main {
   width: 100%;
+  min-width: 0;
 }

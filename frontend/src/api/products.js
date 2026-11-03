@@ -1,10 +1,22 @@
 // Products and services (/products)
 import { http } from "./http";
+import { LOW_STOCK_THRESHOLD } from "../utils/stock";
+
+// Stock filters of the admin list. Services have stock null:
+//   null !== 0 -> they count as "available";
+//   null > 0 is false -> they never count as "low";
+//   null === 0 is false -> they never count as "out".
+export const STOCK_LEVELS = {
+  available: { params: { "stock:ne": 0 } },
+  low: { params: { "stock:gt": 0, "stock:lte": LOW_STOCK_THRESHOLD } },
+  out: { params: { stock: 0 } },
+};
 
 // Translates catalog filters into json-server v1 query params.
 // Supported filters:
 //   type, category, categories (array -> category:in), brand, search,
 //   minPrice, maxPrice, inStock, onSale,
+//   stockLevel ("available" | "low" | "out", see STOCK_LEVELS),
 //   sort ("price", "-price", "name", "-sold"...), page, perPage.
 export function buildProductQuery({
   type,
@@ -16,6 +28,7 @@ export function buildProductQuery({
   maxPrice,
   inStock,
   onSale,
+  stockLevel,
   sort,
   page,
   perPage,
@@ -35,6 +48,7 @@ export function buildProductQuery({
   if (inStock) params["stock:ne"] = 0;
   // Only products with an old price are on sale
   if (onSale) params["oldPrice:gt"] = 0;
+  Object.assign(params, STOCK_LEVELS[stockLevel]?.params);
   if (sort) params["_sort"] = sort;
 
   // Pagination only when a page is requested; json-server then returns

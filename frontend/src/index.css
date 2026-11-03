@@ -114,6 +114,13 @@ p {
   color: var(--azul);
 }
 
+/* Destructive action (delete); rgb(185, 28, 28) keeps AA contrast with white */
+.link-button.danger {
+  border-color: rgb(185, 28, 28);
+  background-color: rgb(185, 28, 28);
+  color: white;
+}
+
 /* Shown instead of a link when the action is not available */
 .link-button.is-disabled {
   border-color: var(--borda);

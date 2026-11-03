@@ -23,6 +23,7 @@ import UserSignIn from "./pages/UserSignIn.jsx";
 // Admin pages
 import AdminDashboard from "./pages/AdminDashboard.jsx";
 import AdminProducts from "./pages/AdminProducts.jsx";
+import AdminProductForm from "./pages/AdminProductForm.jsx";
 import AdminClients from "./pages/AdminClients.jsx";
 import AdminAdmins from "./pages/AdminAdmins.jsx";
 
@@ -66,8 +67,11 @@ export const routes = [
     children: [
       // Default page at /admin
       { index: true, element: <AdminDashboard /> },
-      // /admin/products
+      // /admin/products (list) + create and edit forms.
+      // "new" is a static segment, so it wins over ":id".
       { path: "products", element: <AdminProducts /> },
+      { path: "products/new", element: <AdminProductForm /> },
+      { path: "products/:id", element: <AdminProductForm /> },
       // /admin/clients
       { path: "clients", element: <AdminClients /> },
       // /admin/admins

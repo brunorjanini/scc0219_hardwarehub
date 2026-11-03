@@ -43,6 +43,15 @@ describe("buildProductQuery", () => {
     expect(buildProductQuery({ minPrice: 0, search: "   " })).toEqual({ "price:gte": 0 });
   });
 
+  it.each([
+    ["available", { "stock:ne": 0 }],
+    ["low", { "stock:gt": 0, "stock:lte": 3 }],
+    ["out", { stock: 0 }],
+    ["unknown", {}],
+  ])("maps stock level %s", (stockLevel, expected) => {
+    expect(buildProductQuery({ stockLevel })).toEqual(expected);
+  });
+
   it("adds pagination only when a page is requested", () => {
     expect(buildProductQuery({ page: 2 })).toEqual({ _page: 2, _per_page: 12 });
     expect(buildProductQuery({ page: 1, perPage: 24 })).toEqual({ _page: 1, _per_page: 24 });

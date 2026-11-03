@@ -1,0 +1,552 @@
+/* Shared styles of the admin CRUD pages (products now, clients and admins
+   in Task 7). Every selector starts with an .admin-* class so nothing
+   leaks into the store pages. */
+
+.admin-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  background-color: var(--cinza-claro);
+}
+
+.admin-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.5rem 2rem 2.5rem;
+}
+
+/* ---- Title row ---- */
+.admin-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.admin-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--escuro);
+}
+
+.admin-title:focus-visible {
+  outline: 3px solid var(--ciano);
+  outline-offset: 2px;
+}
+
+.admin-subtitle {
+  margin-top: 0.2rem;
+  font-size: 0.85rem;
+  font-weight: 400;
+}
+
+.admin-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  min-height: 44px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--azul);
+  text-decoration: none;
+}
+
+.admin-back-link svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.admin-back-link:focus-visible {
+  outline: 3px solid var(--ciano);
+  outline-offset: 2px;
+}
+
+/* ---- Notices (success / error) ---- */
+.admin-notice {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.4rem 0.4rem 0.4rem 1rem;
+  border: 1px solid var(--borda);
+  border-left-width: 6px;
+  border-radius: 0.6rem;
+  background-color: white;
+}
+
+.admin-notice.success {
+  border-left-color: var(--verde);
+}
+
+.admin-notice.error {
+  border-left-color: var(--vermelho);
+}
+
+.admin-notice > svg {
+  flex-shrink: 0;
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.admin-notice.success > svg {
+  color: rgb(21, 128, 61);
+}
+
+.admin-notice.error > svg {
+  color: rgb(185, 28, 28);
+}
+
+.admin-notice p {
+  flex: 1;
+  font-size: 0.85rem;
+  color: var(--escuro);
+}
+
+/* ---- Small square buttons and links (icons) ---- */
+.admin-icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--borda);
+  border-radius: var(--raio-campo);
+  background-color: white;
+  color: var(--escuro);
+  cursor: pointer;
+}
+
+.admin-icon-button svg {
+  width: 1.05rem;
+  height: 1.05rem;
+}
+
+.admin-icon-button:hover:not(:disabled) {
+  background-color: var(--azul-claro);
+  color: var(--azul);
+}
+
+.admin-icon-button.danger {
+  color: rgb(185, 28, 28);
+}
+
+.admin-icon-button.danger:hover {
+  background-color: var(--vermelho-claro);
+  color: rgb(185, 28, 28);
+}
+
+.admin-icon-button:disabled {
+  color: rgb(148, 163, 184);
+  cursor: not-allowed;
+}
+
+.admin-icon-button:focus-visible {
+  outline: 3px solid var(--ciano);
+  outline-offset: 2px;
+}
+
+/* ---- Filters ---- */
+.admin-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.8rem;
+}
+
+.admin-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  min-width: 10rem;
+}
+
+.admin-field-grow {
+  flex: 1;
+  min-width: 14rem;
+}
+
+.admin-field label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--escuro);
+}
+
+.admin-field select,
+.admin-search input {
+  min-height: 44px;
+  padding: 0 0.7rem;
+  border: 1px solid var(--borda);
+  border-radius: var(--raio-campo);
+  background-color: white;
+  font-size: 0.9rem;
+  color: var(--escuro);
+}
+
+.admin-search {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.admin-search input {
+  flex: 1;
+  min-width: 0;
+}
+
+.admin-field select:focus-visible,
+.admin-search input:focus-visible {
+  outline: 3px solid var(--ciano);
+  outline-offset: 1px;
+}
+
+/* ---- Summary chips ---- */
+.admin-summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.admin-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  min-height: 32px;
+  padding: 0.2rem 0.75rem;
+  border: 1px solid var(--borda);
+  border-radius: 999px;
+  background-color: white;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--cinza-texto);
+  text-decoration: none;
+}
+
+.admin-chip svg {
+  width: 0.9rem;
+  height: 0.9rem;
+}
+
+.admin-chip.info {
+  border-color: transparent;
+  background-color: var(--azul-claro);
+  color: rgb(29, 78, 216);
+}
+
+button.admin-chip,
+a.admin-chip {
+  cursor: pointer;
+}
+
+.admin-chip.danger {
+  border-color: transparent;
+  background-color: var(--vermelho-claro);
+  color: rgb(185, 28, 28);
+}
+
+.admin-chip:focus-visible {
+  outline: 3px solid var(--ciano);
+  outline-offset: 2px;
+}
+
+/* ---- Messages (loading, empty, error) ---- */
+.admin-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.admin-message p {
+  font-size: 0.9rem;
+}
+
+/* ---- Table: scrolls sideways on small screens ---- */
+.admin-table-wrapper {
+  overflow-x: auto;
+  border: 1px solid var(--borda);
+  border-radius: 0.7rem;
+  background-color: white;
+}
+
+.admin-table {
+  width: 100%;
+  min-width: 52rem;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  color: var(--escuro);
+}
+
+.admin-table[aria-busy="true"] {
+  opacity: 0.6;
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 0.6rem 0.8rem;
+  border-bottom: 1px solid var(--borda);
+  text-align: left;
+  vertical-align: middle;
+}
+
+.admin-table tbody tr:last-child th,
+.admin-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.admin-table thead th {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--cinza-texto);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.admin-table tbody th {
+  font-weight: 400;
+}
+
+.admin-product-cell {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.admin-product-thumb {
+  flex-shrink: 0;
+  width: 3rem;
+  height: 3rem;
+  border: 1px solid var(--borda);
+  border-radius: 0.4rem;
+  object-fit: contain;
+  background-color: white;
+}
+
+.admin-product-name {
+  display: block;
+  font-weight: 600;
+}
+
+.admin-product-meta {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.75rem;
+  color: var(--cinza-texto);
+}
+
+.admin-stock-form {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.admin-stock-form input {
+  width: 5rem;
+  min-height: 44px;
+  padding: 0 0.5rem;
+  border: 1px solid var(--borda);
+  border-radius: var(--raio-campo);
+  font-size: 0.9rem;
+  color: var(--escuro);
+}
+
+.admin-stock-form input:focus-visible {
+  outline: 3px solid var(--ciano);
+  outline-offset: 1px;
+}
+
+.admin-row-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.4rem;
+}
+
+/* ---- Pagination ---- */
+.admin-pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.admin-pagination p {
+  font-size: 0.85rem;
+}
+
+.admin-pagination-links {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* ---- Create / edit forms ---- */
+.admin-form {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.admin-form-main,
+.admin-form-side {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.admin-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  padding: 1.25rem;
+  border: 1px solid var(--borda);
+  border-radius: 0.7rem;
+  background-color: white;
+}
+
+/* fieldset used as a box: legend styled as the box title */
+fieldset.admin-box {
+  min-width: 0;
+}
+
+.admin-box-title,
+.admin-box > legend {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--escuro);
+}
+
+.admin-box > legend {
+  float: left;
+  width: 100%;
+}
+
+.admin-box-hint {
+  font-size: 0.8rem;
+  font-weight: 400;
+}
+
+/* Grid of short fields (price, stock, specs) */
+.admin-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+  gap: 0.8rem;
+}
+
+.admin-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  min-width: 0;
+}
+
+.admin-form-field label,
+.admin-form-field legend {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--escuro);
+}
+
+.admin-form-field input,
+.admin-form-field select,
+.admin-form-field textarea {
+  min-height: 44px;
+  padding: 0 0.7rem;
+  border: 1px solid var(--borda);
+  border-radius: var(--raio-campo);
+  background-color: white;
+  font-size: 0.9rem;
+  color: var(--escuro);
+}
+
+.admin-form-field textarea {
+  min-height: 7rem;
+  padding: 0.6rem 0.7rem;
+  resize: vertical;
+}
+
+.admin-form-field input:focus-visible,
+.admin-form-field select:focus-visible,
+.admin-form-field textarea:focus-visible {
+  outline: 3px solid var(--ciano);
+  outline-offset: 1px;
+}
+
+.admin-form-field [aria-invalid="true"] {
+  border-color: rgb(185, 28, 28);
+}
+
+.admin-form-field input:disabled {
+  background-color: var(--cinza-claro);
+  color: var(--cinza-texto);
+}
+
+.admin-field-hint {
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+
+/* Checkbox rows (modular, supported form factors) */
+.admin-checks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem;
+  border: none;
+}
+
+.admin-check {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  font-size: 0.9rem;
+  color: var(--escuro);
+}
+
+.admin-check input {
+  width: 1.2rem;
+  height: 1.2rem;
+  min-height: 0;
+  accent-color: var(--azul);
+}
+
+.admin-photo-preview {
+  width: 100%;
+  aspect-ratio: 1;
+  border: 1px solid var(--borda);
+  border-radius: 0.6rem;
+  object-fit: contain;
+  background-color: white;
+}
+
+.admin-form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.admin-form-error {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: rgb(185, 28, 28);
+}
+
+@media (max-width: 1100px) {
+  .admin-form {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .admin-content {
+    padding: 1rem;
+  }
+
+  .admin-field,
+  .admin-field-grow {
+    flex: 1 1 100%;
+  }
+}

@@ -42,6 +42,11 @@ const SPEC_FORMATS = {
   durationHours: { label: "Duração estimada", format: withUnit("h") },
 };
 
+// Portuguese label of a spec key (the key itself when unknown)
+export function specLabel(key) {
+  return SPEC_FORMATS[key]?.label ?? key;
+}
+
 // Returns [{ key, label, value }] in the order of the specs object.
 // Unknown keys are kept with the raw key as label, so specs added by an
 // admin still show up.
