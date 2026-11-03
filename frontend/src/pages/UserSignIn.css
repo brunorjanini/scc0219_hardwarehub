@@ -52,12 +52,25 @@
   color: black;
 }
 
+/* Narrow column for short fields (number, CEP) next to a wide one */
+.short-field {
+  display: flex;
+  flex: 0 0 7rem;
+}
+
 /* Checkbox + terms text in a row, with extra vertical spacing */
 .check-terms-div {
   display: flex;
   flex-direction: row;
+  align-items: center;
   gap: 5px;
   margin: 1rem 0;
+}
+
+.check-terms-div label {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--cinza-texto);
 }
 
 /* Password input with the requirements hint right below it */

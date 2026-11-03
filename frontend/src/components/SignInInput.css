@@ -32,9 +32,10 @@
   width: 100%;
 }
 
-.sign-in-input-div p {
+.sign-in-input-div label {
   color: black;
   margin-bottom: 0.3rem;
+  font-size: 0.7rem;
   font-weight: 400;
 }
 

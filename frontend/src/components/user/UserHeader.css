@@ -75,6 +75,61 @@
   height: 1.2rem;
 }
 
+/* Account area: greeting, admin link and logout */
+.header-account {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.header-greeting {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--escuro);
+  white-space: nowrap;
+}
+
+/* Login / admin panel link; min-height keeps a 44px touch target */
+.header-account-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 44px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--escuro);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* Overrides the global button style from StdButton.css */
+.header-logout-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  width: auto;
+  height: auto;
+  min-height: 44px;
+  padding: 0 0.75rem;
+  border: 1px solid var(--borda);
+  border-radius: var(--raio-campo);
+  background-color: white;
+  color: var(--escuro);
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.header-logout-button svg {
+  height: 1rem;
+  width: 1rem;
+}
+
+.header-account-link:focus-visible,
+.header-logout-button:focus-visible {
+  outline: 3px solid var(--ciano);
+  outline-offset: 2px;
+}
+
 /* "Monte seu PC" link */
 .link-monte-seu-pc {
   text-decoration: none;

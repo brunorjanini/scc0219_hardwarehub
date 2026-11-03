@@ -47,6 +47,60 @@ nav a.active {
   color: white;
 }
 
+/* Logged-in admin block, pushed to the bottom of the sidebar */
+.navbar-user {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  margin-top: auto;
+  padding: 1rem 0.8rem 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.navbar-user-name {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: white;
+}
+
+.navbar-user-role {
+  font-size: 0.7rem;
+  color: rgb(160, 174, 192);
+  margin-bottom: 0.5rem;
+}
+
+/* "Ver loja" and "Sair": same look; overrides the global button style */
+.navbar-user-action {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  height: auto;
+  min-height: 44px;
+  padding: 0 0.8rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: transparent;
+  color: rgb(206, 206, 206);
+  font-size: 0.7rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.navbar-user-action:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.navbar-user-action:focus-visible {
+  outline: 3px solid var(--ciano);
+  outline-offset: 2px;
+}
+
+.navbar-user-action svg {
+  width: 1rem;
+  height: 1rem;
+}
+
 /* The page covers all the horizontal space */
 main {
   width: 100%;

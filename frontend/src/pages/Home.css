@@ -1,0 +1,51 @@
+/* Temporary home page (replaced by the storefront in Task 3) */
+.home-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 5rem 1.5rem;
+  text-align: center;
+  background-color: var(--cinza-claro);
+}
+
+.home-placeholder h1 {
+  font-size: 2rem;
+  font-weight: 500;
+  color: var(--escuro);
+}
+
+.home-placeholder-text {
+  font-size: 0.9rem;
+  color: var(--cinza-texto);
+}
+
+.home-placeholder-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+/* Link styled as a button; min-height keeps the 44px touch target */
+.home-placeholder-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 1.25rem;
+  border-radius: var(--raio-campo);
+  background-color: var(--azul);
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.home-placeholder-link.secondary {
+  background-color: white;
+  color: var(--azul);
+  border: 2px solid var(--azul);
+}
+
+.home-placeholder-link:focus-visible {
+  outline: 3px solid var(--ciano);
+  outline-offset: 2px;
+}
