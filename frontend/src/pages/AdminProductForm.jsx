@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router";
 import { ChevronLeft, ExternalLink } from "lucide-react";
 import TopBar from "../components/admin/TopBar";
+import Field from "../components/admin/AdminField";
+import { FORM_ERROR_ID as ERROR_ID, errorProps } from "../components/admin/adminFormErrors";
 import ProductImage from "../components/store/ProductImage";
 import { createProduct, getProduct, updateProduct } from "../api/products";
 import { CATEGORIES } from "../utils/categories";
@@ -19,8 +21,6 @@ import {
   toProductRecord,
   validateProduct,
 } from "../utils/productForm";
-
-const ERROR_ID = "product-form-error";
 
 // Loads the product being edited: { product, loading, error }
 function useProduct(id) {
@@ -43,33 +43,6 @@ function useProduct(id) {
 
   if (id === undefined) return { product: null, loading: false, error: null };
   return { ...state, loading: state.id !== id };
-}
-
-// Props that link an input to the current error message
-function errorProps(error, id) {
-  return error?.field === id ? { "aria-invalid": true, "aria-describedby": ERROR_ID } : {};
-}
-
-// One labelled input/select/textarea of the main fields
-function Field({ id, label, hint, error, as = "input", children, ...props }) {
-  const Control = as;
-  const hintId = hint ? `${id}-hint` : undefined;
-  const invalid = errorProps(error, id);
-  const describedBy = [hintId, invalid["aria-describedby"]].filter(Boolean).join(" ") || undefined;
-
-  return (
-    <div className="admin-form-field">
-      <label htmlFor={id}>{label}</label>
-      <Control id={id} name={id} {...props} {...invalid} aria-describedby={describedBy}>
-        {children}
-      </Control>
-      {hint && (
-        <p id={hintId} className="admin-field-hint">
-          {hint}
-        </p>
-      )}
-    </div>
-  );
 }
 
 // One technical spec input, chosen by the field kind (see SPEC_FIELDS)

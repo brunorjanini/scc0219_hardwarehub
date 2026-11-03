@@ -31,6 +31,13 @@ describe("authenticate", () => {
     expect(findUsersByEmail).toHaveBeenCalledWith("user@gmail.com");
   });
 
+  it("ignores the case of the username", async () => {
+    findUsersByUsername.mockResolvedValue([admin]);
+
+    await expect(authenticate(" Admin ", "admin")).resolves.toEqual({ user: admin });
+    expect(findUsersByUsername).toHaveBeenCalledWith("admin");
+  });
+
   it("does not apply the sign-up password rule at login", async () => {
     findUsersByUsername.mockResolvedValue([admin]);
     // "admin" is shorter than 8 characters and has no number or symbol

@@ -24,8 +24,8 @@ import UserSignIn from "./pages/UserSignIn.jsx";
 import AdminDashboard from "./pages/AdminDashboard.jsx";
 import AdminProducts from "./pages/AdminProducts.jsx";
 import AdminProductForm from "./pages/AdminProductForm.jsx";
-import AdminClients from "./pages/AdminClients.jsx";
-import AdminAdmins from "./pages/AdminAdmins.jsx";
+import AdminUsers from "./pages/AdminUsers.jsx";
+import AdminUserForm from "./pages/AdminUserForm.jsx";
 
 export const routes = [
   // Public storefront
@@ -72,10 +72,14 @@ export const routes = [
       { path: "products", element: <AdminProducts /> },
       { path: "products/new", element: <AdminProductForm /> },
       { path: "products/:id", element: <AdminProductForm /> },
-      // /admin/clients
-      { path: "clients", element: <AdminClients /> },
-      // /admin/admins
-      { path: "admins", element: <AdminAdmins /> },
+      // Clients and administrators share the list and the form (by `type`).
+      // `key` makes React start fresh when moving between the two lists.
+      { path: "clients", element: <AdminUsers key="user" type="user" /> },
+      { path: "clients/new", element: <AdminUserForm key="user-new" type="user" /> },
+      { path: "clients/:id", element: <AdminUserForm key="user-edit" type="user" /> },
+      { path: "admins", element: <AdminUsers key="admin" type="admin" /> },
+      { path: "admins/new", element: <AdminUserForm key="admin-new" type="admin" /> },
+      { path: "admins/:id", element: <AdminUserForm key="admin-edit" type="admin" /> },
     ],
   },
 ];

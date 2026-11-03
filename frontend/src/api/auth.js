@@ -20,9 +20,10 @@ export async function authenticate(identifier, password) {
     return { error: "E-mail inválido" };
   }
 
+  // Emails and usernames are saved in lower case (sign-up and admin forms)
   const users = isEmail
     ? await findUsersByEmail(login.toLowerCase())
-    : await findUsersByUsername(login);
+    : await findUsersByUsername(login.toLowerCase());
 
   if (users.length === 0) {
     return { error: "Usuário não encontrado" };

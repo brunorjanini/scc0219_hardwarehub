@@ -8,7 +8,7 @@
 - [x] 4. Cart page, Checkout, Order confirmation
 - [x] 5. My Account
 - [x] 6. Admin Products CRUD
-- [ ] 7. Admin Clients and Admins CRUD
+- [x] 7. Admin Clients and Admins CRUD
 - [ ] 8. Compatibility engine and Builder page
 - [ ] 9. Builder summary and Add to Cart
 - [ ] 10. (stretch) Dashboard from real data
@@ -117,7 +117,7 @@ sequenceDiagram
 
 ## Notas para continuar
 
-Estado após as Tasks 1–6. Leia antes de começar a próxima task.
+Estado após as Tasks 1–7. Leia antes de começar a próxima task.
 
 ### Ambiente (Windows desta máquina)
 
@@ -158,20 +158,30 @@ Estado após as Tasks 1–6. Leia antes de começar a próxima task.
 - Contextos: `useAuth()` (`user = { id, type, name }`, `login`, `logout`) e `useCart()`. Admins não compram: não têm carrinho e as páginas de compra usam `RequireAuth role="user"`; o admin usa `RequireAuth role="admin"` (já aplicado em `/admin/*` em `routes.jsx`).
 - Componentes: `FormField` (input com label, prop `short`, classe `.form-row` para dois campos lado a lado), `components/store/*` (cards, imagem com fallback, selo de estoque, seletor de quantidade), `SuperiorModal` (toast).
 - Estilos globais em `index.css`: `.store-page`, `.page-message` (+ `.error`), `.link-button` (+ `.secondary`, `.is-disabled`), `.visually-hidden`, e a base de `p`/`h2` (antes vazava de `TopBar.css`). Escopo de CSS: não use seletores soltos como `button`, `nav`, `ul` ou `main`; eles já quebraram outras páginas.
-- O admin ainda usa os estilos originais (`AdminLayout.css`, `TopBar`, `DashboardCard`). `AdminClients` e `AdminAdmins` são só o `TopBar`; `AdminDashboard` tem números fixos (Task 10).
+- O admin ainda usa os estilos originais (`AdminLayout.css`, `TopBar`, `DashboardCard`). `AdminDashboard` tem números fixos (Task 10).
 
-### Admin de produtos (Task 6) — o que a Task 7 pode reaproveitar
+### Admin de produtos (Task 6)
 
 - Páginas: `pages/AdminProducts.jsx` (lista) e `pages/AdminProductForm.jsx` (`/admin/products/new` e `/admin/products/:id`).
 - `components/admin/AdminPage.css`: estilos compartilhados do CRUD (`.admin-page`, `.admin-content`, `.admin-title-row`, `.admin-filters`/`.admin-field`, `.admin-summary`/`.admin-chip`, `.admin-table`, `.admin-icon-button`, `.admin-pagination`, `.admin-notice`, e o formulário `.admin-form`/`.admin-box`/`.admin-form-grid`/`.admin-form-field`). Todos com prefixo `.admin-`.
+- Peças comuns das listas e formulários do admin (extraídas na Task 7): `components/admin/AdminField.jsx` (campo com label, dica e erro), `adminFormErrors.js` (`FORM_ERROR_ID`, `errorProps`), `AdminNotice.jsx` (aviso em região `aria-live`), `AdminPagination.jsx`; hooks `usePagedList(fetcher, filtros, reloadKey)`, `useNavigationNotice()` e `useConfirmDelete({ remove, onDeleted, focusRef })`. O `focusRef` é criado na página: se o hook devolvesse o ref, o lint `react-hooks/refs` acusaria todo o objeto devolvido.
 - `components/ConfirmDialog.jsx`: modal de confirmação (`role="alertdialog"`, foco começa em "Cancelar", Tab preso no modal, Esc cancela, foco volta para quem abriu). Props: `title`, `children`, `confirmLabel`, `busy`, `error`, `onConfirm`, `onCancel`. Botão vermelho: `.link-button.danger` (em `index.css`).
 - Filtros da lista ficam na URL (`utils/adminProductQuery.js`, 10 por página). Os links de editar/novo mandam `state={{ back: location.search }}`; o formulário volta para a lista com os mesmos filtros e passa `state={{ notice }}`, que a lista mostra numa região `aria-live` e depois apaga do histórico.
-- `useProductList(filters, reloadKey)`: incrementar `reloadKey` recarrega; os dados antigos ficam na tela durante a recarga (a tabela não pisca nem perde o foco).
+- `useProductList(filters, reloadKey)` (= `usePagedList(listProducts, ...)`): incrementar `reloadKey` recarrega; os dados antigos ficam na tela durante a recarga (a tabela não pisca nem perde o foco).
 - `api/products.js`: filtro `stockLevel` (`available`, `low` = 1 a 3, `out` = 0), ver `STOCK_LEVELS`.
 - `utils/productForm.js`: `SPEC_FIELDS` define as specs de cada categoria (tipo do campo, unidade, obrigatória ou não). As obrigatórias são as que o Montador (Task 8) usa. O formulário salva só as specs da categoria escolhida e manda `specs` inteiro (PATCH raso). `sold` é 0 na criação e nunca é enviado na edição. Preço antigo vazio na edição vira `oldPrice: null` (encerra a oferta). Foto vazia ou placeholder de outra categoria vira o placeholder da categoria.
 - Testes: `test/productStore.js` (`installProductStore(products)`) é um `/products` em memória cujo `listProducts` aplica busca, categoria, estoque, ordenação e paginação. Mocke `listProducts, getProduct, createProduct, updateProduct, deleteProduct`.
 - Armadilhas de teste: `user.type` não digita "-" em `<input type="number">` no jsdom (use `fireEvent.change`); jsdom bloqueia o submit de formulários com `min`/`required` inválidos, então formulários com mensagem própria precisam de `noValidate`; páginas renderizadas com sessão de cliente precisam de `getCartByUser.mockResolvedValue(null)`.
 - Botões com `aria-label` igual ao texto de um `<label>` quebram `getByLabelText` (por isso o botão da busca é "Aplicar busca").
+
+### Admin de clientes e administradores (Task 7)
+
+- Uma lista (`pages/AdminUsers.jsx`) e um formulário (`pages/AdminUserForm.jsx`) servem os dois tipos pela prop `type` ("user" ou "admin"). Textos e caminhos em `utils/userKinds.js`. Rotas: `/admin/clients`, `/admin/clients/new`, `/admin/clients/:id` e o mesmo em `/admin/admins`; cada rota tem `key` própria para o React não reaproveitar o estado ao trocar de lista. As páginas-esqueleto `AdminClients.jsx` e `AdminAdmins.jsx` foram removidas.
+- `api/users.js`: `listUsers({ type, search, sort, page, perPage })` monta tudo num `_where`, porque a busca usa `or` (nome, e-mail ou usuário, sem diferenciar maiúsculas).
+- Excluir usuário: o json-server põe `userId: null` em todas as outras coleções (faz isso com qualquer campo `<nome>Id`). `deleteUser` manda `?_dependent=carts`, que apaga os carrinhos que ficaram com `userId` nulo. Os pedidos ficam com `userId: null`: o histórico de vendas continua, sem dono. O dashboard (Task 10) e as Minhas Compras precisam aceitar isso.
+- Regras (`utils/userForm.js`): e-mail único entre todas as contas; usuário único, de 3 a 30 caracteres `a-z 0-9 . - _`, sem "@" (o login trata "@" como e-mail). E-mail e usuário são salvos em minúsculas, e o login agora também deixa o usuário em minúsculas. A conta padrão (`username` "admin") não pode ser excluída e mantém o usuário "admin" (campo somente leitura); ninguém exclui a própria conta. Nessas linhas o botão Excluir vira um cadeado com o motivo em texto escondido. A regra de senha forte vale para contas criadas pelo admin e para senhas novas; na edição, senha em branco mantém a atual.
+- Editar a própria conta atualiza o nome da sessão (barra lateral).
+- Testes: `test/userStore.js` (`installUserStore(users)`), um `/users` em memória. Mocke `listUsers, getUser, createUser, updateUser, deleteUser, findUsersByEmail, findUsersByUsername`. O fluxo da demo (criar admin, sair, entrar como ele, excluir cliente) está em `AdminUsers.test.jsx`. Depois do logout o `RequireAuth` guarda a página de onde saiu, então o login volta para ela, não para `/admin`.
 
 ### Testes
 
@@ -182,6 +192,7 @@ Estado após as Tasks 1–6. Leia antes de começar a próxima task.
 - `testTimeout` é 15 s (`vite.config.js`), porque testes que digitam formulários inteiros estouravam 5 s.
 - Situação ao fim da Task 5: 214 testes passando, lint sem erros, build ok.
 - Situação ao fim da Task 6: 297 testes passando (25 arquivos), lint sem erros, build ok.
+- Situação ao fim da Task 7: 357 testes passando (29 arquivos), lint sem erros, build ok (mesmo aviso de bundle > 500 kB).
 
 ### Pendências conhecidas (para a Task 12 ou 13)
 

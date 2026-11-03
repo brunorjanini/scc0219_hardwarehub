@@ -1,12 +1,16 @@
 import "../components/admin/AdminPage.css";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Link, useLocation, useNavigate, useSearchParams } from "react-router";
-import { Check, ChevronLeft, ChevronRight, CircleCheck, Pencil, Plus, Search, Trash2, TriangleAlert, X } from "lucide-react";
+import { Link, useLocation, useSearchParams } from "react-router";
+import { Check, Pencil, Plus, Search, Trash2, TriangleAlert, X } from "lucide-react";
 import TopBar from "../components/admin/TopBar";
+import AdminNotice from "../components/admin/AdminNotice";
+import AdminPagination from "../components/admin/AdminPagination";
 import ConfirmDialog from "../components/ConfirmDialog";
 import ProductImage from "../components/store/ProductImage";
 import StockBadge from "../components/store/StockBadge";
 import { useProductList } from "../hooks/useProductList";
+import { useNavigationNotice } from "../hooks/useNavigationNotice";
+import { useConfirmDelete } from "../hooks/useConfirmDelete";
 import { deleteProduct, listProducts, updateProduct } from "../api/products";
 import { CATEGORIES, categoryLabel } from "../utils/categories";
 import { formatNumber, formatPrice } from "../utils/format";
@@ -16,7 +20,6 @@ import {
   ADMIN_SORT_OPTIONS,
   STOCK_STATUS_OPTIONS,
   parseAdminProductParams,
-  rangeText,
   toAdminProductFilters,
   toAdminProductSearch,
 } from "../utils/adminProductQuery";
@@ -111,7 +114,6 @@ function StockEditor({ product, onSaved, onError }) {
 export default function AdminProducts() {
   const [searchParams, setSearchParams] = useSearchParams();
   const location = useLocation();
-  const navigate = useNavigate();
   const filters = useMemo(() => parseAdminProductParams(searchParams), [searchParams]);
 
   const [reloadKey, setReloadKey] = useState(0);
@@ -120,26 +122,20 @@ export default function AdminProducts() {
   const outOfStock = useOutOfStockCount(reloadKey);
 
   // Feedback after an action. The form page sends one in the navigation state.
-  const [notice, setNotice] = useState(() => ({ text: location.state?.notice ?? "", tone: "success" }));
-  const [deleting, setDeleting] = useState(null);
-  const [deleteState, setDeleteState] = useState({ busy: false, error: "" });
-  const focusTitleAfterRender = useRef(false);
+  const [notice, setNotice] = useNavigationNotice();
+
   const titleRef = useRef(null);
-
-  // Drop the notice from history, so a refresh does not show it again
-  useEffect(() => {
-    if (location.state?.notice) {
-      navigate({ search: location.search }, { replace: true, state: null });
-    }
-  }, [location.state, location.search, navigate]);
-
-  // After a deletion the row (and its button) is gone: move focus to the title.
-  // Runs after the dialog's cleanup, which tries to restore the old focus.
-  useEffect(() => {
-    if (focusTitleAfterRender.current) {
-      focusTitleAfterRender.current = false;
-      titleRef.current?.focus();
-    }
+  const deletion = useConfirmDelete({
+    focusRef: titleRef,
+    remove: (product) => deleteProduct(product.id),
+    onDeleted: (product) => {
+      setNotice({ text: `“${product.name}” foi excluído.`, tone: "success" });
+      // The last row of a page was removed: go back one page
+      if (list.data.length === 1 && filters.page > 1) {
+        setSearchParams(toAdminProductSearch({ ...filters, page: filters.page - 1 }));
+      }
+      reload();
+    },
   });
 
   function applyFilters(changes) {
@@ -173,24 +169,6 @@ export default function AdminProducts() {
 
   function handleError(text) {
     setNotice({ text, tone: "error" });
-  }
-
-  async function handleDelete() {
-    setDeleteState({ busy: true, error: "" });
-    try {
-      await deleteProduct(deleting.id);
-      setNotice({ text: `“${deleting.name}” foi excluído.`, tone: "success" });
-      setDeleting(null);
-      setDeleteState({ busy: false, error: "" });
-      focusTitleAfterRender.current = true;
-      // The last row of a page was removed: go back one page
-      if (list.data.length === 1 && filters.page > 1) {
-        setSearchParams(toAdminProductSearch({ ...filters, page: filters.page - 1 }));
-      }
-      reload();
-    } catch (error) {
-      setDeleteState({ busy: false, error: error.message });
-    }
   }
 
   const pagePath = (page) => `/admin/products${toAdminProductSearch({ ...filters, page })}`;
@@ -291,10 +269,7 @@ export default function AdminProducts() {
                       type="button"
                       className="admin-icon-button danger"
                       aria-label={`Excluir ${product.name}`}
-                      onClick={() => {
-                        setDeleteState({ busy: false, error: "" });
-                        setDeleting(product);
-                      }}
+                      onClick={() => deletion.open(product)}
                     >
                       <Trash2 aria-hidden="true" />
                     </button>
@@ -326,23 +301,8 @@ export default function AdminProducts() {
           </Link>
         </div>
 
-        {/* Live region: announces saves, deletions and errors */}
-        <div aria-live="polite" className="admin-notice-region">
-          {notice.text && (
-            <div className={`admin-notice ${notice.tone}`} role={notice.tone === "error" ? "alert" : undefined}>
-              {notice.tone === "error" ? <TriangleAlert aria-hidden="true" /> : <CircleCheck aria-hidden="true" />}
-              <p>{notice.text}</p>
-              <button
-                type="button"
-                className="admin-icon-button"
-                aria-label="Fechar aviso"
-                onClick={() => setNotice({ text: "", tone: "success" })}
-              >
-                <X aria-hidden="true" />
-              </button>
-            </div>
-          )}
-        </div>
+        {/* Announces saves, deletions and errors */}
+        <AdminNotice notice={notice} onClose={() => setNotice({ text: "", tone: "success" })} />
 
         {/* `key` resets the fields when the URL changes (back button, "Limpar") */}
         <form
@@ -419,49 +379,16 @@ export default function AdminProducts() {
 
         {content}
 
-        {showTable && (
-          <nav className="admin-pagination" aria-label="Paginação">
-            <p>{rangeText(filters.page, list.items)}</p>
-            {list.pages > 1 && (
-              <div className="admin-pagination-links">
-                {filters.page > 1 ? (
-                  <Link to={pagePath(filters.page - 1)} className="link-button secondary">
-                    <ChevronLeft aria-hidden="true" />
-                    Anterior
-                  </Link>
-                ) : (
-                  <span className="link-button secondary is-disabled" aria-disabled="true">
-                    <ChevronLeft aria-hidden="true" />
-                    Anterior
-                  </span>
-                )}
-                <p aria-current="page">
-                  Página {filters.page} de {list.pages}
-                </p>
-                {filters.page < list.pages ? (
-                  <Link to={pagePath(filters.page + 1)} className="link-button secondary">
-                    Próxima
-                    <ChevronRight aria-hidden="true" />
-                  </Link>
-                ) : (
-                  <span className="link-button secondary is-disabled" aria-disabled="true">
-                    Próxima
-                    <ChevronRight aria-hidden="true" />
-                  </span>
-                )}
-              </div>
-            )}
-          </nav>
-        )}
+        {showTable && <AdminPagination page={filters.page} pages={list.pages} items={list.items} pathFor={pagePath} />}
       </div>
 
-      {deleting && (
+      {deletion.target && (
         <ConfirmDialog
-          title={`Excluir “${deleting.name}”?`}
-          busy={deleteState.busy}
-          error={deleteState.error}
-          onConfirm={handleDelete}
-          onCancel={() => setDeleting(null)}
+          title={`Excluir “${deletion.target.name}”?`}
+          busy={deletion.busy}
+          error={deletion.error}
+          onConfirm={deletion.confirm}
+          onCancel={deletion.cancel}
         >
           <p>
             O item sai do catálogo. Carrinhos que o tiverem vão mostrá-lo como indisponível, e pedidos já feitos

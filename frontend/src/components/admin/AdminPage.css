@@ -335,6 +335,34 @@ a.admin-chip {
   color: var(--cinza-texto);
 }
 
+/* Small label next to a name ("Você", "Conta padrão") */
+.admin-tag {
+  display: inline-block;
+  margin-left: 0.4rem;
+  padding: 0.05rem 0.45rem;
+  border-radius: 999px;
+  background-color: var(--azul-claro);
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: rgb(29, 78, 216);
+}
+
+/* Shown instead of the delete button on protected accounts */
+.admin-locked {
+  border-style: dashed;
+  color: var(--cinza-texto);
+  cursor: help;
+}
+
+.admin-icon-button.admin-locked:hover {
+  background-color: white;
+  color: var(--cinza-texto);
+}
+
+.admin-users-table {
+  min-width: 44rem;
+}
+
 .admin-stock-form {
   display: flex;
   align-items: center;
@@ -478,7 +506,8 @@ fieldset.admin-box {
   border-color: rgb(185, 28, 28);
 }
 
-.admin-form-field input:disabled {
+.admin-form-field input:disabled,
+.admin-form-field input[readonly] {
   background-color: var(--cinza-claro);
   color: var(--cinza-texto);
 }
