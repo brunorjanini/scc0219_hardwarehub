@@ -1,23 +1,10 @@
-// Logo asset variants (one per theme)
+// Logo asset variants (one per background)
 import logoDark from "../assets/logo-dark.svg";
 import logoLight from "../assets/logo-light.svg";
 
-// Renders the logo that matches the given theme.
-// Props: theme ("dark" or anything else for light), className (currently unused)
-export default function Logo({ theme, className }) {
-  // Dark theme: use the dark logo variant
-  if (theme === "dark") {
-    return (
-      <>
-        <img className={className} src={logoDark} alt="Dark theme logo" />
-      </>
-    );
-  }
-
-  // Default: light logo variant
-  return (
-    <>
-      <img className={className} src={logoLight} alt="Light theme logo" />
-    </>
-  );
+// HardwareHub logo. `theme="dark"` is the variant for dark backgrounds.
+// The alt text is the store name; pass alt="" when the logo sits inside a
+// link that already has its own name (e.g. "HardwareHub, página inicial").
+export default function Logo({ theme, className, alt = "HardwareHub" }) {
+  return <img className={className} src={theme === "dark" ? logoDark : logoLight} alt={alt} />;
 }

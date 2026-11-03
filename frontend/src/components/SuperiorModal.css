@@ -37,9 +37,10 @@
   margin-right: 0.3rem;
 }
 
-/* Message text color per variant */
+/* Message text color per variant. The success text uses a darker green
+   than --verde (3.3:1 on white) to reach WCAG AA (≈ 5:1). */
 .sucess-div p {
-  color: var(--verde);
+  color: rgb(21, 128, 61);
 }
 
 .error-div p {

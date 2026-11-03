@@ -8,5 +8,22 @@
   border-bottom: 1px solid var(--borda);
 }
 
+.topbar .topbar-title {
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: black;
+}
+
 /* The base h2 / p styles that used to live here (and applied to the whole
    site) moved to index.css, so they are loaded on purpose. */
+
+@media (max-width: 600px) {
+  .topbar {
+    padding: 0.75rem 1rem;
+    height: auto;
+  }
+
+  .topbar .topbar-title {
+    font-size: 1.15rem;
+  }
+}

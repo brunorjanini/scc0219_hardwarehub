@@ -56,9 +56,12 @@
   color: rgb(148, 163, 184);
 }
 
-/* Focus state: highlight the border instead of the default outline */
+/* Focus state: the input has no outline of its own, so the whole bar
+   gets the focus ring */
 .search-bar:focus-within {
   border-color: var(--borda);
+  outline: 3px solid var(--ciano);
+  outline-offset: 2px;
 }
 
 /* Input blends into the search bar */
@@ -130,12 +133,23 @@
   outline-offset: 2px;
 }
 
-/* "Monte seu PC" link */
+/* "Monte seu PC" link (44px tall touch target) */
 .link-monte-seu-pc {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   text-decoration: none;
   font-size: 0.8rem;
   font-weight: 700;
   color: var(--azul);
+  white-space: nowrap;
+}
+
+/* Logo link: its own focus target */
+.header-logo-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
 }
 
 /* Cart link with the item count badge */

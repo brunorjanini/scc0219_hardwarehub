@@ -14,29 +14,33 @@
   background-color: white;
   border: 2px solid var(--borda);
   border-radius: 10px;
-  height: 2.4rem;
+  min-height: 44px;
   width: 100%;
 }
 
-/* Focus state: highlight the border instead of the default outline */
+/* Focus state: blue border plus the focus ring (the input itself has no
+   outline, so the box shows it) */
 .icon-input-div:focus-within {
   border-color: var(--azul);
+  outline: 3px solid var(--ciano);
+  outline-offset: 1px;
 }
 
-/* Input blends into the search bar */
+/* Input blends into the box */
 .icon-input-div input {
   border: none;
   outline: none;
   background-color: transparent;
-  height: 100%;
+  min-height: 28px;
   width: 100%;
+  font-size: 0.9rem;
 }
 
 .sign-in-input-div label {
   color: black;
   margin-bottom: 0.3rem;
-  font-size: 0.7rem;
-  font-weight: 400;
+  font-size: 0.8rem;
+  font-weight: 500;
 }
 
 .input-icon {

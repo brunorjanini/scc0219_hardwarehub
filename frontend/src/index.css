@@ -44,6 +44,50 @@ p {
   color: var(--cinza-texto);
 }
 
+/* Default keyboard focus ring for anything that does not style its own.
+   :focus-visible only shows it for keyboard use, not mouse clicks. */
+:focus-visible {
+  outline: 3px solid var(--ciano);
+  outline-offset: 2px;
+}
+
+/* Skip link and <main> targets: the main area gets focus but no ring */
+main:focus {
+  outline: none;
+}
+
+/* "Pular para o conteúdo": off screen until focused with the keyboard */
+.skip-link {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 200;
+  padding: 0.75rem 1rem;
+  border-radius: var(--raio-campo);
+  background-color: var(--escuro);
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: none;
+}
+
+/* Users who ask the system for less motion get no animations */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 /* Hidden on screen but read by screen readers */
 .visually-hidden {
   position: absolute;
@@ -136,6 +180,43 @@ p {
 .link-button:focus-visible {
   outline: 3px solid var(--ciano);
   outline-offset: 2px;
+}
+
+/* 404 page (pages/NotFound.jsx) */
+.not-found {
+  align-items: flex-start;
+  padding-top: 3rem;
+  padding-bottom: 4rem;
+}
+
+.not-found-icon {
+  width: 3rem;
+  height: 3rem;
+  color: var(--azul);
+}
+
+.not-found-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--escuro);
+}
+
+.not-found-text {
+  max-width: 36rem;
+  font-size: 0.95rem;
+  font-weight: 400;
+}
+
+.not-found-text code {
+  overflow-wrap: anywhere;
+  font-size: 0.9rem;
+  color: var(--escuro);
+}
+
+.not-found-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
 }
 
 @media (max-width: 900px) {

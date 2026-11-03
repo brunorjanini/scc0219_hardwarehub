@@ -5,13 +5,6 @@
   min-height: 100vh;
 }
 
-/* Logo inside the sidebar */
-.logo {
-  width: 11rem;
-  padding: 0 0.8rem;
-  padding-top: 1rem;
-}
-
 /* Sidebar container: fixed width, full viewport height.
    Sticky, so it stays in view while long admin pages scroll. */
 .navbar {
@@ -26,6 +19,48 @@
   height: 100vh;
 }
 
+/* Logo row (on phones it also holds the menu button) */
+.navbar-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+/* Logo inside the sidebar */
+.logo {
+  width: 11rem;
+  padding: 0 0.8rem;
+  padding-top: 1rem;
+}
+
+/* Menu button: phones only */
+.navbar-menu-button {
+  display: none;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 44px;
+  padding: 0 0.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 0.5rem;
+  background-color: transparent;
+  color: white;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.navbar-menu-button svg {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+/* Links + logged-in user; fills the rest of the sidebar */
+.navbar-menu {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
 /* Navigation menu: vertical list of links.
    Selectors are scoped to .navbar so they do not restyle other <nav>s */
 .navbar nav {
@@ -37,15 +72,21 @@
   background-color: var(--escuro);
 }
 
-/* Navigation link: full-width clickable item */
+/* Navigation link: full-width clickable item, 44px tall */
 .navbar nav a {
-  display: block;
+  display: flex;
+  align-items: center;
   width: 100%;
-  padding: 0.7rem 0.8rem;
+  min-height: 44px;
+  padding: 0 0.8rem;
   color: rgb(206, 206, 206);
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   text-decoration: none;
   border-radius: 0.5rem;
+}
+
+.navbar nav a:hover {
+  background-color: rgba(255, 255, 255, 0.08);
 }
 
 /* Highlight for the current page link (set by React Router) */
@@ -71,7 +112,7 @@
 }
 
 .navbar-user-role {
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   color: rgb(160, 174, 192);
   margin-bottom: 0.5rem;
 }
@@ -89,7 +130,7 @@
   border-radius: 0.5rem;
   background-color: transparent;
   color: rgb(206, 206, 206);
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   text-decoration: none;
   cursor: pointer;
 }
@@ -98,7 +139,8 @@
   background-color: rgba(255, 255, 255, 0.08);
 }
 
-.navbar-user-action:focus-visible {
+.navbar a:focus-visible,
+.navbar button:focus-visible {
   outline: 3px solid var(--ciano);
   outline-offset: 2px;
 }
@@ -112,4 +154,44 @@
 .layout > main {
   width: 100%;
   min-width: 0;
+}
+
+/* ---- Phones and small tablets: sidebar becomes a top bar ---- */
+@media (max-width: 800px) {
+  .layout {
+    flex-direction: column;
+  }
+
+  .navbar {
+    position: static;
+    align-self: stretch;
+    width: 100%;
+    height: auto;
+  }
+
+  .navbar-top {
+    padding: 0.5rem 1rem 0.5rem 0;
+  }
+
+  .logo {
+    width: 9rem;
+    padding-top: 0;
+  }
+
+  .navbar-menu-button {
+    display: inline-flex;
+  }
+
+  /* Closed by default; the button opens it */
+  .navbar-menu {
+    display: none;
+  }
+
+  .navbar-menu.is-open {
+    display: flex;
+  }
+
+  .navbar-user {
+    margin-top: 0;
+  }
 }

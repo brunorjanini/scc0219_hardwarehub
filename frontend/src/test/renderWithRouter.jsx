@@ -6,6 +6,12 @@ import { RouterProvider } from "react-router/dom";
 import AuthProvider from "../contexts/AuthContext";
 import CartProvider from "../contexts/CartContext";
 import { SESSION_KEY } from "../contexts/auth";
+// Registers the lazy pages, then loads them all before any test renders,
+// so pages appear synchronously (no "Carregando..." step in tests)
+import "../routes";
+import { preloadLazyPages } from "../utils/lazyPage";
+
+await preloadLazyPages();
 
 export function renderWithRouter(routes, { path = "/", session } = {}) {
   if (session) {

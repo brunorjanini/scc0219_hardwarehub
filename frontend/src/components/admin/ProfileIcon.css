@@ -1,8 +1,8 @@
 .circle {
   background-color: var(--ciano);
   border-radius: 50%;
-  height: 100%;
-  aspect-ratio: 1;
+  width: 2.5rem;
+  height: 2.5rem;
   display: flex;
   justify-content: center;
   align-items: center;

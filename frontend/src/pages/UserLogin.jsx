@@ -1,4 +1,4 @@
-import "./UserLogin.css";
+import "./SignInPage.css";
 import { UserRound, Lock } from "lucide-react";
 import ImageBoxSignIn from "../components/user/ImageBoxSignIn";
 import SignInInput from "../components/SignInInput";
@@ -96,9 +96,9 @@ export default function UserLogin() {
         <ImageBoxSignIn />
 
         <div className="sign-in-form-div">
-          <h2>HARDWAREHUB</h2>
-          <h3>Bem-vindo de volta</h3>
-          <h4>Entre para acessar seus pedidos e configurações.</h4>
+          <p className="sign-in-eyebrow">HARDWAREHUB</p>
+          <h1 className="sign-in-title">Bem-vindo de volta</h1>
+          <p className="sign-in-subtitle">Entre para acessar seus pedidos e configurações.</p>
 
           {/* Uncontrolled form: values are read with FormData, so each input needs a matching `name` */}
           <form className="sign-in-form" onSubmit={handleLogin} noValidate>

@@ -1,5 +1,6 @@
 .image-box-div {
   display: flex;
+  flex-shrink: 0;
   flex-direction: column;
   justify-content: space-between;
 
@@ -21,12 +22,15 @@
   background-position: left;
 }
 
-.logo-style {
+/* Scoped name: a shared ".logo-style" here used to resize the header logo */
+.image-box-logo {
   height: 1.8rem;
+  align-self: flex-start;
 }
 
-.image-box-div h2 {
-  color: rgb(233, 233, 233) !important;
-  font-weight: 300 !important;
-  font-size: 1.4rem !important;
+/* Light text over the darkened photo */
+.image-box-div .image-box-slogan {
+  color: rgb(233, 233, 233);
+  font-weight: 300;
+  font-size: 1.4rem;
 }

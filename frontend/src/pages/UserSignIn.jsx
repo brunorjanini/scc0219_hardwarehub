@@ -1,4 +1,4 @@
-import "./UserSignIn.css";
+import "./SignInPage.css";
 import { Mail, Lock, Phone } from "lucide-react";
 import ImageBoxSignIn from "../components/user/ImageBoxSignIn";
 import SignInInput from "../components/SignInInput";
@@ -97,9 +97,9 @@ export default function UserSignIn() {
         <ImageBoxSignIn />
 
         <div className="sign-in-form-div">
-          <h2>HARDWAREHUB</h2>
-          <h3>Crie sua conta</h3>
-          <h4>Acompanhe pedidos, salve favoritos e receba ofertas.</h4>
+          <p className="sign-in-eyebrow">HARDWAREHUB</p>
+          <h1 className="sign-in-title">Crie sua conta</h1>
+          <p className="sign-in-subtitle">Acompanhe pedidos, salve montagens e receba ofertas.</p>
 
           {/* Uncontrolled form: values are read with FormData, so each input needs a matching `name` */}
           <form className="sign-in-form" onSubmit={handleSignIn} noValidate>

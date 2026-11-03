@@ -10,6 +10,7 @@
     "preview": "vite preview",
     "test": "vitest",
     "test:run": "vitest run",
+    "test:a11y": "vitest run src/a11y.test.jsx",
     "mock:server": "json-server ./src/mockAPI.json --port 3000",
     "mock:reset": "node ./scripts/reset-mock.js",
     "dev:all": "concurrently -k -n api,web -c blue,green \"npm:mock:server\" \"npm:dev\""
@@ -30,6 +31,7 @@
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.1.2",
+    "axe-core": "4.14.0",
     "concurrently": "^10.0.6",
     "eslint": "^10.13.0",
     "eslint-plugin-react-hooks": "^7.1.1",

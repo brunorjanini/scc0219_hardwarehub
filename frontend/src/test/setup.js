@@ -1,8 +1,15 @@
 // Global test setup: jest-dom matchers (toBeInTheDocument, ...) and
 // unmounting rendered components after each test.
 import "@testing-library/jest-dom/vitest";
-import { cleanup } from "@testing-library/react";
+import { cleanup, configure } from "@testing-library/react";
 import { afterEach, beforeEach, vi } from "vitest";
+
+// findBy*/waitFor wait up to 3 s (default 1 s). Pages load data through
+// several mocked requests, and on a busy machine 1 s was sometimes short.
+configure({ asyncUtilTimeout: 3000 });
+
+// Same language as index.html (the test document starts without one)
+if (globalThis.document) document.documentElement.lang = "pt-BR";
 
 // Tests never reach a real server: any request that a test did not mock
 // fails right away like an unreachable server (pages show their error state).

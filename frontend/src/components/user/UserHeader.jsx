@@ -58,8 +58,8 @@ export default function UserHeader() {
 
       {/* Main header: logo, search, links, icons */}
       <div className="main-header">
-        <Link to="/" aria-label="HardwareHub, página inicial">
-          <Logo theme="light" className="logo-style" />
+        <Link to="/" aria-label="HardwareHub, página inicial" className="header-logo-link">
+          <Logo theme="light" className="logo-style" alt="" />
         </Link>
 
         {/* `key` refills the field when the searched text changes */}

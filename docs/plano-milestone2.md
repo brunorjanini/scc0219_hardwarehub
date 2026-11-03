@@ -13,7 +13,7 @@
 - [x] 9. Builder summary and Add to Cart
 - [x] 10. (stretch) Dashboard from real data
 - [x] 11. (stretch) Saved builds
-- [ ] 12. Accessibility, responsiveness, quality pass
+- [x] 12. Accessibility, responsiveness, quality pass
 - [ ] 13. Docs, test script, build verification
 
 ## Problem Statement
@@ -117,7 +117,7 @@ sequenceDiagram
 
 ## Notas para continuar
 
-Estado após as Tasks 1–11. Leia antes de começar a próxima task.
+Estado após as Tasks 1–12. Leia antes de começar a próxima task.
 
 ### Ambiente (Windows desta máquina)
 
@@ -197,6 +197,7 @@ Estado após as Tasks 1–11. Leia antes de começar a próxima task.
 - Situação ao fim da Task 9: 420 testes passando (33 arquivos), lint sem erros nem avisos, build ok (mesmo aviso de bundle).
 - Situação ao fim da Task 10: 446 testes passando (35 arquivos), lint sem erros nem avisos, build ok (mesmo aviso de bundle).
 - Situação ao fim da Task 11: 466 testes passando (38 arquivos), lint sem erros nem avisos, build ok (mesmo aviso de bundle).
+- Situação ao fim da Task 12: 500 testes passando (41 arquivos), lint sem erros, build ok sem aviso de bundle (356 kB, antes 600+ kB).
 - Teste instável: numa rodada com build e lint ao mesmo tempo (52 s em vez de 37 s), `Cart.test.jsx > lists the items with subtotals and the total` estourou o `findByRole` (espera padrão de 1 s). Passou sozinho e na rodada seguinte. Para a Task 12: aumentar o `asyncUtilTimeout` do Testing Library em `test/setup.js` (ex.: `configure({ asyncUtilTimeout: 3000 })`) ou rodar a suíte sem outros processos pesados.
 
 ### Montador de PC (Task 8) — base para a Task 9
@@ -225,7 +226,20 @@ Estado após as Tasks 1–11. Leia antes de começar a próxima task.
 - A página carrega pedidos, produtos e usuários juntos e tem o botão "Atualizar"; os números antigos ficam na tela durante a recarga.
 - Testes de página fixam só o `Date` (`vi.useFakeTimers({ toFake: ["Date"] })`), assim `user-event` e `waitFor` continuam com timers reais.
 
-### Montagens salvas (Task 11)
+### Acessibilidade e qualidade (Task 12)
+
+- Motor de smoke tests: `src/test/axe.js` (`axeViolations()`) com axe-core 4.14.0; `src/a11y.test.jsx` (18 rotas + 3 estados interativos); `scripts/summarize-report.js` (transforma o JSON do Vitest num texto legível). Para rodar só os testes de acessibilidade: `npm run test:a11y` (script novo no package.json).
+- Violações corrigidas: `document-title` (index.html lang pt-BR + title "HardwareHub"; `DocumentTitle` usa `handle.title` de cada rota); `html-has-lang` (setup.js define o lang no `document.documentElement`); `region` (footer era um `<div>`, agora é `<footer>`; sidebar do admin era um `<div>`, agora é `<header>`); `button-name` (`SuperiorModal` recebeu `aria-label="Fechar mensagem"` no ×).
+- **Estrutura de cabeçalhos nas páginas de autenticação:** h2/h3/h4 → h1.sign-in-title + p.sign-in-eyebrow + p.sign-in-subtitle. As duas páginas usam `pages/SignInPage.css` (UserLogin.css e UserSignIn.css foram removidos). No painel admin, o `<h2>` da TopBar virou `<p class="topbar-title">` e o dashboard ganhou `<h1>`.
+- **Skip link** (`components/SkipLink.jsx`) e **tab title** (`components/DocumentTitle.jsx`) adicionados a ambos os layouts; `<main id="conteudo" tabIndex={-1}>`.
+- **Página 404** (`pages/NotFound.jsx`) com rotas `*` no store e no admin. `AdminLayout` agora tem a 404 dentro do `<main>`, e ela usa o layout do store para evitar CSS do admin não carregado.
+- **Footer:** `<footer>`, links reais (Catálogo, Monte seu PC, Serviços, etc., 44px), cores AA (rgb(203,213,225) sobre fundo escuro), sem altura fixa, empilha no celular.
+- **Layout do admin:** `<header>` como landmark, botão "Menu" (`aria-expanded`, `aria-controls="admin-menu"`) para phones (< 800 px), sidebar `position: sticky` no desktop; `h1` no dashboard.
+- **Code splitting:** os 14 arquivos de página do admin, o builder, login/cadastro, carrinho e conta usam `lazyPage()` do `utils/lazyPage.js`. O bundle principal caiu de ~600 kB para 355 kB (sem aviso). `motion/react` (137 kB) só carrega com login/cadastro. `preloadLazyPages()` é aguardado em `renderWithRouter.jsx` para que os testes renderizem páginas síncronamente.
+- **Acessibilidade da interface de login:** ImageBoxSignIn esconde-se em telas < 800 px (sem min-width forçado). Inputs de 44px com focus ring. Links inline sublinhados (não apenas coloridos). Logo renomeado de `.logo-style` para `.image-box-logo`.
+- **SuperiorModal:** usa `useReducedMotion()` do Motion e sai sem animação se o sistema pedir menos movimento. Texto verde de sucesso era `--verde` (3,3:1 AA) e foi corrigido para `rgb(21, 128, 61)` (~5:1).
+- **Outras melhorias:** `asyncUtilTimeout` 3000ms no setup para testes que tipam formulários inteiros; `.gitignore` do frontend ignora os arquivos `*-report.json` e `*-summary.txt`; `MotionConfig` removido do `main.jsx` (não era necessário).
+- Os testes de layout (404, tab title, skip link, menu do admin) ficam em `Layouts/layouts.test.jsx`.
 
 - `/builds`: `{ id, userId, name, parts: { slot: productId }, total, createdAt }` (`api/builds.js`). Só os ids das peças são salvos; `total` é o preço no dia, para mostrar mudanças de preço depois.
 - Montador: "Salvar montagem" no resumo abre um campo de nome (sugestão "Montagem de 3 de novembro", até 60 caracteres). Precisa de pelo menos uma peça; montagens incompletas podem ser salvas. Visitantes vão para o login; admins não veem a opção. Componente: `components/builder/SaveBuildForm.jsx`.

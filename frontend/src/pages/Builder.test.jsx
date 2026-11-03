@@ -200,7 +200,9 @@ describe("Builder", () => {
     installProductStore(seed.products);
     const { router } = renderWithRouter(routes, { path: "/catalog" });
 
-    await user.click(screen.getByRole("link", { name: "Monte seu PC" }));
+    // The footer links to the builder too; this checks the header one
+    const header = screen.getByRole("banner");
+    await user.click(within(header).getByRole("link", { name: "Monte seu PC" }));
     expect(router.state.location.pathname).toBe("/monte-seu-pc");
     expect(await screen.findByRole("heading", { level: 1, name: "Monte seu PC" })).toBeInTheDocument();
   });

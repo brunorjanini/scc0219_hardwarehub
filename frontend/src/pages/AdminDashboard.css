@@ -56,7 +56,7 @@
   font-size: 0.8rem;
 }
 
-.subtitle-box h2 {
+.subtitle-box h1 {
   font-size: 1.4rem;
   font-weight: 300;
   color: black;
@@ -143,4 +143,43 @@
   gap: 10px;
   justify-content: start;
   align-items: center;
+}
+
+/* Two cards per row, chart above the recent orders */
+@media (max-width: 1100px) {
+  .general-infos {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .chart-and-activities {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .activities-box {
+    min-width: 0;
+  }
+}
+
+/* Phones: one card per row, smaller side padding */
+@media (max-width: 600px) {
+  .subtitle-box,
+  .general-infos,
+  .chart-and-activities {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .subtitle-box {
+    flex-wrap: wrap;
+  }
+
+  .general-infos {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-message {
+    margin: 0 1rem;
+  }
 }

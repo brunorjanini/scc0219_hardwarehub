@@ -1,0 +1,154 @@
+/* Login (UserLogin) and sign-up (UserSignIn) pages: image box + form card.
+   One shared file: the two pages used to have near-identical CSS files
+   that overrode each other depending on load order. */
+
+/* Page container: image + form side by side, centered */
+.sign-in-div {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1.5rem;
+  background-color: rgb(234, 237, 243);
+  padding: 4rem 1rem;
+}
+
+/* White card that holds the form */
+.sign-in-form-div {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 30rem;
+  padding: 1.3rem 1.5rem;
+  background-color: white;
+  border-radius: 10px;
+}
+
+/* Brand, title and subtitle */
+.sign-in-eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--azul);
+}
+
+.sign-in-title {
+  font-size: 2rem;
+  font-weight: 400;
+  color: black;
+}
+
+.sign-in-subtitle {
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--escuro);
+}
+
+/* Vertical stack of form fields; gap controls spacing between them */
+.sign-in-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  margin-top: 1rem;
+}
+
+/* Two fields in the same row (name + last name, street + number...) */
+.name-undername-div {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  align-items: flex-start;
+}
+
+/* Narrow column for short fields (number, CEP) next to a wide one */
+.short-field {
+  display: flex;
+  flex: 0 0 7rem;
+}
+
+/* Password input with the requirements hint right below it */
+.password-criteria-div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.password-criteria-div p {
+  font-size: 0.75rem;
+}
+
+/* Checkbox + terms text in a row, with extra vertical spacing */
+.check-terms-div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.check-terms-div input {
+  flex-shrink: 0;
+  width: 1.2rem;
+  height: 1.2rem;
+  accent-color: var(--azul);
+}
+
+.check-terms-div label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--cinza-texto);
+  cursor: pointer;
+}
+
+/* Submit button and the link to the other page, stacked and centered */
+.create-account-or-login-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.create-account-or-login-div p {
+  font-size: 0.85rem;
+}
+
+/* Underlined: inside a sentence a link must not rely on colour alone */
+.sign-in-link,
+.login-link {
+  color: var(--azul);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* Tablets and phones: no image box, the form takes the width */
+@media (max-width: 800px) {
+  .sign-in-div {
+    padding: 1.5rem 1rem 2.5rem;
+  }
+
+  .sign-in-div .image-box-div {
+    display: none;
+  }
+
+  .sign-in-title {
+    font-size: 1.6rem;
+  }
+}
+
+/* Phones: paired fields stack */
+@media (max-width: 480px) {
+  .sign-in-form-div {
+    padding: 1.1rem 1rem;
+  }
+
+  .name-undername-div {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .short-field {
+    flex: 1;
+  }
+}

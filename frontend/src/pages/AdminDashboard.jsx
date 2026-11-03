@@ -68,7 +68,7 @@ export default function AdminDashboard() {
       <div className="dashboard-main">
         <div className="subtitle-box">
           <div>
-            <h2>Visão Geral</h2>
+            <h1>Visão geral</h1>
             <p role="status">
               {loading
                 ? "Atualizando dados..."
