@@ -33,8 +33,8 @@
 }
 
 .logo-style {
-  width: 10rem;
-  width: fit-content;
+  height: 2.6rem; /* keeps the logo at the same height as the main-header bar */
+  width: auto;
 }
 
 /* Search bar (flex: 1 makes it fill the available space) */
