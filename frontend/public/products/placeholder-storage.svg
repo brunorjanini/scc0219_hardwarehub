@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="Armazenamento">
+  <rect width="400" height="400" fill="#f8fafc"/>
+  <g fill="none" stroke="#2563eb" stroke-width="10" stroke-linejoin="round">
+    <rect x="70" y="150" width="260" height="70" rx="8"/>
+    <rect x="95" y="168" width="60" height="34" rx="3"/>
+    <rect x="175" y="168" width="60" height="34" rx="3"/>
+    <circle cx="295" cy="185" r="10"/>
+  </g>
+  <text x="200" y="335" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="26" fill="#64748b">Armazenamento</text>
+</svg>

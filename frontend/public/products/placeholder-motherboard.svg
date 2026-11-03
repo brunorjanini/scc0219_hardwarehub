@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="Placa-mãe">
+  <rect width="400" height="400" fill="#f8fafc"/>
+  <g fill="none" stroke="#2563eb" stroke-width="10" stroke-linejoin="round">
+    <rect x="110" y="80" width="180" height="200" rx="10"/>
+    <rect x="140" y="110" width="60" height="60" rx="4"/>
+    <path d="M230 105v80M255 105v80"/>
+    <path d="M140 210h120M140 245h120"/>
+  </g>
+  <text x="200" y="335" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="26" fill="#64748b">Placa-mãe</text>
+</svg>

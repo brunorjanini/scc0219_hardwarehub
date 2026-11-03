@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="Memória RAM">
+  <rect width="400" height="400" fill="#f8fafc"/>
+  <g fill="none" stroke="#2563eb" stroke-width="10" stroke-linejoin="round">
+    <path d="M70 140h260v80H210v-15h-20v15H70z"/>
+    <rect x="95" y="160" width="40" height="35" rx="3"/>
+    <rect x="150" y="160" width="40" height="35" rx="3"/>
+    <rect x="210" y="160" width="40" height="35" rx="3"/>
+    <rect x="265" y="160" width="40" height="35" rx="3"/>
+    <path d="M90 220v30M130 220v30M170 220v30M230 220v30M270 220v30M310 220v30" stroke-linecap="round"/>
+  </g>
+  <text x="200" y="335" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="26" fill="#64748b">Memória RAM</text>
+</svg>

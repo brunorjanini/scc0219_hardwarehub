@@ -9,6 +9,7 @@ import { AnimatePresence } from "motion/react";
 import SuperiorModal from "../components/SuperiorModal";
 import verifyEmail from "../utils/verifyEmail";
 import { useAuth } from "../contexts/AuthContext";
+import { findUsersByEmail } from "../api/users";
 
 // Login page: image on one side, form on the other
 export default function UserLogin() {
@@ -55,15 +56,7 @@ export default function UserLogin() {
 
     try {
       // Look up users with the same email
-      const response = await fetch(
-        `http://localhost:3000/users?email=${encodeURIComponent(email)}`,
-      );
-
-      if (!response.ok) {
-        throw new Error("Erro ao consultar usuários.");
-      }
-
-      const users = await response.json();
+      const users = await findUsersByEmail(email);
 
       // No user with this email
       if (users.length === 0) {

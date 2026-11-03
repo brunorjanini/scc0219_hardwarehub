@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="Periférico">
+  <rect width="400" height="400" fill="#f8fafc"/>
+  <g fill="none" stroke="#2563eb" stroke-width="10" stroke-linejoin="round" stroke-linecap="round">
+    <rect x="60" y="150" width="200" height="90" rx="10"/>
+    <path d="M85 175h15M120 175h15M155 175h15M190 175h15M225 175h15M95 215h130"/>
+    <rect x="290" y="140" width="55" height="90" rx="27"/>
+    <path d="M317 140v30"/>
+  </g>
+  <text x="200" y="335" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="26" fill="#64748b">Periférico</text>
+</svg>

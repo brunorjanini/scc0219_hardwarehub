@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="Fonte">
+  <rect width="400" height="400" fill="#f8fafc"/>
+  <g fill="none" stroke="#2563eb" stroke-width="10" stroke-linejoin="round">
+    <rect x="90" y="90" width="220" height="180" rx="12"/>
+    <circle cx="200" cy="180" r="60"/>
+    <path d="M205 140l-25 45h30l-25 45" stroke-linecap="round"/>
+  </g>
+  <text x="200" y="335" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="26" fill="#64748b">Fonte</text>
+</svg>

@@ -8,6 +8,7 @@ import { useState } from "react";
 import { AnimatePresence } from "motion/react";
 import SuperiorModal from "../components/SuperiorModal";
 import verifyEmail from "../utils/verifyEmail";
+import { findUsersByEmail } from "../api/users";
 
 // Sign-up page: image on one side, form on the other
 export default function UserSignIn() {
@@ -44,15 +45,7 @@ export default function UserSignIn() {
 
     try {
       // Look up users with the same email
-      const response = await fetch(
-        `http://localhost:3000/users?email=${encodeURIComponent(email)}`,
-      );
-
-      if (!response.ok) {
-        throw new Error("Erro ao consultar usuários.");
-      }
-
-      const user = await response.json();
+      const user = await findUsersByEmail(email);
 
       // Email already registered
       if (user.length !== 0) {

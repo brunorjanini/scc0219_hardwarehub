@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="Processador">
+  <rect width="400" height="400" fill="#f8fafc"/>
+  <g fill="none" stroke="#2563eb" stroke-width="10" stroke-linecap="round">
+    <rect x="130" y="110" width="140" height="140" rx="14"/>
+    <rect x="165" y="145" width="70" height="70" rx="6"/>
+    <path d="M160 110V85M200 110V85M240 110V85M160 250v25M200 250v25M240 250v25M130 140h-25M130 180h-25M130 220h-25M270 140h25M270 180h25M270 220h25"/>
+  </g>
+  <text x="200" y="335" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="26" fill="#64748b">Processador</text>
+</svg>
