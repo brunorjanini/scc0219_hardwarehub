@@ -18,6 +18,16 @@ export function validatePhone(phone = "") {
     : "Telefone inválido (use DDD + número)";
 }
 
+// Card number. The assignment says any number is accepted, so only the
+// format is checked: digits (spaces and dashes allowed), 4 to 19 of them.
+export function validateCardNumber(cardNumber = "") {
+  const value = cardNumber.trim();
+  if (!value) return "Informe o número do cartão";
+  if (!/^[\d\s-]+$/.test(value)) return "O número do cartão deve ter apenas dígitos";
+  const digits = value.replace(/\D/g, "").length;
+  return digits >= 4 && digits <= 19 ? "" : "O número do cartão deve ter de 4 a 19 dígitos";
+}
+
 // Brazilian CEP: 8 digits, with or without the dash
 export function validateZip(zip = "") {
   return /^\d{5}-?\d{3}$/.test(zip.trim()) ? "" : "CEP inválido";

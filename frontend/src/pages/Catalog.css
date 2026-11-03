@@ -162,12 +162,6 @@
   color: var(--escuro);
 }
 
-.link-button.is-disabled {
-  border-color: var(--borda);
-  color: rgb(148, 163, 184);
-  cursor: not-allowed;
-}
-
 @media (max-width: 900px) {
   .catalog-body {
     grid-template-columns: 1fr;

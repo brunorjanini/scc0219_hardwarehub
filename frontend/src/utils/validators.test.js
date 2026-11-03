@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { validatePassword, validatePhone, validateZip } from "./validators";
+import { validateCardNumber, validatePassword, validatePhone, validateZip } from "./validators";
 
 describe("validatePassword", () => {
   it("accepts 8+ characters with a number and a symbol", () => {
@@ -23,6 +23,25 @@ describe("validatePhone", () => {
 
   it.each(["123", "991234567", "(16) 99123-45678"])("rejects %s", (phone) => {
     expect(validatePhone(phone)).not.toBe("");
+  });
+});
+
+describe("validateCardNumber", () => {
+  it.each(["4111 1111 1111 1111", "1234", "5555-4444-3333-2222", "1234567890123456789"])(
+    "accepts any number: %s",
+    (card) => {
+      expect(validateCardNumber(card)).toBe("");
+    },
+  );
+
+  it.each([
+    ["", /Informe/],
+    ["   ", /Informe/],
+    ["4111 abcd", /apenas dígitos/],
+    ["123", /4 a 19/],
+    ["12345678901234567890", /4 a 19/],
+  ])("rejects %j", (card, message) => {
+    expect(validateCardNumber(card)).toMatch(message);
   });
 });
 

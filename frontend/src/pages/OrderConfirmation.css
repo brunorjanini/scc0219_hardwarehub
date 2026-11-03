@@ -1,0 +1,86 @@
+/* Order confirmation page (mockup C09) */
+.order-page {
+  background-color: var(--cinza-claro);
+}
+
+.order-confirmation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 2rem 1rem;
+  border: 1px solid var(--borda);
+  border-radius: 0.7rem;
+  background-color: white;
+  text-align: center;
+}
+
+.order-icon {
+  width: 3rem;
+  height: 3rem;
+  color: rgb(21, 128, 61);
+}
+
+.order-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--escuro);
+}
+
+.order-lead {
+  max-width: 34rem;
+  font-size: 0.95rem;
+  font-weight: 400;
+}
+
+.order-details {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.order-box {
+  padding: 1.25rem;
+  border: 1px solid var(--borda);
+  border-radius: 0.7rem;
+  background-color: white;
+}
+
+.order-box h2 {
+  margin-bottom: 0.75rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--escuro);
+}
+
+.order-info div {
+  display: grid;
+  grid-template-columns: 7rem 1fr;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--borda);
+  font-size: 0.85rem;
+}
+
+.order-info div:last-child {
+  border-bottom: none;
+}
+
+.order-info dt {
+  color: var(--cinza-texto);
+}
+
+.order-info dd {
+  color: var(--escuro);
+}
+
+.order-continue {
+  align-self: center;
+}
+
+@media (max-width: 800px) {
+  .order-details {
+    grid-template-columns: 1fr;
+  }
+}

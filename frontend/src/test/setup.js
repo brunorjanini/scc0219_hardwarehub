@@ -17,5 +17,6 @@ afterEach(() => {
   cleanup();
   vi.restoreAllMocks();
   vi.unstubAllGlobals();
-  localStorage.clear();
+  // Not defined in files that opt into the node environment
+  globalThis.localStorage?.clear();
 });

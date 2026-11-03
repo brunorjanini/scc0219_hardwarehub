@@ -13,6 +13,9 @@ import Home from "./pages/Home.jsx";
 import Catalog from "./pages/Catalog.jsx";
 import ProductDetail from "./pages/ProductDetail.jsx";
 import ComingSoon from "./pages/ComingSoon.jsx";
+import Cart from "./pages/Cart.jsx";
+import Checkout from "./pages/Checkout.jsx";
+import OrderConfirmation from "./pages/OrderConfirmation.jsx";
 import UserLogin from "./pages/UserLogin.jsx";
 import UserSignIn from "./pages/UserSignIn.jsx";
 
@@ -33,18 +36,11 @@ export const routes = [
       { path: "product/:id", element: <ProductDetail /> },
       { path: "login", element: <UserLogin /> },
       { path: "signup", element: <UserSignIn /> },
-      // Temporary pages until the cart (Task 4) and builder (Task 8) exist
-      {
-        path: "cart",
-        element: (
-          <RequireAuth>
-            <ComingSoon
-              title="Carrinho"
-              text="A página do carrinho está em construção. Os itens adicionados já ficam salvos na sua conta."
-            />
-          </RequireAuth>
-        ),
-      },
+      // Purchase flow: clients only (guests go to login, admins to home)
+      { path: "cart", element: <RequireAuth role="user"><Cart /></RequireAuth> },
+      { path: "checkout", element: <RequireAuth role="user"><Checkout /></RequireAuth> },
+      { path: "order/:id", element: <RequireAuth role="user"><OrderConfirmation /></RequireAuth> },
+      // Temporary page until the builder (Task 8) exists
       {
         path: "monte-seu-pc",
         element: (

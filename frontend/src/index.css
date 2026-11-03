@@ -114,6 +114,19 @@ p {
   color: var(--azul);
 }
 
+/* Shown instead of a link when the action is not available */
+.link-button.is-disabled {
+  border-color: var(--borda);
+  background-color: var(--cinza-claro);
+  color: rgb(100, 116, 139);
+  cursor: not-allowed;
+}
+
+.link-button:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
 .link-button svg {
   width: 1rem;
   height: 1rem;

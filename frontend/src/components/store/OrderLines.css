@@ -1,0 +1,38 @@
+.order-lines {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  color: var(--escuro);
+}
+
+.order-lines th,
+.order-lines td {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--borda);
+  text-align: left;
+  vertical-align: top;
+}
+
+.order-lines-name {
+  font-weight: 400;
+  padding-right: 0.5rem;
+}
+
+.order-lines-quantity {
+  width: 3rem;
+  color: var(--cinza-texto);
+  white-space: nowrap;
+}
+
+.order-lines-price {
+  text-align: right !important;
+  white-space: nowrap;
+}
+
+.order-lines tfoot th,
+.order-lines tfoot td {
+  border-bottom: none;
+  padding-top: 0.8rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
