@@ -348,6 +348,165 @@
   gap: 0.75rem;
 }
 
+/* ---- Slots + summary side by side ---- */
+.builder-content {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 20rem;
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.builder-main {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 0;
+}
+
+/* ---- Summary card ---- */
+.builder-summary {
+  position: sticky;
+  top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.25rem;
+  border: 1px solid var(--borda);
+  border-radius: 0.7rem;
+  background-color: white;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.builder-summary-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--escuro);
+}
+
+.builder-summary-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  list-style: none;
+}
+
+.builder-summary-lines li,
+.builder-summary-power > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  font-size: 0.85rem;
+  color: var(--escuro);
+}
+
+.builder-summary-lines li span:last-child,
+.builder-summary-power dd {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.builder-summary-power {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--borda);
+}
+
+.builder-summary-power dt {
+  color: var(--cinza-texto);
+}
+
+.builder-summary-assembly {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: 0.75rem;
+  border: 1px solid var(--borda);
+  border-radius: 0.5rem;
+  background-color: var(--cinza-claro);
+}
+
+.builder-summary-assembly input {
+  flex-shrink: 0;
+  width: 1.2rem;
+  height: 1.2rem;
+  margin-top: 0.1rem;
+  accent-color: var(--azul);
+}
+
+.builder-summary-assembly label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--escuro);
+  cursor: pointer;
+}
+
+.builder-summary-assembly label span {
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: var(--cinza-texto);
+}
+
+.builder-summary-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--borda);
+  font-size: 0.9rem;
+  color: var(--escuro);
+}
+
+.builder-summary-total strong {
+  font-size: 1.5rem;
+}
+
+.builder-add {
+  width: 100%;
+}
+
+/* Disabled until the build can be bought */
+.builder-add:disabled {
+  border-color: var(--borda);
+  background-color: var(--cinza-claro);
+  color: rgb(100, 116, 139);
+  opacity: 1;
+  cursor: not-allowed;
+}
+
+.builder-summary-reason {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-align: center;
+  color: rgb(194, 65, 12);
+}
+
+.builder-summary-feedback {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.builder-summary-feedback p {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+@media (max-width: 1000px) {
+  .builder-content {
+    grid-template-columns: 1fr;
+  }
+
+  .builder-summary {
+    position: static;
+  }
+}
+
 /* ---- Phones: price and buttons go below the text ---- */
 @media (max-width: 700px) {
   .builder-slot-row,

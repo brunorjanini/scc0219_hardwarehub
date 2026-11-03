@@ -2,7 +2,7 @@
 // localStorage, so the build survives a refresh or a visit to another
 // page), the specs shown in the picker, and how each option fits the
 // parts already chosen.
-import { BUILDER_CATEGORIES } from "./categories";
+import { BUILDER_CATEGORIES, categoryLabel } from "./categories";
 import { analyzeCompatibility } from "./compatibility";
 import { formatNumber } from "./format";
 import { formatSpecs } from "./specs";
@@ -148,4 +148,45 @@ export function statusMessage(result) {
     return { title: "Configuração compatível, com avisos", detail: power };
   }
   return { title: "Configuração compatível", detail: power };
+}
+
+// ---- Summary and "add to cart" ----
+
+// The "Montagem de PC" service of the seed, offered as an option in the
+// summary. If an admin deletes it, the option simply does not show.
+export const ASSEMBLY_SERVICE_ID = "27";
+
+// Chosen parts in slot order (+ the assembly service), one unit each,
+// ready for cart.addItems()
+export function buildCartEntries(parts, assembly = null) {
+  const entries = BUILDER_CATEGORIES.filter((slot) => parts[slot]).map((slot) => ({ product: parts[slot], quantity: 1 }));
+  if (assembly) entries.push({ product: assembly, quantity: 1 });
+  return entries;
+}
+
+export function buildTotal(parts, assembly = null) {
+  return buildCartEntries(parts, assembly).reduce((sum, { product }) => sum + (Number(product.price) || 0), 0);
+}
+
+const listFormat = new Intl.ListFormat("pt-BR", { style: "long", type: "conjunction" });
+
+// Why the build cannot go to the cart yet ("" = it can). Errors block;
+// warnings do not (the user was told). Every part must be in stock.
+export function addBlockReason(result, parts, { isAdmin = false } = {}) {
+  if (isAdmin) return "Administradores não fazem compras. Entre com uma conta de cliente.";
+  if (result.status === "error") return "Resolva as incompatibilidades para continuar.";
+
+  const empty = BUILDER_CATEGORIES.filter((slot) => !parts[slot]);
+  if (empty.length > 0) {
+    return `Escolha também: ${listFormat.format(empty.map(categoryLabel))}.`;
+  }
+
+  const unavailable = BUILDER_CATEGORIES.filter((slot) => !stockStatus(parts[slot]).available);
+  if (unavailable.length > 0) {
+    const names = listFormat.format(unavailable.map((slot) => parts[slot].name));
+    return unavailable.length === 1
+      ? `Sem estoque: ${names}. Troque essa peça para continuar.`
+      : `Sem estoque: ${names}. Troque essas peças para continuar.`;
+  }
+  return "";
 }

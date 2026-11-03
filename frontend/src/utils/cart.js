@@ -45,6 +45,19 @@ export function addItem(items = [], product, quantity = 1) {
   return { items: [...items, { productId: String(product.id), quantity }] };
 }
 
+// Adds several products at once (the PC Builder adds a whole build).
+// entries: [{ product, quantity }]. All or nothing: if one product cannot
+// be added, nothing changes and the error names that product.
+export function addItems(items = [], entries = []) {
+  let next = items;
+  for (const { product, quantity = 1 } of entries) {
+    const result = addItem(next, product, quantity);
+    if (result.error) return { error: `${product.name}: ${result.error}` };
+    next = result.items;
+  }
+  return { items: next };
+}
+
 // Sets the quantity of a line; 0 removes it
 export function setItemQuantity(items = [], product, quantity) {
   if (quantity === 0) return { items: removeItem(items, product.id) };

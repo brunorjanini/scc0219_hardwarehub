@@ -10,7 +10,11 @@ import {
   resolveParts,
   saveSelection,
   statusMessage,
+  addBlockReason,
+  buildCartEntries,
+  buildTotal,
 } from "./builder";
+import { analyzeCompatibility } from "./compatibility";
 
 const byName = (name) => seed.products.find((p) => p.name === name);
 const byId = Object.fromEntries(seed.products.map((p) => [p.id, p]));
@@ -115,5 +119,69 @@ describe("statusMessage", () => {
     const message = statusMessage({ ...base, ...changes });
     expect(message.title).toBe(title);
     expect(message.detail).toMatch(detail);
+  });
+});
+
+describe("summary and add to cart", () => {
+  // Complete compatible build from the seed: 120 + 220 + 100 = 440 W, PSU 650 W
+  const BUILD = {
+    cpu: RYZEN_7,
+    motherboard: B650M,
+    ram: byName("Kingston Fury Beast 32GB (2x16) DDR5 6000MHz"),
+    gpu: byName("GeForce RTX 4070 SUPER 12GB"),
+    storage: byName("Samsung 990 Pro 2TB NVMe"),
+    psu: byName("Corsair CX650 650W 80 Plus Bronze"),
+    case: byName("NZXT H5 Flow"),
+  };
+  const ASSEMBLY = byName("Montagem de PC");
+  const reason = (parts, options) => addBlockReason(analyzeCompatibility(parts), parts, options);
+
+  it("lists one unit of each part in slot order, plus the assembly", () => {
+    expect(buildCartEntries({ gpu: BUILD.gpu, cpu: RYZEN_7 })).toEqual([
+      { product: RYZEN_7, quantity: 1 },
+      { product: BUILD.gpu, quantity: 1 },
+    ]);
+    expect(buildCartEntries(BUILD, ASSEMBLY)).toHaveLength(8);
+    expect(buildCartEntries(BUILD, ASSEMBLY).at(-1)).toEqual({ product: ASSEMBLY, quantity: 1 });
+  });
+
+  it("adds up the prices", () => {
+    const parts = Object.values(BUILD).reduce((sum, p) => sum + p.price, 0);
+    expect(buildTotal(BUILD)).toBeCloseTo(parts);
+    expect(buildTotal(BUILD, ASSEMBLY)).toBeCloseTo(parts + ASSEMBLY.price);
+    expect(buildTotal({})).toBe(0);
+  });
+
+  it("allows a complete compatible build in stock", () => {
+    expect(reason(BUILD)).toBe("");
+  });
+
+  it("allows warnings but not errors", () => {
+    // RTX 4080 SUPER: 125 + 320 + 100 = 545 W, 650 W PSU is tight (warning)
+    const tight = {
+      ...BUILD,
+      cpu: byName("Intel Core i5-14600K"),
+      motherboard: { ...byName("ASRock B760M Pro RS"), stock: 2 },
+      gpu: byName("ASUS TUF GeForce RTX 4080 SUPER 16GB"),
+    };
+    expect(analyzeCompatibility(tight).status).toBe("warning");
+    expect(reason(tight)).toBe("");
+
+    expect(reason({ ...BUILD, cpu: byName("Intel Core i5-14600K") })).toBe("Resolva as incompatibilidades para continuar.");
+  });
+
+  it("names the missing slots", () => {
+    const partial = { ...BUILD, storage: null, psu: null };
+    expect(reason(partial)).toBe("Escolha também: Armazenamento e Fonte.");
+    expect(reason({})).toMatch(/^Escolha também: Processador, Placa-mãe, .* e Gabinete\.$/);
+  });
+
+  it("names the parts without stock", () => {
+    const outOfStock = { ...BUILD, storage: { ...BUILD.storage, stock: 0 } };
+    expect(reason(outOfStock)).toBe("Sem estoque: Samsung 990 Pro 2TB NVMe. Troque essa peça para continuar.");
+  });
+
+  it("tells administrators they cannot buy", () => {
+    expect(reason(BUILD, { isAdmin: true })).toMatch(/^Administradores não fazem compras/);
   });
 });

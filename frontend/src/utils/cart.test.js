@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { addItem, cartCount, quantityOf, removeItem, setItemQuantity } from "./cart";
+import { addItem, addItems, cartCount, quantityOf, removeItem, setItemQuantity } from "./cart";
 import { MAX_QUANTITY_PER_ITEM, maxPurchasable, stockStatus } from "./stock";
 import { GPU, LAST_UNITS_CPU, OUT_OF_STOCK, SERVICE } from "../test/renderWithRouter";
 
@@ -42,6 +42,34 @@ describe("addItem", () => {
 
   it.each([0, -1, 1.5, NaN])("rejects quantity %s", (quantity) => {
     expect(addItem([], GPU, quantity)).toEqual({ error: "Quantidade inválida" });
+  });
+});
+
+describe("addItems", () => {
+  it("adds every product, merging with the cart", () => {
+    const { items } = addItems([{ productId: "13", quantity: 1 }], [
+      { product: GPU, quantity: 1 },
+      { product: LAST_UNITS_CPU },
+      { product: SERVICE, quantity: 1 },
+    ]);
+    expect(items).toEqual([
+      { productId: "13", quantity: 2 },
+      { productId: "1", quantity: 1 },
+      { productId: "27", quantity: 1 },
+    ]);
+  });
+
+  it("changes nothing when one product cannot be added", () => {
+    const cart = [{ productId: "1", quantity: 3 }];
+    expect(addItems(cart, [{ product: GPU }, { product: LAST_UNITS_CPU }])).toEqual({
+      error: `${LAST_UNITS_CPU.name}: Você já tem 3 no carrinho. Estoque: 3 unidades disponíveis`,
+    });
+    expect(addItems([], [{ product: OUT_OF_STOCK }]).error).toBe(`${OUT_OF_STOCK.name}: Produto indisponível no momento`);
+    expect(cart).toEqual([{ productId: "1", quantity: 3 }]);
+  });
+
+  it("accepts an empty list", () => {
+    expect(addItems([], [])).toEqual({ items: [] });
   });
 });
 

@@ -1,29 +1,53 @@
 import "./Builder.css";
 import { useEffect, useMemo, useState } from "react";
+import { useLocation, useNavigate } from "react-router";
 import { RotateCcw } from "lucide-react";
 import BuilderSlot from "../components/builder/BuilderSlot";
 import BuilderStatus from "../components/builder/BuilderStatus";
+import BuilderSummary from "../components/builder/BuilderSummary";
 import { usePagedList } from "../hooks/usePagedList";
+import { useAuth } from "../contexts/useAuth";
+import { useCart } from "../contexts/useCart";
 import { listProducts } from "../api/products";
 import { BUILDER_CATEGORIES } from "../utils/categories";
 import { analyzeCompatibility } from "../utils/compatibility";
-import { loadSelection, rankOptions, resolveParts, saveSelection, toggleId } from "../utils/builder";
+import {
+  ASSEMBLY_SERVICE_ID,
+  addBlockReason,
+  buildCartEntries,
+  loadSelection,
+  rankOptions,
+  resolveParts,
+  saveSelection,
+  toggleId,
+} from "../utils/builder";
 
-// Every part the builder can use, cheapest first (one request, ~25 items)
-const CATALOG_FILTERS = { categories: BUILDER_CATEGORIES, sort: "price" };
+// Every part the builder can use, cheapest first, plus the services (for
+// the optional assembly). One request, ~30 items.
+const CATALOG_FILTERS = { categories: [...BUILDER_CATEGORIES, "service"], sort: "price" };
+
+const NO_FEEDBACK = { text: "", tone: "" };
 
 const withoutSlots = (selection, slots) =>
   Object.fromEntries(Object.entries(selection).filter(([slot]) => !slots.includes(slot)));
 
 // PC Builder page (mockup "montar-pc"): one slot per component, a picker
-// with the compatibility of each option, a status banner and the problems
-// next to the parts involved. The build is kept in localStorage.
-// Summary, total and "add to cart" come in Task 9.
+// with the compatibility of each option, a status banner, the problems
+// next to the parts involved, and a summary that sends the whole build
+// (and the optional assembly service) to the cart. The build is kept in
+// localStorage, so a guest sent to login finds it again on return.
 export default function Builder() {
+  const { user } = useAuth();
+  const cart = useCart();
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const [reloadKey, setReloadKey] = useState(0);
   const catalog = usePagedList(listProducts, CATALOG_FILTERS, reloadKey);
   const [selection, setSelection] = useState(loadSelection);
   const [openSlot, setOpenSlot] = useState(null);
+  const [withAssembly, setWithAssembly] = useState(false);
+  const [adding, setAdding] = useState({ busy: false, feedback: NO_FEEDBACK });
 
   const ready = !catalog.loading && !catalog.error;
   const byId = useMemo(() => Object.fromEntries(catalog.data.map((p) => [String(p.id), p])), [catalog.data]);
@@ -34,6 +58,9 @@ export default function Builder() {
   // Parts that no longer exist are dropped on the next change
   const current = withoutSlots(selection, missing);
   const result = analyzeCompatibility(parts);
+  const assemblyProduct = byId[ASSEMBLY_SERVICE_ID];
+  const assembly = assemblyProduct?.category === "service" ? assemblyProduct : null;
+  const reason = addBlockReason(result, parts, { isAdmin: user?.type === "admin" });
 
   // Save once the catalog is known, so deleted parts are not saved back
   useEffect(() => {
@@ -43,16 +70,41 @@ export default function Builder() {
   // Focus goes back to the slot button after choosing, removing or closing
   const focusToggle = (slot) => document.getElementById(toggleId(slot))?.focus();
 
+  // A change to the build makes the last "added" message out of date
+  function changeSelection(next) {
+    setSelection(next);
+    setAdding({ busy: false, feedback: NO_FEEDBACK });
+  }
+
   function choose(slot, product) {
-    setSelection({ ...current, [slot]: String(product.id) });
+    changeSelection({ ...current, [slot]: String(product.id) });
     setOpenSlot(null);
     focusToggle(slot);
   }
 
   function remove(slot) {
-    setSelection(withoutSlots(current, [slot]));
+    changeSelection(withoutSlots(current, [slot]));
     setOpenSlot(null);
     focusToggle(slot);
+  }
+
+  // Adds every part (+ assembly) in one cart change: all or nothing.
+  // Guests log in first and come back here; the build is still saved.
+  async function addToCart() {
+    if (!user) {
+      navigate("/login", { state: { from: location } });
+      return;
+    }
+    if (reason || adding.busy) return;
+
+    setAdding({ busy: true, feedback: NO_FEEDBACK });
+    const outcome = await cart.addItems(buildCartEntries(parts, withAssembly ? assembly : null));
+    setAdding({
+      busy: false,
+      feedback: outcome.error
+        ? { text: outcome.error, tone: "error" }
+        : { text: "Configuração adicionada ao carrinho.", tone: "success" },
+    });
   }
 
   function close(slot) {
@@ -91,36 +143,52 @@ export default function Builder() {
           </p>
         )}
 
-        <ul className="builder-slots" aria-label="Componentes do PC">
-          {BUILDER_CATEGORIES.map((slot) => (
-            <BuilderSlot
-              key={slot}
-              slot={slot}
-              product={parts[slot]}
-              issues={result.issues.filter((issue) => issue.parts.includes(slot))}
-              open={openSlot === slot}
-              options={openSlot === slot ? rankOptions(catalog.data, parts, slot) : []}
-              onToggle={() => setOpenSlot(openSlot === slot ? null : slot)}
-              onChoose={(product) => choose(slot, product)}
-              onRemove={() => remove(slot)}
-              onClose={() => close(slot)}
-            />
-          ))}
-        </ul>
+        <div className="builder-content">
+          <div className="builder-main">
+            <ul className="builder-slots" aria-label="Componentes do PC">
+              {BUILDER_CATEGORIES.map((slot) => (
+                <BuilderSlot
+                  key={slot}
+                  slot={slot}
+                  product={parts[slot]}
+                  issues={result.issues.filter((issue) => issue.parts.includes(slot))}
+                  open={openSlot === slot}
+                  options={openSlot === slot ? rankOptions(catalog.data, parts, slot) : []}
+                  onToggle={() => setOpenSlot(openSlot === slot ? null : slot)}
+                  onChoose={(product) => choose(slot, product)}
+                  onRemove={() => remove(slot)}
+                  onClose={() => close(slot)}
+                />
+              ))}
+            </ul>
 
-        {selectedCount > 0 && (
-          <button
-            type="button"
-            className="link-button secondary builder-clear"
-            onClick={() => {
-              setSelection({});
-              setOpenSlot(null);
-            }}
-          >
-            <RotateCcw aria-hidden="true" />
-            Limpar montagem
-          </button>
-        )}
+            {selectedCount > 0 && (
+              <button
+                type="button"
+                className="link-button secondary builder-clear"
+                onClick={() => {
+                  changeSelection({});
+                  setOpenSlot(null);
+                }}
+              >
+                <RotateCcw aria-hidden="true" />
+                Limpar montagem
+              </button>
+            )}
+          </div>
+
+          <BuilderSummary
+            parts={parts}
+            result={result}
+            assembly={assembly}
+            withAssembly={withAssembly}
+            onToggleAssembly={(e) => setWithAssembly(e.target.checked)}
+            reason={reason}
+            busy={adding.busy}
+            feedback={adding.feedback}
+            onAdd={addToCart}
+          />
+        </div>
       </>
     );
   }

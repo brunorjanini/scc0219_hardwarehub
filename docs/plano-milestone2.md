@@ -10,7 +10,7 @@
 - [x] 6. Admin Products CRUD
 - [x] 7. Admin Clients and Admins CRUD
 - [x] 8. Compatibility engine and Builder page
-- [ ] 9. Builder summary and Add to Cart
+- [x] 9. Builder summary and Add to Cart
 - [ ] 10. (stretch) Dashboard from real data
 - [ ] 11. (stretch) Saved builds
 - [ ] 12. Accessibility, responsiveness, quality pass
@@ -117,7 +117,7 @@ sequenceDiagram
 
 ## Notas para continuar
 
-Estado após as Tasks 1–8. Leia antes de começar a próxima task.
+Estado após as Tasks 1–9. Leia antes de começar a próxima task.
 
 ### Ambiente (Windows desta máquina)
 
@@ -194,6 +194,7 @@ Estado após as Tasks 1–8. Leia antes de começar a próxima task.
 - Situação ao fim da Task 6: 297 testes passando (25 arquivos), lint sem erros, build ok.
 - Situação ao fim da Task 7: 357 testes passando (29 arquivos), lint sem erros, build ok (mesmo aviso de bundle > 500 kB).
 - Situação ao fim da Task 8: 401 testes passando (32 arquivos), lint sem erros, build ok (mesmo aviso).
+- Situação ao fim da Task 9: 420 testes passando (33 arquivos), lint sem erros nem avisos, build ok (mesmo aviso de bundle).
 
 ### Montador de PC (Task 8) — base para a Task 9
 
@@ -202,7 +203,15 @@ Estado após as Tasks 1–8. Leia antes de começar a próxima task.
 - Estado: `utils/builder.js`. A montagem (`{ slot: productId }`) fica em `localStorage` (`hardwarehub:builder`), então sobrevive a refresh e à navegação. Peças apagadas ou que mudaram de categoria saem da montagem com um aviso. Também ali: `rankOptions` (opções compatíveis, depois disponíveis, depois mais baratas), `checkOption`, `keySpecsText`, `statusMessage` (textos do banner) e `toggleId`.
 - Página: `pages/Builder.jsx` + `components/builder/BuilderSlot.jsx` e `BuilderStatus.jsx`. Carrega as peças numa requisição só (`categories` do montador, ordenadas por preço). Cada slot é um `<li>` com `<h2>` da categoria; o seletor abre logo abaixo (botão com `aria-expanded`), Esc fecha e o foco volta para o botão do slot. Peças incompatíveis podem ser escolhidas (com o aviso); peças sem estoque não. O banner usa `role="status"`, ícone e título em texto.
 - Como peças sem estoque não podem ser escolhidas e a única placa LGA1700 do seed está sem estoque, a demo "AM5 + LGA1700" funciona no sentido inverso: CPU Intel Core i5-14600K (LGA1700) + placa ASUS B650M (AM5).
-- Para a Task 9: o resumo/total/"Adicionar ao carrinho" ainda não existem; o botão deve exigir `status === "ok"` ou `"warning"` e todas as peças com estoque (a página já mostra o selo "Indisponível" numa peça escolhida que ficou sem estoque). `ComingSoon.jsx` foi removido.
+- `ComingSoon.jsx` foi removido.
+
+### Resumo do montador e carrinho (Task 9)
+
+- `components/builder/BuilderSummary.jsx`: cartão lateral "Resumo do setup" (`<aside>`) com o preço de cada peça, consumo estimado, fonte recomendada e escolhida, a opção de montagem, o total e o botão "Adicionar configuração ao carrinho". Abaixo de 1000 px ele vai para baixo da lista.
+- Montagem opcional: é o serviço de id `"27"` do seed (`ASSEMBLY_SERVICE_ID` em `utils/builder.js`). A página agora pede `categories: [...BUILDER_CATEGORIES, "service"]` para tê-lo na mesma requisição. Se o admin apagar esse serviço, a opção some. A escolha de montagem não é salva no `localStorage`.
+- O botão só habilita com as 7 peças, sem erro (avisos não bloqueiam) e todas com estoque. Quando está desabilitado, o motivo aparece embaixo e é a descrição acessível do botão (`addBlockReason`). Admins veem o botão desabilitado com o motivo. Visitantes podem clicar: vão para o login e voltam ao montador com a montagem salva.
+- Carrinho: `addItems(entries)` (em `utils/cart.js` e no `CartContext`) adiciona tudo numa só alteração, então é um único POST/PATCH. É tudo ou nada: se uma peça passar do estoque (contando o que já está no carrinho), nada muda e a mensagem diz qual peça. Estoque e preço são revalidados de novo no carrinho e no pagamento, como antes.
+- Testes: `pages/BuilderCart.test.jsx` cobre o resumo, os motivos de bloqueio, o visitante, o admin, o limite de estoque e a demo completa (montar, adicionar com montagem, finalizar compra, estoque −1 e vendidos +1 em cada peça).
 
 ### Pendências conhecidas (para a Task 12 ou 13)
 

@@ -106,6 +106,8 @@ export default function CartProvider({ children }) {
       quantityOf: (productId) => cartItems.quantityOf(items, productId),
       addItem: (product, quantity = 1) =>
         mutate((list) => cartItems.addItem(list, product, quantity)),
+      // Several products in one save, all or nothing (PC Builder)
+      addItems: (entries) => mutate((list) => cartItems.addItems(list, entries)),
       setQuantity: (product, quantity) =>
         mutate((list) => cartItems.setItemQuantity(list, product, quantity)),
       removeItem: (productId) =>

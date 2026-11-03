@@ -54,14 +54,15 @@ describe("Builder", () => {
 
     expect(await screen.findByText("Comece escolhendo as peças")).toBeInTheDocument();
     expect(screen.getByRole("heading", { level: 1, name: "Monte seu PC" })).toBeInTheDocument();
-    expect(screen.getAllByRole("heading", { level: 2 })).toHaveLength(7);
+    const slots = screen.getByRole("list", { name: "Componentes do PC" });
+    expect(within(slots).getAllByRole("heading", { level: 2 })).toHaveLength(7);
     expect(within(slot("Placa-mãe")).getByText("Escolha uma placa-mãe")).toBeInTheDocument();
     expect(screen.getByRole("progressbar", { name: "0 de 7 componentes selecionados" })).toHaveAttribute(
       "aria-valuenow",
       "0",
     );
-    // Only builder parts are loaded, in one request
-    expect(listProducts).toHaveBeenCalledWith({ categories: BUILDER_CATEGORIES, sort: "price" });
+    // Builder parts and services (assembly) are loaded in one request
+    expect(listProducts).toHaveBeenCalledWith({ categories: [...BUILDER_CATEGORIES, "service"], sort: "price" });
   });
 
   it("shows an error between CPU and motherboard sockets, and clears it when fixed (demo)", async () => {
