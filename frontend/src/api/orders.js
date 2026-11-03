@@ -1,12 +1,16 @@
 // Orders (/orders): { id, userId, items, total, date, cardLast4, address, status }
-import { http } from "./http";
+import { http, whereEquals } from "./http";
 
 export function listOrders() {
   return http.get("/orders", { _sort: "-date" });
 }
 
+// whereEquals keeps "1" a string (see http.js)
 export function listOrdersByUser(userId) {
-  return http.get("/orders", { userId: String(userId), _sort: "-date" });
+  return http.get("/orders", {
+    ...whereEquals({ userId: String(userId) }),
+    _sort: "-date",
+  });
 }
 
 export function getOrder(id) {

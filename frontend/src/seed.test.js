@@ -74,6 +74,14 @@ describe("seed.json", () => {
     expect(memoryTypes).toEqual(new Set(["DDR4", "DDR5"]));
   });
 
+  it("has offers whose old price is higher than the price", () => {
+    const offers = seed.products.filter((p) => p.oldPrice !== undefined);
+    expect(offers.length).toBeGreaterThanOrEqual(3);
+    for (const product of offers) {
+      expect(product.oldPrice, product.name).toBeGreaterThan(product.price);
+    }
+  });
+
   it("starts with empty carts, orders and builds", () => {
     expect(seed.carts).toEqual([]);
     expect(seed.orders).toEqual([]);

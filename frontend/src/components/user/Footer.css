@@ -41,8 +41,9 @@
   color: var(--cinza-texto);
 }
 
-/* Links list: 3-column grid */
-ul {
+/* Links list: 3-column grid (scoped to the footer; a bare `ul` selector
+   used to turn every list of the site into a grid) */
+.footer-div ul {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   color: rgb(185, 194, 204);

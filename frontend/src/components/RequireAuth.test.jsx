@@ -52,7 +52,7 @@ describe("app routes", () => {
 
   it("/admin is closed to clients", async () => {
     const { router } = renderWithRouter(routes, { path: "/admin/products", session: CLIENT_SESSION });
-    expect(await screen.findByRole("heading", { name: /Olá, Ana/ })).toBeInTheDocument();
+    expect(await screen.findByRole("heading", { level: 1, name: /Performance sem/ })).toBeInTheDocument();
     expect(router.state.location.pathname).toBe("/");
   });
 

@@ -1,0 +1,37 @@
+/* Availability label: icon + text; colours meet WCAG AA on their background */
+.stock-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  width: fit-content;
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.stock-badge svg {
+  width: 0.9rem;
+  height: 0.9rem;
+  flex-shrink: 0;
+}
+
+.stock-badge-success {
+  background-color: var(--verde-claro);
+  color: rgb(21, 128, 61);
+}
+
+.stock-badge-warning {
+  background-color: rgb(254, 252, 232);
+  color: rgb(161, 98, 7);
+}
+
+.stock-badge-danger {
+  background-color: var(--vermelho-claro);
+  color: rgb(185, 28, 28);
+}
+
+.stock-badge-info {
+  background-color: var(--azul-claro);
+  color: rgb(29, 78, 216);
+}

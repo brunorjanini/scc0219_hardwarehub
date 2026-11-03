@@ -1,51 +1,185 @@
-/* Temporary home page (replaced by the storefront in Task 3) */
-.home-placeholder {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  padding: 5rem 1.5rem;
-  text-align: center;
+/* Storefront home page (mockup C01, mockups-html/home.html) */
+.home-page {
   background-color: var(--cinza-claro);
 }
 
-.home-placeholder h1 {
-  font-size: 2rem;
-  font-weight: 500;
+/* Banner: background photo with dark gradients on the sides */
+.home-banner {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 2rem;
+  border-radius: 20px;
+  color: white;
+  background-image:
+    linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.8),
+      rgba(0, 0, 0, 0.35) 45%,
+      rgba(0, 0, 0, 0.1) 70%,
+      rgba(0, 0, 0, 0.7)
+    ),
+    url("../assets/pc_fundo.jpeg");
+  background-size: cover;
+  background-position: center;
+}
+
+.home-banner-badge {
+  width: fit-content;
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  background-color: var(--azul-claro);
+  color: var(--azul);
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.home-banner h1 {
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 1.1;
+  color: white;
+}
+
+.home-banner-text {
+  max-width: 28rem;
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: rgb(226, 232, 240);
+}
+
+.home-banner-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  padding-top: 0.5rem;
+}
+
+/* Benefits: 4 columns, 2 on tablets, 1 on phones */
+.home-benefits {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  list-style: none;
+}
+
+.home-benefit {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.home-benefit-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background-color: var(--azul-claro);
+  color: var(--azul);
+}
+
+.home-benefit-icon svg {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.home-benefit-title,
+.home-benefit-text {
+  display: block;
+}
+
+.home-benefit-title {
+  font-size: 0.85rem;
+  font-weight: 700;
   color: var(--escuro);
 }
 
-.home-placeholder-text {
-  font-size: 0.9rem;
+.home-benefit-text {
+  font-size: 0.75rem;
   color: var(--cinza-texto);
 }
 
-.home-placeholder-actions {
+/* Product sections (best sellers, services) */
+.home-section {
   display: flex;
-  gap: 0.75rem;
+  flex-direction: column;
+  gap: 1rem;
 }
 
-/* Link styled as a button; min-height keeps the 44px touch target */
-.home-placeholder-link {
+.home-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1rem;
+}
+
+.home-section-eyebrow {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--azul);
+}
+
+.home-section h2 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--escuro);
+}
+
+.home-section-text {
+  font-size: 0.85rem;
+  font-weight: 400;
+}
+
+.home-section-link {
   display: inline-flex;
   align-items: center;
+  gap: 0.4rem;
   min-height: 44px;
-  padding: 0 1.25rem;
-  border-radius: var(--raio-campo);
-  background-color: var(--azul);
-  color: white;
   font-size: 0.9rem;
   font-weight: 600;
-  text-decoration: none;
-}
-
-.home-placeholder-link.secondary {
-  background-color: white;
   color: var(--azul);
-  border: 2px solid var(--azul);
+  text-decoration: none;
+  white-space: nowrap;
 }
 
-.home-placeholder-link:focus-visible {
+.home-section-link svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.home-section-link:focus-visible {
   outline: 3px solid var(--ciano);
   outline-offset: 2px;
+}
+
+@media (max-width: 900px) {
+  .home-benefits {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .home-banner {
+    padding: 1.2rem 1rem;
+  }
+
+  .home-banner h1 {
+    font-size: 1.7rem;
+  }
+
+  .home-banner h1 br {
+    display: none;
+  }
+
+  .home-benefits {
+    grid-template-columns: 1fr;
+  }
+
+  .home-section-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }

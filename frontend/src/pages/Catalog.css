@@ -1,0 +1,175 @@
+/* Catalog page (mockup C04) */
+.catalog-page {
+  background-color: var(--cinza-claro);
+}
+
+.catalog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.catalog-header h1 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--escuro);
+}
+
+.catalog-count {
+  font-size: 0.85rem;
+}
+
+.catalog-sort {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.catalog-sort label,
+.catalog-field label,
+.catalog-field legend,
+.catalog-checkbox label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--escuro);
+}
+
+/* Shared look of the catalog inputs; 44px tall for touch */
+.catalog-sort select,
+.catalog-field input,
+.catalog-field select {
+  width: 100%;
+  min-height: 44px;
+  padding: 0 0.6rem;
+  border: 1px solid var(--borda);
+  border-radius: var(--raio-campo);
+  background-color: white;
+  font-size: 0.85rem;
+  color: var(--escuro);
+}
+
+.catalog-sort select {
+  width: auto;
+}
+
+.catalog-sort select:focus-visible,
+.catalog-field input:focus-visible,
+.catalog-field select:focus-visible,
+.catalog-checkbox input:focus-visible {
+  outline: 3px solid var(--ciano);
+  outline-offset: 1px;
+}
+
+/* Filters column on the left, results on the right */
+.catalog-body {
+  display: grid;
+  grid-template-columns: 16rem 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.catalog-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid var(--borda);
+  border-radius: 0.7rem;
+  background-color: white;
+}
+
+.catalog-filters-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--escuro);
+}
+
+.catalog-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  border: none;
+}
+
+.catalog-price-inputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  margin-top: 0.3rem;
+}
+
+.catalog-price-inputs div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.catalog-price-inputs label {
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+
+.catalog-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+}
+
+.catalog-checkbox input {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.catalog-apply {
+  width: 100%;
+}
+
+.catalog-clear {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  min-height: 44px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--azul);
+  text-decoration: none;
+}
+
+.catalog-clear svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.catalog-results {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.catalog-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.catalog-pagination p {
+  font-size: 0.85rem;
+  color: var(--escuro);
+}
+
+.link-button.is-disabled {
+  border-color: var(--borda);
+  color: rgb(148, 163, 184);
+  cursor: not-allowed;
+}
+
+@media (max-width: 900px) {
+  .catalog-body {
+    grid-template-columns: 1fr;
+  }
+}

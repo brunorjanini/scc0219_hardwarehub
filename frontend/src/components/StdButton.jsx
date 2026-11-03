@@ -1,9 +1,10 @@
 import "./StdButton.css";
 
-export default function StdButton({ label }) {
+// Primary form button. Defaults to type="submit" (inside forms).
+export default function StdButton({ label, type = "submit", disabled }) {
   return (
-    <>
-      <button>{label}</button>
-    </>
+    <button className="std-button" type={type} disabled={disabled}>
+      {label}
+    </button>
   );
 }

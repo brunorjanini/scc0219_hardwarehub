@@ -4,7 +4,7 @@
 
 - [x] 1. Test tooling, API layer, seed data
 - [x] 2. Auth completion and route guards
-- [ ] 3. Home, Catalog, Product Detail, Cart state
+- [x] 3. Home, Catalog, Product Detail, Cart state
 - [ ] 4. Cart page, Checkout, Order confirmation
 - [ ] 5. My Account
 - [ ] 6. Admin Products CRUD

@@ -20,8 +20,9 @@
   height: 100vh;
 }
 
-/* Navigation menu: vertical list of links */
-nav {
+/* Navigation menu: vertical list of links.
+   Selectors are scoped to .navbar so they do not restyle other <nav>s */
+.navbar nav {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -31,7 +32,7 @@ nav {
 }
 
 /* Navigation link: full-width clickable item */
-nav a {
+.navbar nav a {
   display: block;
   width: 100%;
   padding: 0.7rem 0.8rem;
@@ -42,7 +43,7 @@ nav a {
 }
 
 /* Highlight for the current page link (set by React Router) */
-nav a.active {
+.navbar nav a.active {
   background-color: var(--azul);
   color: white;
 }
@@ -102,6 +103,6 @@ nav a.active {
 }
 
 /* The page covers all the horizontal space */
-main {
+.layout > main {
   width: 100%;
 }

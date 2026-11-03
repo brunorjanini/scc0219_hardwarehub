@@ -10,6 +10,9 @@ import RequireAuth from "./components/RequireAuth.jsx";
 
 // Store pages
 import Home from "./pages/Home.jsx";
+import Catalog from "./pages/Catalog.jsx";
+import ProductDetail from "./pages/ProductDetail.jsx";
+import ComingSoon from "./pages/ComingSoon.jsx";
 import UserLogin from "./pages/UserLogin.jsx";
 import UserSignIn from "./pages/UserSignIn.jsx";
 
@@ -26,8 +29,31 @@ export const routes = [
     element: <UserLayout />,
     children: [
       { index: true, element: <Home /> },
+      { path: "catalog", element: <Catalog /> },
+      { path: "product/:id", element: <ProductDetail /> },
       { path: "login", element: <UserLogin /> },
       { path: "signup", element: <UserSignIn /> },
+      // Temporary pages until the cart (Task 4) and builder (Task 8) exist
+      {
+        path: "cart",
+        element: (
+          <RequireAuth>
+            <ComingSoon
+              title="Carrinho"
+              text="A página do carrinho está em construção. Os itens adicionados já ficam salvos na sua conta."
+            />
+          </RequireAuth>
+        ),
+      },
+      {
+        path: "monte-seu-pc",
+        element: (
+          <ComingSoon
+            title="Monte seu PC"
+            text="O Montador de PC está em construção."
+          />
+        ),
+      },
     ],
   },
 

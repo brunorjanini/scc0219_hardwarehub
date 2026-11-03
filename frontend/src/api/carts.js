@@ -1,9 +1,10 @@
 // Shopping carts (/carts). One cart per user: { id, userId, items: [{ productId, quantity }] }
-import { http } from "./http";
+import { http, whereEquals } from "./http";
 
-// Returns the user's cart, or null if the user has none yet
+// Returns the user's cart, or null if the user has none yet.
+// whereEquals keeps "1" a string (see http.js).
 export async function getCartByUser(userId) {
-  const carts = await http.get("/carts", { userId: String(userId) });
+  const carts = await http.get("/carts", whereEquals({ userId: String(userId) }));
   return carts.length > 0 ? carts[0] : null;
 }
 

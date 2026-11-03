@@ -170,7 +170,10 @@ export default function UserSignIn() {
 
             {/* Submit button + link to login */}
             <div className="create-account-or-login-div">
-              <StdButton label={submitting ? "Criando conta..." : "Criar conta"} />
+              <StdButton
+                label={submitting ? "Criando conta..." : "Criar conta"}
+                disabled={submitting}
+              />
               <p>
                 Já tem uma conta?{" "}
                 <NavLink to="/login" className="login-link">

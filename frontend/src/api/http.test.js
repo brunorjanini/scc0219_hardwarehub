@@ -1,5 +1,8 @@
 import { describe, expect, it, vi } from "vitest";
-import { API_URL, ApiError, http, request, sameId, toQuery } from "./http";
+import { API_URL, ApiError, http, request, sameId, toQuery, whereEquals } from "./http";
+import { getCartByUser } from "./carts";
+import { listOrdersByUser } from "./orders";
+import { findUsersByUsername } from "./users";
 
 // Builds a fake fetch Response
 function fakeResponse({ status = 200, body = "" } = {}) {
@@ -78,6 +81,27 @@ describe("request", () => {
     expect(error).toBeInstanceOf(ApiError);
     expect(error.status).toBe(0);
     expect(error.message).toMatch(/servidor/);
+  });
+});
+
+describe("whereEquals", () => {
+  it("builds a _where filter that keeps numeric-looking strings as strings", () => {
+    // json-server would turn ?userId=1 into the number 1 and miss "1"
+    expect(whereEquals({ userId: "1" })).toEqual({ _where: '{"userId":{"eq":"1"}}' });
+  });
+
+  it("is used by cart, order and user lookups", async () => {
+    const fetchMock = vi.fn().mockResolvedValue(fakeResponse({ body: [] }));
+    vi.stubGlobal("fetch", fetchMock);
+
+    await getCartByUser(1);
+    await listOrdersByUser("1");
+    await findUsersByUsername("admin");
+
+    const urls = fetchMock.mock.calls.map(([url]) => decodeURIComponent(url));
+    expect(urls[0]).toBe(`${API_URL}/carts?_where={"userId":{"eq":"1"}}`);
+    expect(urls[1]).toBe(`${API_URL}/orders?_where={"userId":{"eq":"1"}}&_sort=-date`);
+    expect(urls[2]).toBe(`${API_URL}/users?_where={"username":{"eq":"admin"}}`);
   });
 });
 

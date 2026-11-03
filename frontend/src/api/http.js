@@ -69,6 +69,20 @@ export const http = {
   delete: (path) => request(path, { method: "DELETE" }),
 };
 
+// Exact-match filter that keeps strings as strings.
+// json-server v1 converts query values that look like numbers ("1") into
+// numbers and compares with ===, so `?userId=1` never matches the stored
+// string "1". The `_where` JSON parameter keeps the original types.
+// Note: `_where` replaces the other filter params (sorting and pagination
+// still apply), so put every filter of the request in `fields`.
+export function whereEquals(fields) {
+  const where = {};
+  for (const [key, value] of Object.entries(fields)) {
+    where[key] = { eq: value };
+  }
+  return { _where: JSON.stringify(where) };
+}
+
 // json-server v1 creates string ids while seed data may use numbers,
 // so ids are always compared as strings.
 export function sameId(a, b) {

@@ -1,15 +1,17 @@
 // Clients and administrators (/users). The `type` field tells them apart:
 // "user" for clients and "admin" for administrators.
-import { http } from "./http";
+import { http, whereEquals } from "./http";
 
 // Returns the users with this email (empty array when none)
 export function findUsersByEmail(email) {
-  return http.get("/users", { email });
+  return http.get("/users", whereEquals({ email }));
 }
 
-// Returns the users with this username (used by the admin/admin login)
+// Returns the users with this username (used by the admin/admin login).
+// whereEquals matters here: a numeric username like "123" would otherwise
+// be compared as a number and never match.
 export function findUsersByUsername(username) {
-  return http.get("/users", { username });
+  return http.get("/users", whereEquals({ username }));
 }
 
 // Lists users, optionally filtered by type ("user" or "admin")

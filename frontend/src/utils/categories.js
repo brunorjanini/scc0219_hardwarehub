@@ -17,6 +17,15 @@ export const BUILDER_CATEGORIES = CATEGORIES.filter((c) => c.builder).map(
   (c) => c.slug,
 );
 
+// Catalog sections used by the header menu and the catalog filter.
+// Each section turns into product filters (see utils/catalogQuery.js).
+export const CATALOG_SECTIONS = [
+  { slug: "hardware", label: "Hardware", filters: { categories: BUILDER_CATEGORIES } },
+  { slug: "peripheral", label: "Periféricos", filters: { category: "peripheral" } },
+  { slug: "service", label: "Serviços", filters: { type: "service" } },
+  { slug: "offers", label: "Ofertas", filters: { onSale: true } },
+];
+
 export function categoryLabel(slug) {
   return CATEGORIES.find((c) => c.slug === slug)?.label ?? slug;
 }

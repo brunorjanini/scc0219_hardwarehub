@@ -55,8 +55,22 @@
   justify-content: end;
 }
 
+/* Styled here explicitly: it used to inherit a global `button` rule */
 .close-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 10px;
   background-color: white;
+  cursor: pointer;
+}
+
+.close-button:focus-visible {
+  outline: 3px solid var(--ciano);
+  outline-offset: -3px;
 }
 
 /* Close icon: gray by default, black on hover */

@@ -31,6 +31,20 @@
       "email": "admin@hardwarehub.com",
       "password": "admin",
       "phone": "(16) 3373-0000"
+    },
+    {
+      "type": "user",
+      "name": "Gabriel Alves",
+      "email": "gabr.santosalves@usp.br",
+      "password": "senhateste!1",
+      "phone": "19982444198",
+      "address": {
+        "street": "Rua dos Inconfidentes",
+        "number": "100",
+        "city": "São Carlos",
+        "zip": "13566-581"
+      },
+      "id": "cA8mNkunZSE"
     }
   ],
   "products": [
@@ -45,7 +59,14 @@
       "price": 2499.9,
       "stock": 3,
       "sold": 42,
-      "specs": { "socket": "AM5", "cores": 8, "threads": 16, "baseClockGhz": 4.2, "boostClockGhz": 5.0, "tdp": 120 }
+      "specs": {
+        "socket": "AM5",
+        "cores": 8,
+        "threads": 16,
+        "baseClockGhz": 4.2,
+        "boostClockGhz": 5,
+        "tdp": 120
+      }
     },
     {
       "id": "2",
@@ -56,9 +77,17 @@
       "photo": "/products/placeholder-cpu.svg",
       "description": "Processador de 6 núcleos para a plataforma AM5, ótimo custo-benefício para jogos.",
       "price": 1199.9,
+      "oldPrice": 1399.9,
       "stock": 15,
       "sold": 30,
-      "specs": { "socket": "AM5", "cores": 6, "threads": 12, "baseClockGhz": 3.8, "boostClockGhz": 5.1, "tdp": 65 }
+      "specs": {
+        "socket": "AM5",
+        "cores": 6,
+        "threads": 12,
+        "baseClockGhz": 3.8,
+        "boostClockGhz": 5.1,
+        "tdp": 65
+      }
     },
     {
       "id": "3",
@@ -71,7 +100,14 @@
       "price": 649.9,
       "stock": 20,
       "sold": 55,
-      "specs": { "socket": "AM4", "cores": 6, "threads": 12, "baseClockGhz": 3.5, "boostClockGhz": 4.4, "tdp": 65 }
+      "specs": {
+        "socket": "AM4",
+        "cores": 6,
+        "threads": 12,
+        "baseClockGhz": 3.5,
+        "boostClockGhz": 4.4,
+        "tdp": 65
+      }
     },
     {
       "id": "4",
@@ -84,7 +120,14 @@
       "price": 1899.9,
       "stock": 10,
       "sold": 18,
-      "specs": { "socket": "LGA1700", "cores": 14, "threads": 20, "baseClockGhz": 3.5, "boostClockGhz": 5.3, "tdp": 125 }
+      "specs": {
+        "socket": "LGA1700",
+        "cores": 14,
+        "threads": 20,
+        "baseClockGhz": 3.5,
+        "boostClockGhz": 5.3,
+        "tdp": 125
+      }
     },
     {
       "id": "5",
@@ -97,7 +140,14 @@
       "price": 1299.9,
       "stock": 7,
       "sold": 21,
-      "specs": { "socket": "AM5", "chipset": "B650", "formFactor": "mATX", "memoryType": "DDR5", "memorySlots": 4, "maxMemoryGb": 192 }
+      "specs": {
+        "socket": "AM5",
+        "chipset": "B650",
+        "formFactor": "mATX",
+        "memoryType": "DDR5",
+        "memorySlots": 4,
+        "maxMemoryGb": 192
+      }
     },
     {
       "id": "6",
@@ -110,7 +160,14 @@
       "price": 1599.9,
       "stock": 5,
       "sold": 12,
-      "specs": { "socket": "AM5", "chipset": "B650", "formFactor": "ATX", "memoryType": "DDR5", "memorySlots": 4, "maxMemoryGb": 192 }
+      "specs": {
+        "socket": "AM5",
+        "chipset": "B650",
+        "formFactor": "ATX",
+        "memoryType": "DDR5",
+        "memorySlots": 4,
+        "maxMemoryGb": 192
+      }
     },
     {
       "id": "7",
@@ -123,7 +180,14 @@
       "price": 699.9,
       "stock": 12,
       "sold": 33,
-      "specs": { "socket": "AM4", "chipset": "B550", "formFactor": "mATX", "memoryType": "DDR4", "memorySlots": 4, "maxMemoryGb": 128 }
+      "specs": {
+        "socket": "AM4",
+        "chipset": "B550",
+        "formFactor": "mATX",
+        "memoryType": "DDR4",
+        "memorySlots": 4,
+        "maxMemoryGb": 128
+      }
     },
     {
       "id": "8",
@@ -136,7 +200,14 @@
       "price": 999.9,
       "stock": 0,
       "sold": 9,
-      "specs": { "socket": "LGA1700", "chipset": "B760", "formFactor": "mATX", "memoryType": "DDR5", "memorySlots": 4, "maxMemoryGb": 192 }
+      "specs": {
+        "socket": "LGA1700",
+        "chipset": "B760",
+        "formFactor": "mATX",
+        "memoryType": "DDR5",
+        "memorySlots": 4,
+        "maxMemoryGb": 192
+      }
     },
     {
       "id": "9",
@@ -147,9 +218,15 @@
       "photo": "/products/placeholder-ram.svg",
       "description": "Kit de memória DDR5 dual channel com perfil EXPO/XMP de 6000MHz.",
       "price": 899.9,
+      "oldPrice": 1049.9,
       "stock": 14,
       "sold": 40,
-      "specs": { "memoryType": "DDR5", "capacityGb": 32, "modules": 2, "speedMhz": 6000 }
+      "specs": {
+        "memoryType": "DDR5",
+        "capacityGb": 32,
+        "modules": 2,
+        "speedMhz": 6000
+      }
     },
     {
       "id": "10",
@@ -162,7 +239,12 @@
       "price": 499.9,
       "stock": 18,
       "sold": 25,
-      "specs": { "memoryType": "DDR5", "capacityGb": 16, "modules": 2, "speedMhz": 5600 }
+      "specs": {
+        "memoryType": "DDR5",
+        "capacityGb": 16,
+        "modules": 2,
+        "speedMhz": 5600
+      }
     },
     {
       "id": "11",
@@ -175,7 +257,12 @@
       "price": 299.9,
       "stock": 25,
       "sold": 60,
-      "specs": { "memoryType": "DDR4", "capacityGb": 16, "modules": 2, "speedMhz": 3200 }
+      "specs": {
+        "memoryType": "DDR4",
+        "capacityGb": 16,
+        "modules": 2,
+        "speedMhz": 3200
+      }
     },
     {
       "id": "12",
@@ -188,7 +275,12 @@
       "price": 549.9,
       "stock": 9,
       "sold": 22,
-      "specs": { "memoryType": "DDR4", "capacityGb": 32, "modules": 2, "speedMhz": 3600 }
+      "specs": {
+        "memoryType": "DDR4",
+        "capacityGb": 32,
+        "modules": 2,
+        "speedMhz": 3600
+      }
     },
     {
       "id": "13",
@@ -199,9 +291,15 @@
       "photo": "/products/geoforce_rtx.jpg",
       "description": "Placa de vídeo para jogos em 1440p com DLSS 3 e ray tracing.",
       "price": 4299.9,
+      "oldPrice": 4899.9,
       "stock": 6,
       "sold": 27,
-      "specs": { "vramGb": 12, "lengthMm": 261, "tdp": 220, "recommendedPsuW": 650 }
+      "specs": {
+        "vramGb": 12,
+        "lengthMm": 261,
+        "tdp": 220,
+        "recommendedPsuW": 650
+      }
     },
     {
       "id": "14",
@@ -214,7 +312,12 @@
       "price": 1799.9,
       "stock": 11,
       "sold": 19,
-      "specs": { "vramGb": 8, "lengthMm": 240, "tdp": 165, "recommendedPsuW": 550 }
+      "specs": {
+        "vramGb": 8,
+        "lengthMm": 240,
+        "tdp": 165,
+        "recommendedPsuW": 550
+      }
     },
     {
       "id": "15",
@@ -227,7 +330,12 @@
       "price": 7999.9,
       "stock": 3,
       "sold": 6,
-      "specs": { "vramGb": 16, "lengthMm": 348, "tdp": 320, "recommendedPsuW": 850 }
+      "specs": {
+        "vramGb": 16,
+        "lengthMm": 348,
+        "tdp": 320,
+        "recommendedPsuW": 850
+      }
     },
     {
       "id": "16",
@@ -240,7 +348,11 @@
       "price": 449.9,
       "stock": 0,
       "sold": 70,
-      "specs": { "storageType": "NVMe", "capacityGb": 1000, "interface": "PCIe 4.0 x4" }
+      "specs": {
+        "storageType": "NVMe",
+        "capacityGb": 1000,
+        "interface": "PCIe 4.0 x4"
+      }
     },
     {
       "id": "17",
@@ -253,7 +365,11 @@
       "price": 1299.9,
       "stock": 6,
       "sold": 14,
-      "specs": { "storageType": "NVMe", "capacityGb": 2000, "interface": "PCIe 4.0 x4" }
+      "specs": {
+        "storageType": "NVMe",
+        "capacityGb": 2000,
+        "interface": "PCIe 4.0 x4"
+      }
     },
     {
       "id": "18",
@@ -266,7 +382,11 @@
       "price": 449.9,
       "stock": 10,
       "sold": 11,
-      "specs": { "storageType": "HDD", "capacityGb": 2000, "interface": "SATA III" }
+      "specs": {
+        "storageType": "HDD",
+        "capacityGb": 2000,
+        "interface": "SATA III"
+      }
     },
     {
       "id": "19",
@@ -279,7 +399,11 @@
       "price": 399.9,
       "stock": 9,
       "sold": 16,
-      "specs": { "watts": 550, "efficiency": "80 Plus Bronze", "modular": false }
+      "specs": {
+        "watts": 550,
+        "efficiency": "80 Plus Bronze",
+        "modular": false
+      }
     },
     {
       "id": "20",
@@ -292,7 +416,11 @@
       "price": 499.9,
       "stock": 12,
       "sold": 24,
-      "specs": { "watts": 650, "efficiency": "80 Plus Bronze", "modular": false }
+      "specs": {
+        "watts": 650,
+        "efficiency": "80 Plus Bronze",
+        "modular": false
+      }
     },
     {
       "id": "21",
@@ -303,9 +431,14 @@
       "photo": "/products/placeholder-psu.svg",
       "description": "Fonte modular de 850W com certificação 80 Plus Gold e conector 12V-2x6.",
       "price": 899.9,
+      "oldPrice": 999.9,
       "stock": 7,
       "sold": 13,
-      "specs": { "watts": 850, "efficiency": "80 Plus Gold", "modular": true }
+      "specs": {
+        "watts": 850,
+        "efficiency": "80 Plus Gold",
+        "modular": true
+      }
     },
     {
       "id": "22",
@@ -318,7 +451,14 @@
       "price": 649.9,
       "stock": 8,
       "sold": 15,
-      "specs": { "supportedFormFactors": ["ATX", "mATX", "ITX"], "maxGpuLengthMm": 392 }
+      "specs": {
+        "supportedFormFactors": [
+          "ATX",
+          "mATX",
+          "ITX"
+        ],
+        "maxGpuLengthMm": 392
+      }
     },
     {
       "id": "23",
@@ -331,7 +471,14 @@
       "price": 599.9,
       "stock": 6,
       "sold": 10,
-      "specs": { "supportedFormFactors": ["ATX", "mATX", "ITX"], "maxGpuLengthMm": 365 }
+      "specs": {
+        "supportedFormFactors": [
+          "ATX",
+          "mATX",
+          "ITX"
+        ],
+        "maxGpuLengthMm": 365
+      }
     },
     {
       "id": "24",
@@ -344,7 +491,13 @@
       "price": 399.9,
       "stock": 10,
       "sold": 8,
-      "specs": { "supportedFormFactors": ["mATX", "ITX"], "maxGpuLengthMm": 330 }
+      "specs": {
+        "supportedFormFactors": [
+          "mATX",
+          "ITX"
+        ],
+        "maxGpuLengthMm": 330
+      }
     },
     {
       "id": "25",
@@ -357,7 +510,10 @@
       "price": 449.9,
       "stock": 20,
       "sold": 35,
-      "specs": { "kind": "Teclado", "connection": "USB" }
+      "specs": {
+        "kind": "Teclado",
+        "connection": "USB"
+      }
     },
     {
       "id": "26",
@@ -368,9 +524,15 @@
       "photo": "/products/monitor.jpeg",
       "description": "Monitor IPS de 27 polegadas, resolução 2560x1440 e 180Hz.",
       "price": 1899.9,
+      "oldPrice": 2199.9,
       "stock": 0,
       "sold": 12,
-      "specs": { "kind": "Monitor", "sizeInches": 27, "resolution": "2560x1440", "refreshHz": 180 }
+      "specs": {
+        "kind": "Monitor",
+        "sizeInches": 27,
+        "resolution": "2560x1440",
+        "refreshHz": 180
+      }
     },
     {
       "id": "27",
@@ -383,7 +545,9 @@
       "price": 199.9,
       "stock": null,
       "sold": 20,
-      "specs": { "durationHours": 4 }
+      "specs": {
+        "durationHours": 4
+      }
     },
     {
       "id": "28",
@@ -396,7 +560,9 @@
       "price": 99.9,
       "stock": null,
       "sold": 15,
-      "specs": { "durationHours": 2 }
+      "specs": {
+        "durationHours": 2
+      }
     },
     {
       "id": "29",
@@ -409,7 +575,9 @@
       "price": 149.9,
       "stock": null,
       "sold": 9,
-      "specs": { "durationHours": 2 }
+      "specs": {
+        "durationHours": 2
+      }
     },
     {
       "id": "30",
@@ -422,10 +590,28 @@
       "price": 79.9,
       "stock": null,
       "sold": 6,
-      "specs": { "durationHours": 1 }
+      "specs": {
+        "durationHours": 1
+      }
     }
   ],
-  "carts": [],
+  "carts": [
+    {
+      "userId": "cA8mNkunZSE",
+      "items": [
+        {
+          "productId": "3",
+          "quantity": 2
+        },
+        {
+          "productId": "1",
+          "quantity": 1
+        }
+      ],
+      "id": "L75WzU2xalo"
+    }
+  ],
   "orders": [],
-  "builds": []
+  "builds": [],
+  "$schema": "./node_modules/json-server/schema.json"
 }

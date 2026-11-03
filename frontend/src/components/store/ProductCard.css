@@ -1,0 +1,102 @@
+/* Grid used by the home page and the catalog: as many 15rem columns as fit */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+  gap: 1.25rem;
+  list-style: none;
+}
+
+.product-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  height: 100%;
+  padding: 1rem;
+  border: 1px solid var(--borda);
+  border-radius: 0.7rem;
+  background-color: white;
+}
+
+.product-card-image {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: contain;
+  border-radius: 0.4rem;
+  background-color: var(--cinza-claro);
+}
+
+.product-card-category {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--azul);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+/* Name clamped to 2 lines so all cards keep the same height */
+.product-card-name {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  min-height: 2.5rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.25rem;
+}
+
+.product-card-name a {
+  color: var(--escuro);
+  text-decoration: none;
+}
+
+.product-card-name a:hover {
+  text-decoration: underline;
+}
+
+.product-card-name a:focus-visible {
+  outline: 3px solid var(--ciano);
+  outline-offset: 2px;
+}
+
+/* Prices sit above the button, pushed to the bottom of the card */
+.product-card-prices {
+  margin-top: auto;
+}
+
+.product-card-old-price {
+  font-size: 0.75rem;
+  color: var(--cinza-texto);
+}
+
+.product-card-price {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--escuro);
+}
+
+@media (max-width: 600px) {
+  .product-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.7rem;
+  }
+
+  .product-card {
+    padding: 0.6rem;
+  }
+
+  .product-card-name {
+    font-size: 0.85rem;
+  }
+
+  .product-card-price {
+    font-size: 1.05rem;
+  }
+}
+
+@media (max-width: 340px) {
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+}

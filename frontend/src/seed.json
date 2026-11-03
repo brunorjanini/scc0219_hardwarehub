@@ -56,6 +56,7 @@
       "photo": "/products/placeholder-cpu.svg",
       "description": "Processador de 6 núcleos para a plataforma AM5, ótimo custo-benefício para jogos.",
       "price": 1199.9,
+      "oldPrice": 1399.9,
       "stock": 15,
       "sold": 30,
       "specs": { "socket": "AM5", "cores": 6, "threads": 12, "baseClockGhz": 3.8, "boostClockGhz": 5.1, "tdp": 65 }
@@ -147,6 +148,7 @@
       "photo": "/products/placeholder-ram.svg",
       "description": "Kit de memória DDR5 dual channel com perfil EXPO/XMP de 6000MHz.",
       "price": 899.9,
+      "oldPrice": 1049.9,
       "stock": 14,
       "sold": 40,
       "specs": { "memoryType": "DDR5", "capacityGb": 32, "modules": 2, "speedMhz": 6000 }
@@ -199,6 +201,7 @@
       "photo": "/products/geoforce_rtx.jpg",
       "description": "Placa de vídeo para jogos em 1440p com DLSS 3 e ray tracing.",
       "price": 4299.9,
+      "oldPrice": 4899.9,
       "stock": 6,
       "sold": 27,
       "specs": { "vramGb": 12, "lengthMm": 261, "tdp": 220, "recommendedPsuW": 650 }
@@ -303,6 +306,7 @@
       "photo": "/products/placeholder-psu.svg",
       "description": "Fonte modular de 850W com certificação 80 Plus Gold e conector 12V-2x6.",
       "price": 899.9,
+      "oldPrice": 999.9,
       "stock": 7,
       "sold": 13,
       "specs": { "watts": 850, "efficiency": "80 Plus Gold", "modular": true }
@@ -368,6 +372,7 @@
       "photo": "/products/monitor.jpeg",
       "description": "Monitor IPS de 27 polegadas, resolução 2560x1440 e 180Hz.",
       "price": 1899.9,
+      "oldPrice": 2199.9,
       "stock": 0,
       "sold": 12,
       "specs": { "kind": "Monitor", "sizeInches": 27, "resolution": "2560x1440", "refreshHz": 180 }

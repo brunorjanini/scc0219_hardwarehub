@@ -2,7 +2,16 @@
 // unmounting rendered components after each test.
 import "@testing-library/jest-dom/vitest";
 import { cleanup } from "@testing-library/react";
-import { afterEach, vi } from "vitest";
+import { afterEach, beforeEach, vi } from "vitest";
+
+// Tests never reach a real server: any request that a test did not mock
+// fails right away like an unreachable server (pages show their error state).
+beforeEach(() => {
+  vi.stubGlobal(
+    "fetch",
+    vi.fn(() => Promise.reject(new TypeError("fetch is not mocked in this test"))),
+  );
+});
 
 afterEach(() => {
   cleanup();

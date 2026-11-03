@@ -1,0 +1,67 @@
+.quantity-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.quantity-selector label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--escuro);
+}
+
+.quantity-selector-controls {
+  display: inline-flex;
+  align-items: stretch;
+  width: fit-content;
+  border: 1px solid var(--borda);
+  border-radius: var(--raio-campo);
+  overflow: hidden;
+}
+
+/* 44px square buttons (touch target) */
+.quantity-selector-controls button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 0;
+  background-color: var(--cinza-claro);
+  color: var(--escuro);
+  cursor: pointer;
+}
+
+.quantity-selector-controls button:disabled {
+  color: rgb(148, 163, 184);
+  cursor: not-allowed;
+}
+
+.quantity-selector-controls button svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.quantity-selector-controls input {
+  width: 3.5rem;
+  border: none;
+  border-left: 1px solid var(--borda);
+  border-right: 1px solid var(--borda);
+  text-align: center;
+  font-size: 0.95rem;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.quantity-selector-controls input::-webkit-inner-spin-button,
+.quantity-selector-controls input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.quantity-selector-controls button:focus-visible,
+.quantity-selector-controls input:focus-visible {
+  outline: 3px solid var(--ciano);
+  outline-offset: -3px;
+}

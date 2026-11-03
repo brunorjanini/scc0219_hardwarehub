@@ -1,9 +1,24 @@
-button {
+/* Primary full-width form button (login and sign-up).
+   Scoped to .std-button: a bare `button` selector used to restyle every
+   button of the site. */
+.std-button {
   height: 2.4rem;
+  min-height: 44px;
   width: 100%;
   border-radius: 10px;
   border: none;
   background-color: var(--azul);
   color: white;
   box-shadow: none;
+  cursor: pointer;
+}
+
+.std-button:focus-visible {
+  outline: 3px solid var(--ciano);
+  outline-offset: 2px;
+}
+
+.std-button:disabled {
+  opacity: 0.7;
+  cursor: wait;
 }
