@@ -68,12 +68,6 @@ p {
   padding: 1.6rem 4rem 3rem;
 }
 
-.coming-soon-title {
-  font-size: 1.8rem;
-  font-weight: 600;
-  color: var(--escuro);
-}
-
 /* Loading, empty and error messages of store pages */
 .page-message {
   padding: 2rem 1rem;

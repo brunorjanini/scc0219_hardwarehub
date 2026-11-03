@@ -12,7 +12,7 @@ import RequireAuth from "./components/RequireAuth.jsx";
 import Home from "./pages/Home.jsx";
 import Catalog from "./pages/Catalog.jsx";
 import ProductDetail from "./pages/ProductDetail.jsx";
-import ComingSoon from "./pages/ComingSoon.jsx";
+import Builder from "./pages/Builder.jsx";
 import Cart from "./pages/Cart.jsx";
 import Checkout from "./pages/Checkout.jsx";
 import OrderConfirmation from "./pages/OrderConfirmation.jsx";
@@ -43,16 +43,8 @@ export const routes = [
       { path: "checkout", element: <RequireAuth role="user"><Checkout /></RequireAuth> },
       { path: "order/:id", element: <RequireAuth role="user"><OrderConfirmation /></RequireAuth> },
       { path: "account", element: <RequireAuth role="user"><Account /></RequireAuth> },
-      // Temporary page until the builder (Task 8) exists
-      {
-        path: "monte-seu-pc",
-        element: (
-          <ComingSoon
-            title="Monte seu PC"
-            text="O Montador de PC está em construção."
-          />
-        ),
-      },
+      // PC Builder: open to everyone (adding to the cart asks for login)
+      { path: "monte-seu-pc", element: <Builder /> },
     ],
   },
 

@@ -9,7 +9,7 @@
 - [x] 5. My Account
 - [x] 6. Admin Products CRUD
 - [x] 7. Admin Clients and Admins CRUD
-- [ ] 8. Compatibility engine and Builder page
+- [x] 8. Compatibility engine and Builder page
 - [ ] 9. Builder summary and Add to Cart
 - [ ] 10. (stretch) Dashboard from real data
 - [ ] 11. (stretch) Saved builds
@@ -117,7 +117,7 @@ sequenceDiagram
 
 ## Notas para continuar
 
-Estado após as Tasks 1–7. Leia antes de começar a próxima task.
+Estado após as Tasks 1–8. Leia antes de começar a próxima task.
 
 ### Ambiente (Windows desta máquina)
 
@@ -193,12 +193,21 @@ Estado após as Tasks 1–7. Leia antes de começar a próxima task.
 - Situação ao fim da Task 5: 214 testes passando, lint sem erros, build ok.
 - Situação ao fim da Task 6: 297 testes passando (25 arquivos), lint sem erros, build ok.
 - Situação ao fim da Task 7: 357 testes passando (29 arquivos), lint sem erros, build ok (mesmo aviso de bundle > 500 kB).
+- Situação ao fim da Task 8: 401 testes passando (32 arquivos), lint sem erros, build ok (mesmo aviso).
+
+### Montador de PC (Task 8) — base para a Task 9
+
+- Motor: `utils/compatibility.js`. `analyzeCompatibility(parts)` recebe `{ cpu, motherboard, ram, gpu, storage, psu, case }` (produtos ou vazio) e devolve `{ status, issues, estimatedWatts, recommendedWatts, selectedCount, totalSlots }`. Cada issue: `{ id, level: "error"|"warning", parts: [slots], message }`; ids `socket`, `memory`, `formFactor`, `gpuLength`, `psuPower`, `psuMargin`.
+- Regras extras além do plano: erros aparecem assim que as duas peças da regra estão escolhidas (mesmo com a montagem incompleta), porque escolher mais peças nunca os resolve; a fonte é checada assim que há CPU ou GPU. A fonte recomendada é 1,2 × consumo arredondado para cima de 50 em 50 W, e o aviso aparece quando a fonte fica abaixo desse valor. Faltando um dado técnico, a regra vira aviso ("Não foi possível verificar…") em vez de adivinhar. Prioridade do status: `error` > `incomplete` > `warning` > `ok`.
+- Estado: `utils/builder.js`. A montagem (`{ slot: productId }`) fica em `localStorage` (`hardwarehub:builder`), então sobrevive a refresh e à navegação. Peças apagadas ou que mudaram de categoria saem da montagem com um aviso. Também ali: `rankOptions` (opções compatíveis, depois disponíveis, depois mais baratas), `checkOption`, `keySpecsText`, `statusMessage` (textos do banner) e `toggleId`.
+- Página: `pages/Builder.jsx` + `components/builder/BuilderSlot.jsx` e `BuilderStatus.jsx`. Carrega as peças numa requisição só (`categories` do montador, ordenadas por preço). Cada slot é um `<li>` com `<h2>` da categoria; o seletor abre logo abaixo (botão com `aria-expanded`), Esc fecha e o foco volta para o botão do slot. Peças incompatíveis podem ser escolhidas (com o aviso); peças sem estoque não. O banner usa `role="status"`, ícone e título em texto.
+- Como peças sem estoque não podem ser escolhidas e a única placa LGA1700 do seed está sem estoque, a demo "AM5 + LGA1700" funciona no sentido inverso: CPU Intel Core i5-14600K (LGA1700) + placa ASUS B650M (AM5).
+- Para a Task 9: o resumo/total/"Adicionar ao carrinho" ainda não existem; o botão deve exigir `status === "ok"` ou `"warning"` e todas as peças com estoque (a página já mostra o selo "Indisponível" numa peça escolhida que ficou sem estoque). `ComingSoon.jsx` foi removido.
 
 ### Pendências conhecidas (para a Task 12 ou 13)
 
 - Build avisa que o bundle JS passa de 500 kB (~558 kB após a Task 6). Carregar as páginas do admin sob demanda (`lazy`) resolve.
 - `Logo.jsx` usa alt "Dark theme logo"/"Light theme logo"; trocar por "HardwareHub".
 - Links do rodapé (`Footer.jsx`) não levam a lugar nenhum.
-- `/monte-seu-pc` ainda é a página temporária `ComingSoon` (Task 8).
 - Para a seção "Problems" do README: senhas em texto puro (só no mock) e compras simultâneas dos últimos itens podem passar as duas, porque json-server não tem transações.
 - O commit `3f90591` ainda tem um usuário de teste com e-mail real e senha no histórico do Git.
