@@ -3,9 +3,10 @@
 // make the mocked functions read and write this fake database.
 import { getProduct, listProducts, updateProduct } from "../api/products";
 import { createCart, getCartByUser, saveCartItems } from "../api/carts";
-import { createOrder, getOrder } from "../api/orders";
-import { getUser } from "../api/users";
+import { createOrder, getOrder, listOrdersByUser } from "../api/orders";
+import { findUsersByEmail, getUser, updateUser } from "../api/users";
 import { ApiError } from "../api/http";
+import { vi } from "vitest";
 
 const notFound = () => new ApiError("Erro na requisição (404)", 404);
 
@@ -57,7 +58,27 @@ export function installStore({ products = [], cartItems = null, users = [], orde
     return { ...user };
   });
 
+  // Optional mocks: wired only when the test file mocked them
+  wire(updateUser, async (id, changes) => {
+    if (!db.users[String(id)]) throw notFound();
+    db.users[String(id)] = { ...db.users[String(id)], ...changes };
+    return { ...db.users[String(id)] };
+  });
+  wire(findUsersByEmail, async (email) =>
+    Object.values(db.users).filter((u) => u.email === email).map((u) => ({ ...u })),
+  );
+  wire(listOrdersByUser, async (userId) =>
+    Object.values(db.orders)
+      .filter((o) => o.userId === String(userId))
+      .sort((a, b) => b.date.localeCompare(a.date))
+      .map((o) => ({ ...o })),
+  );
+
   return db;
+}
+
+function wire(fn, implementation) {
+  if (vi.isMockFunction(fn)) fn.mockReset().mockImplementation(implementation);
 }
 
 // The seed client (id "1"), with an address for the checkout form

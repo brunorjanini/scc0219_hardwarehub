@@ -10,6 +10,15 @@ export function validatePassword(password = "") {
   return "";
 }
 
+// Password change form: all fields, matching confirmation, a new value,
+// and the sign-up rule for the new password
+export function validatePasswordChange({ current = "", next = "", confirm = "" }) {
+  if (!current || !next || !confirm) return "Preencha todos os campos de senha";
+  if (next !== confirm) return "A confirmação não confere com a nova senha";
+  if (next === current) return "A nova senha deve ser diferente da atual";
+  return validatePassword(next);
+}
+
 // Brazilian phone: 10 or 11 digits, formatting characters are ignored
 export function validatePhone(phone = "") {
   const digits = phone.replace(/\D/g, "");

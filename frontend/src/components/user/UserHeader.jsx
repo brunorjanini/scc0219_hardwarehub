@@ -84,8 +84,23 @@ export default function UserHeader() {
         {/* Account area: login link for guests, name + logout when logged in */}
         {user ? (
           <div className="header-account">
-            <UserRound className="user-icon" aria-hidden="true" />
-            <span className="header-greeting">Olá, {firstName(user.name)}</span>
+            {/* Clients open My Account from their name. On phones the
+                greeting text is hidden and the icon stays as the link. */}
+            {user.type === "user" ? (
+              <NavLink
+                to="/account"
+                className="header-account-link"
+                aria-label={`Olá, ${firstName(user.name)} (Minha conta)`}
+              >
+                <UserRound className="user-icon" aria-hidden="true" />
+                <span className="header-greeting">Olá, {firstName(user.name)}</span>
+              </NavLink>
+            ) : (
+              <>
+                <UserRound className="user-icon" aria-hidden="true" />
+                <span className="header-greeting">Olá, {firstName(user.name)}</span>
+              </>
+            )}
             {user.type === "admin" && (
               <NavLink to="/admin" className="header-account-link">
                 Painel

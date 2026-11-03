@@ -59,16 +59,25 @@ export default function OrderConfirmation() {
     );
   }
 
+  // Right after checkout the page celebrates; from My Account it is a detail view
+  const justPlaced = Boolean(location.state?.justPlaced);
+
   return (
     <div className="store-page order-page">
       <section className="order-confirmation" aria-labelledby="order-title">
         <CircleCheck className="order-icon" aria-hidden="true" />
         <h1 id="order-title" className="order-title">
-          Pedido confirmado!
+          {justPlaced ? "Pedido confirmado!" : `Pedido #${order.id}`}
         </h1>
         <p className="order-lead">
-          Obrigado pela compra. O pagamento foi aprovado e o pedido <strong>#{order.id}</strong> já está
-          em preparação.
+          {justPlaced ? (
+            <>
+              Obrigado pela compra. O pagamento foi aprovado e o pedido <strong>#{order.id}</strong> já
+              está em preparação.
+            </>
+          ) : (
+            <>Feito em {formatDateTime(order.date)}.</>
+          )}
         </p>
         {location.state?.cartNotCleared && (
           <p className="page-message error" role="alert">
@@ -107,9 +116,14 @@ export default function OrderConfirmation() {
         </section>
       </div>
 
-      <Link to={catalogPath({})} className="link-button order-continue">
-        Continuar comprando
-      </Link>
+      <div className="order-actions">
+        <Link to={catalogPath({})} className="link-button">
+          Continuar comprando
+        </Link>
+        <Link to="/account#pedidos" className="link-button secondary">
+          Ver meus pedidos
+        </Link>
+      </div>
     </div>
   );
 }

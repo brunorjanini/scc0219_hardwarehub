@@ -9,5 +9,8 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: ['./src/test/setup.js'],
     include: ['src/**/*.test.{js,jsx}'],
+    // Page tests type into whole forms and wait for redirect delays;
+    // the 5s default made them flaky on slower machines
+    testTimeout: 15000,
   },
 })

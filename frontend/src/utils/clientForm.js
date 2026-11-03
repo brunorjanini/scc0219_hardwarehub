@@ -61,3 +61,42 @@ export function toClientRecord(values) {
     },
   };
 }
+
+// ---- My Account: profile form (full name in one field, no password) ----
+
+// Reads the profile fields from a FormData object (trimmed strings)
+export function readProfileForm(formData) {
+  const get = (name) => (formData.get(name) ?? "").toString().trim();
+  return {
+    name: get("name"),
+    email: get("email").toLowerCase(),
+    phone: get("phone"),
+    street: get("street"),
+    number: get("number"),
+    city: get("city"),
+    zip: get("zip"),
+  };
+}
+
+// Same rules as sign-up, minus the password
+export function validateProfile(values) {
+  const required = [values.name, values.email, values.phone, values.street, values.number, values.city, values.zip];
+  if (required.some((value) => !value)) return "Preencha todos os campos";
+  if (!verifyEmail(values.email)) return "E-mail inválido";
+  return validatePhone(values.phone) || validateZip(values.zip);
+}
+
+// Validated profile values -> PATCH body for /users/:id
+export function toProfileChanges(values) {
+  return {
+    name: values.name,
+    email: values.email,
+    phone: values.phone,
+    address: {
+      street: values.street,
+      number: values.number,
+      city: values.city,
+      zip: values.zip,
+    },
+  };
+}

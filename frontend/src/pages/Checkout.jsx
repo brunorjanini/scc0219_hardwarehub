@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router";
 import { CreditCard, Lock } from "lucide-react";
 import OrderLines from "../components/store/OrderLines";
+import Field from "../components/FormField";
 import { useAuth } from "../contexts/useAuth";
 import { useCart } from "../contexts/useCart";
 import { useCartProducts } from "../hooks/useCartProducts";
@@ -39,16 +40,6 @@ function useSavedAddress(userId) {
 function validatePayment({ street, number, city, zip, cardNumber }) {
   if (!street || !number || !city || !zip) return "Preencha o endereço de entrega";
   return validateZip(zip) || validateCardNumber(cardNumber);
-}
-
-// Labeled text field of this form
-function Field({ id, label, ...inputProps }) {
-  return (
-    <div className="checkout-field">
-      <label htmlFor={id}>{label}</label>
-      <input id={id} name={id} {...inputProps} />
-    </div>
-  );
 }
 
 // Checkout page (mockup C08): delivery address + card number.
@@ -107,7 +98,7 @@ export default function Checkout() {
       const cleared = await cart.clearCart();
       navigate(`/order/${order.id}`, {
         replace: true,
-        state: { cartNotCleared: Boolean(cleared.error) },
+        state: { justPlaced: true, cartNotCleared: Boolean(cleared.error) },
       });
     } catch (placeError) {
       setMessage(placeError.message);
@@ -166,13 +157,13 @@ export default function Checkout() {
 
           <fieldset>
             <legend>Endereço de entrega</legend>
-            <div className="checkout-row">
+            <div className="form-row">
               <Field id="street" label="Rua" defaultValue={address.street} autoComplete="address-line1" />
-              <Field id="number" label="Número" defaultValue={address.number} className="checkout-short" />
+              <Field id="number" label="Número" defaultValue={address.number} short />
             </div>
-            <div className="checkout-row">
+            <div className="form-row">
               <Field id="city" label="Cidade" defaultValue={address.city} autoComplete="address-level2" />
-              <Field id="zip" label="CEP" defaultValue={address.zip} autoComplete="postal-code" inputMode="numeric" className="checkout-short" />
+              <Field id="zip" label="CEP" defaultValue={address.zip} autoComplete="postal-code" inputMode="numeric" short />
             </div>
           </fieldset>
 

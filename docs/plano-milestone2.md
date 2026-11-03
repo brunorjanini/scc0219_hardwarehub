@@ -6,7 +6,7 @@
 - [x] 2. Auth completion and route guards
 - [x] 3. Home, Catalog, Product Detail, Cart state
 - [x] 4. Cart page, Checkout, Order confirmation
-- [ ] 5. My Account
+- [x] 5. My Account
 - [ ] 6. Admin Products CRUD
 - [ ] 7. Admin Clients and Admins CRUD
 - [ ] 8. Compatibility engine and Builder page

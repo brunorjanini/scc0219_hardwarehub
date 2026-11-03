@@ -1,0 +1,54 @@
+/* Labeled input (checkout, My Account) */
+.form-field {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.3rem;
+  min-width: 0;
+}
+
+/* Narrow field next to a wide one (number, CEP) */
+.form-field-short {
+  flex: 0 0 8rem;
+}
+
+.form-field label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--escuro);
+}
+
+/* 44px tall for touch */
+.form-field input {
+  min-height: 44px;
+  padding: 0 0.7rem;
+  border: 1px solid var(--borda);
+  border-radius: var(--raio-campo);
+  font-size: 0.9rem;
+  color: var(--escuro);
+}
+
+.form-field input:focus-visible {
+  outline: 3px solid var(--ciano);
+  outline-offset: 1px;
+}
+
+.form-field input:disabled {
+  background-color: var(--cinza-claro);
+}
+
+/* Two fields side by side, stacked on phones */
+.form-row {
+  display: flex;
+  gap: 0.75rem;
+}
+
+@media (max-width: 600px) {
+  .form-row {
+    flex-direction: column;
+  }
+
+  .form-field-short {
+    flex: 1;
+  }
+}

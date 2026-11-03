@@ -1,0 +1,157 @@
+/* My Account page (mockup C10) */
+.account-page {
+  background-color: var(--cinza-claro);
+}
+
+.account-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--escuro);
+}
+
+.account-subtitle {
+  font-size: 0.9rem;
+}
+
+/* Profile and password side by side, stacked on small screens */
+.account-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.account-box {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.25rem;
+  border: 1px solid var(--borda);
+  border-radius: 0.7rem;
+  background-color: white;
+}
+
+.account-box h2 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--escuro);
+}
+
+.account-box h2 svg {
+  width: 1.2rem;
+  height: 1.2rem;
+  color: var(--azul);
+}
+
+.account-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.account-fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 0.25rem;
+  border: none;
+}
+
+.account-fieldset legend {
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--escuro);
+}
+
+.account-hint {
+  margin-top: -0.4rem;
+  font-size: 0.75rem;
+}
+
+.account-submit {
+  align-self: flex-start;
+}
+
+.account-message {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.account-message.success {
+  color: rgb(21, 128, 61);
+}
+
+.account-message.error {
+  color: rgb(185, 28, 28);
+}
+
+.account-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.account-empty p {
+  font-size: 0.95rem;
+}
+
+/* Orders table scrolls sideways on phones instead of breaking the layout */
+.account-table-wrapper {
+  overflow-x: auto;
+}
+
+.account-orders {
+  width: 100%;
+  min-width: 36rem;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  color: var(--escuro);
+}
+
+.account-orders th,
+.account-orders td {
+  padding: 0.6rem 0.5rem;
+  border-bottom: 1px solid var(--borda);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.account-orders thead th {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--cinza-texto);
+  text-transform: uppercase;
+}
+
+.account-orders tbody th {
+  font-weight: 600;
+}
+
+.account-order-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-weight: 600;
+  color: var(--azul);
+  text-decoration: none;
+}
+
+.account-order-link:hover {
+  text-decoration: underline;
+}
+
+.account-order-link:focus-visible {
+  outline: 3px solid var(--ciano);
+  outline-offset: 2px;
+}
+
+@media (max-width: 900px) {
+  .account-grid {
+    grid-template-columns: 1fr;
+  }
+}

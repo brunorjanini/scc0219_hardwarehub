@@ -16,6 +16,7 @@ import ComingSoon from "./pages/ComingSoon.jsx";
 import Cart from "./pages/Cart.jsx";
 import Checkout from "./pages/Checkout.jsx";
 import OrderConfirmation from "./pages/OrderConfirmation.jsx";
+import Account from "./pages/Account.jsx";
 import UserLogin from "./pages/UserLogin.jsx";
 import UserSignIn from "./pages/UserSignIn.jsx";
 
@@ -40,6 +41,7 @@ export const routes = [
       { path: "cart", element: <RequireAuth role="user"><Cart /></RequireAuth> },
       { path: "checkout", element: <RequireAuth role="user"><Checkout /></RequireAuth> },
       { path: "order/:id", element: <RequireAuth role="user"><OrderConfirmation /></RequireAuth> },
+      { path: "account", element: <RequireAuth role="user"><Account /></RequireAuth> },
       // Temporary page until the builder (Task 8) exists
       {
         path: "monte-seu-pc",

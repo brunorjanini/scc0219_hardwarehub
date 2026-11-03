@@ -1,5 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { validateCardNumber, validatePassword, validatePhone, validateZip } from "./validators";
+import {
+  validateCardNumber,
+  validatePassword,
+  validatePasswordChange,
+  validatePhone,
+  validateZip,
+} from "./validators";
 
 describe("validatePassword", () => {
   it("accepts 8+ characters with a number and a symbol", () => {
@@ -23,6 +29,23 @@ describe("validatePhone", () => {
 
   it.each(["123", "991234567", "(16) 99123-45678"])("rejects %s", (phone) => {
     expect(validatePhone(phone)).not.toBe("");
+  });
+});
+
+describe("validatePasswordChange", () => {
+  const ok = { current: "Password123", next: "NovaSenha@1", confirm: "NovaSenha@1" };
+
+  it("accepts a valid change", () => {
+    expect(validatePasswordChange(ok)).toBe("");
+  });
+
+  it("checks fields, confirmation, reuse and strength in that order", () => {
+    expect(validatePasswordChange({ ...ok, current: "" })).toBe("Preencha todos os campos de senha");
+    expect(validatePasswordChange({ ...ok, confirm: "Outra@123" })).toBe("A confirmação não confere com a nova senha");
+    expect(validatePasswordChange({ current: "Senha@123", next: "Senha@123", confirm: "Senha@123" })).toBe(
+      "A nova senha deve ser diferente da atual",
+    );
+    expect(validatePasswordChange({ ...ok, next: "fraca", confirm: "fraca" })).toMatch(/8 caracteres/);
   });
 });
 

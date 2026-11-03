@@ -1,5 +1,12 @@
 import { describe, expect, it } from "vitest";
-import { readClientForm, toClientRecord, validateClient } from "./clientForm";
+import {
+  readClientForm,
+  readProfileForm,
+  toClientRecord,
+  toProfileChanges,
+  validateClient,
+  validateProfile,
+} from "./clientForm";
 
 const valid = {
   firstName: "Bruno",
@@ -61,6 +68,43 @@ describe("readClientForm / toClientRecord", () => {
       email: "bruno@usp.br",
       password: " Senha@123 ",
       phone: "(16) 99999-0000",
+      address: { street: "Rua A", number: "10", city: "São Carlos", zip: "13566-590" },
+    });
+  });
+});
+
+describe("profile form", () => {
+  const profile = {
+    name: "Ana Souza",
+    email: "ana@usp.br",
+    phone: "(16) 99123-4567",
+    street: "Rua A",
+    number: "10",
+    city: "São Carlos",
+    zip: "13566-590",
+  };
+
+  it("reads trimmed values and lowercases the email", () => {
+    const form = new FormData();
+    for (const [key, value] of Object.entries(profile)) form.set(key, ` ${value} `);
+    form.set("email", " Ana@USP.br ");
+
+    expect(readProfileForm(form)).toEqual(profile);
+  });
+
+  it("validates like the sign-up, without a password", () => {
+    expect(validateProfile(profile)).toBe("");
+    expect(validateProfile({ ...profile, name: "" })).toBe("Preencha todos os campos");
+    expect(validateProfile({ ...profile, email: "ana" })).toBe("E-mail inválido");
+    expect(validateProfile({ ...profile, phone: "1" })).toMatch(/Telefone/);
+    expect(validateProfile({ ...profile, zip: "1" })).toBe("CEP inválido");
+  });
+
+  it("builds the PATCH body without type or password", () => {
+    expect(toProfileChanges(profile)).toEqual({
+      name: "Ana Souza",
+      email: "ana@usp.br",
+      phone: "(16) 99123-4567",
       address: { street: "Rua A", number: "10", city: "São Carlos", zip: "13566-590" },
     });
   });
