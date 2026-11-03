@@ -15,12 +15,45 @@
 
 .subtitle-box {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-between;
   padding: 1rem 2rem;
-  align-items: start;
-  height: 4.5rem;
+  align-items: center;
+  gap: 1rem;
   width: 100%;
+}
+
+.subtitle-box > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.dashboard-refresh {
+  flex-shrink: 0;
+}
+
+.dashboard-refresh:disabled {
+  cursor: wait;
+}
+
+.dashboard-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0 2rem;
+}
+
+.activities-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  list-style: none;
+}
+
+.activities-empty {
+  font-size: 0.8rem;
 }
 
 .subtitle-box h2 {
@@ -30,7 +63,8 @@
 }
 
 .subtitle-box p {
-  font-size: 0.7rem;
+  min-height: 1em;
+  font-size: 0.75rem;
   font-weight: 400;
   color: var(--cinza-texto);
 }

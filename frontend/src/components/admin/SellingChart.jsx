@@ -29,8 +29,11 @@ const formatCurrency = (v) =>
 
 /**
  * Props:
- *  - titulo: string, card title
- *  - dados: array of { dia: string, valor: number, destaque?: boolean }
+ *  - title: string, card title
+ *  - data: array of { dia: string, valor: number, destaque?: boolean,
+ *          descricao?: string (full day name, read by screen readers) }
+ * The bars are only visual (hover tooltips); a hidden table carries the
+ * same numbers for screen readers and keyboard users.
  */
 export default function SellingChart({ title, data }) {
   const [hovered, setHovered] = useState(null);
@@ -56,7 +59,25 @@ export default function SellingChart({ title, data }) {
         <div className="venda-chart__empty">Não há dados para exibir.</div>
       ) : (
         <>
-          <div className="venda-chart__plot">
+          <table className="visually-hidden">
+            <caption>{title}</caption>
+            <thead>
+              <tr>
+                <th scope="col">Dia</th>
+                <th scope="col">Receita</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.map((d, i) => (
+                <tr key={i}>
+                  <th scope="row">{d.descricao ?? d.dia}</th>
+                  <td>{formatCurrency(d.valor)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+
+          <div className="venda-chart__plot" aria-hidden="true">
             {/* Y axis: tick labels */}
             <div className="venda-chart__y-axis">
               {ticks.map((t) => (
@@ -122,7 +143,7 @@ export default function SellingChart({ title, data }) {
           </div>
 
           {/* X axis: category labels */}
-          <div className="venda-chart__x-axis">
+          <div className="venda-chart__x-axis" aria-hidden="true">
             <div className="venda-chart__x-spacer" />
             <div className="venda-chart__x-labels">
               {data.map((d, i) => (

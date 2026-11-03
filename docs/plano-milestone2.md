@@ -11,7 +11,7 @@
 - [x] 7. Admin Clients and Admins CRUD
 - [x] 8. Compatibility engine and Builder page
 - [x] 9. Builder summary and Add to Cart
-- [ ] 10. (stretch) Dashboard from real data
+- [x] 10. (stretch) Dashboard from real data
 - [ ] 11. (stretch) Saved builds
 - [ ] 12. Accessibility, responsiveness, quality pass
 - [ ] 13. Docs, test script, build verification
@@ -117,7 +117,7 @@ sequenceDiagram
 
 ## Notas para continuar
 
-Estado após as Tasks 1–9. Leia antes de começar a próxima task.
+Estado após as Tasks 1–10. Leia antes de começar a próxima task.
 
 ### Ambiente (Windows desta máquina)
 
@@ -158,7 +158,7 @@ Estado após as Tasks 1–9. Leia antes de começar a próxima task.
 - Contextos: `useAuth()` (`user = { id, type, name }`, `login`, `logout`) e `useCart()`. Admins não compram: não têm carrinho e as páginas de compra usam `RequireAuth role="user"`; o admin usa `RequireAuth role="admin"` (já aplicado em `/admin/*` em `routes.jsx`).
 - Componentes: `FormField` (input com label, prop `short`, classe `.form-row` para dois campos lado a lado), `components/store/*` (cards, imagem com fallback, selo de estoque, seletor de quantidade), `SuperiorModal` (toast).
 - Estilos globais em `index.css`: `.store-page`, `.page-message` (+ `.error`), `.link-button` (+ `.secondary`, `.is-disabled`), `.visually-hidden`, e a base de `p`/`h2` (antes vazava de `TopBar.css`). Escopo de CSS: não use seletores soltos como `button`, `nav`, `ul` ou `main`; eles já quebraram outras páginas.
-- O admin ainda usa os estilos originais (`AdminLayout.css`, `TopBar`, `DashboardCard`). `AdminDashboard` tem números fixos (Task 10).
+- O admin ainda usa os estilos originais (`AdminLayout.css`, `TopBar`, `DashboardCard`).
 
 ### Admin de produtos (Task 6)
 
@@ -195,6 +195,8 @@ Estado após as Tasks 1–9. Leia antes de começar a próxima task.
 - Situação ao fim da Task 7: 357 testes passando (29 arquivos), lint sem erros, build ok (mesmo aviso de bundle > 500 kB).
 - Situação ao fim da Task 8: 401 testes passando (32 arquivos), lint sem erros, build ok (mesmo aviso).
 - Situação ao fim da Task 9: 420 testes passando (33 arquivos), lint sem erros nem avisos, build ok (mesmo aviso de bundle).
+- Situação ao fim da Task 10: 446 testes passando (35 arquivos), lint sem erros nem avisos, build ok (mesmo aviso de bundle).
+- Teste instável: numa rodada com build e lint ao mesmo tempo (52 s em vez de 37 s), `Cart.test.jsx > lists the items with subtotals and the total` estourou o `findByRole` (espera padrão de 1 s). Passou sozinho e na rodada seguinte. Para a Task 12: aumentar o `asyncUtilTimeout` do Testing Library em `test/setup.js` (ex.: `configure({ asyncUtilTimeout: 3000 })`) ou rodar a suíte sem outros processos pesados.
 
 ### Montador de PC (Task 8) — base para a Task 9
 
@@ -212,6 +214,15 @@ Estado após as Tasks 1–9. Leia antes de começar a próxima task.
 - O botão só habilita com as 7 peças, sem erro (avisos não bloqueiam) e todas com estoque. Quando está desabilitado, o motivo aparece embaixo e é a descrição acessível do botão (`addBlockReason`). Admins veem o botão desabilitado com o motivo. Visitantes podem clicar: vão para o login e voltam ao montador com a montagem salva.
 - Carrinho: `addItems(entries)` (em `utils/cart.js` e no `CartContext`) adiciona tudo numa só alteração, então é um único POST/PATCH. É tudo ou nada: se uma peça passar do estoque (contando o que já está no carrinho), nada muda e a mensagem diz qual peça. Estoque e preço são revalidados de novo no carrinho e no pagamento, como antes.
 - Testes: `pages/BuilderCart.test.jsx` cobre o resumo, os motivos de bloqueio, o visitante, o admin, o limite de estoque e a demo completa (montar, adicionar com montagem, finalizar compra, estoque −1 e vendidos +1 em cada peça).
+
+### Dashboard (Task 10)
+
+- `utils/dashboardStats.js`: `dashboardStats({ orders, products, users }, now)` calcula tudo a partir dos dados do mock; `now` é parâmetro para os testes fixarem a data. Meses e dias seguem o fuso do navegador.
+- Cartões: receita, pedidos e ticket médio do mês corrente, comparados com o mês anterior ("+12,5% vs. mês anterior"; sem vendas no mês anterior, o texto diz isso em vez de uma porcentagem). "Produtos sem estoque" conta só produtos (serviços têm estoque nulo) e mostra quantos estão em "últimas unidades" (1 a 3). A cor do comentário (`tone` em `DashboardCard`: verde, vermelho ou cinza) só reforça o texto.
+- Gráfico: receita de cada um dos últimos 7 dias, hoje destacado. As barras ficam com `aria-hidden`; uma tabela escondida (`.visually-hidden`) dentro de `SellingChart` leva os mesmos números para leitores de tela.
+- "Pedidos recentes": os 6 mais novos, com cliente, itens e tempo relativo ("há 5 minutos", "ontem"). Pedidos com `userId: null` (cliente excluído, ver Task 7) aparecem como "Cliente removido".
+- A página carrega pedidos, produtos e usuários juntos e tem o botão "Atualizar"; os números antigos ficam na tela durante a recarga.
+- Testes de página fixam só o `Date` (`vi.useFakeTimers({ toFake: ["Date"] })`), assim `user-event` e `waitFor` continuam com timers reais.
 
 ### Pendências conhecidas (para a Task 12 ou 13)
 

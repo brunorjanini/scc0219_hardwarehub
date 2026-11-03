@@ -31,14 +31,23 @@
   color: var(--azul);
 }
 
-.dashboard-card h3 {
+.dashboard-card .dashboard-card-value {
   font-size: 1.6rem;
   color: black;
   font-weight: 400;
 }
 
-.dashboard-card p {
-  color: var(--verde);
-  font-size: 0.65rem;
-  font-weight: 400;
+/* Comparison line; colours meet WCAG AA on white */
+.dashboard-card .dashboard-card-comment {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--cinza-texto);
+}
+
+.dashboard-card .dashboard-card-comment.up {
+  color: rgb(21, 128, 61);
+}
+
+.dashboard-card .dashboard-card-comment.down {
+  color: rgb(185, 28, 28);
 }
