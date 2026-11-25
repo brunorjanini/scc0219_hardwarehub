@@ -31,6 +31,20 @@
       "email": "admin@hardwarehub.com",
       "password": "admin",
       "phone": "(16) 3373-0000"
+    },
+    {
+      "type": "user",
+      "name": "Joao Pedro",
+      "email": "joao@gmail.com",
+      "password": "senha@123",
+      "phone": "16 88888888",
+      "address": {
+        "street": "Rua",
+        "number": "100",
+        "city": "SC",
+        "zip": "13560000"
+      },
+      "id": "ILRQx44Kowk"
     }
   ],
   "products": [
@@ -43,8 +57,8 @@
       "photo": "/products/ryzen7.jpeg",
       "description": "Processador de 8 núcleos com 3D V-Cache, referência para jogos em alta taxa de quadros.",
       "price": 2499.9,
-      "stock": 3,
-      "sold": 42,
+      "stock": 2,
+      "sold": 43,
       "specs": {
         "socket": "AM5",
         "cores": 8,
@@ -84,8 +98,8 @@
       "photo": "/products/placeholder-cpu.svg",
       "description": "Processador de 6 núcleos para a plataforma AM4, ideal para upgrades econômicos.",
       "price": 649.9,
-      "stock": 20,
-      "sold": 55,
+      "stock": 18,
+      "sold": 57,
       "specs": {
         "socket": "AM4",
         "cores": 6,
@@ -164,8 +178,8 @@
       "photo": "/products/placeholder-motherboard.svg",
       "description": "Placa-mãe Micro-ATX AM4 com suporte a DDR4, compatível com Ryzen 5000.",
       "price": 699.9,
-      "stock": 12,
-      "sold": 33,
+      "stock": 11,
+      "sold": 34,
       "specs": {
         "socket": "AM4",
         "chipset": "B550",
@@ -241,8 +255,8 @@
       "photo": "/products/placeholder-ram.svg",
       "description": "Kit de memória DDR4 dual channel de 3200MHz, ideal para plataformas AM4.",
       "price": 299.9,
-      "stock": 25,
-      "sold": 60,
+      "stock": 22,
+      "sold": 63,
       "specs": {
         "memoryType": "DDR4",
         "capacityGb": 16,
@@ -259,8 +273,8 @@
       "photo": "/products/placeholder-ram.svg",
       "description": "Kit de memória DDR4 de perfil baixo com 3600MHz.",
       "price": 549.9,
-      "stock": 9,
-      "sold": 22,
+      "stock": 8,
+      "sold": 23,
       "specs": {
         "memoryType": "DDR4",
         "capacityGb": 32,
@@ -296,8 +310,8 @@
       "photo": "/products/placeholder-gpu.svg",
       "description": "Placa de vídeo para jogos em 1080p com ótimo consumo de energia.",
       "price": 1799.9,
-      "stock": 11,
-      "sold": 19,
+      "stock": 10,
+      "sold": 20,
       "specs": {
         "vramGb": 8,
         "lengthMm": 240,
@@ -349,8 +363,8 @@
       "photo": "/products/placeholder-storage.svg",
       "description": "SSD NVMe PCIe 4.0 de 2TB com leitura de até 7450MB/s.",
       "price": 1299.9,
-      "stock": 6,
-      "sold": 14,
+      "stock": 5,
+      "sold": 15,
       "specs": {
         "storageType": "NVMe",
         "capacityGb": 2000,
@@ -475,8 +489,8 @@
       "photo": "/products/placeholder-case.svg",
       "description": "Gabinete compacto para placas Micro-ATX e Mini-ITX.",
       "price": 399.9,
-      "stock": 10,
-      "sold": 8,
+      "stock": 9,
+      "sold": 9,
       "specs": {
         "supportedFormFactors": [
           "mATX",
@@ -530,7 +544,7 @@
       "description": "Montagem completa feita por especialistas, com organização de cabos e testes de estabilidade.",
       "price": 199.9,
       "stock": null,
-      "sold": 20,
+      "sold": 22,
       "specs": {
         "durationHours": 4
       }
@@ -545,7 +559,7 @@
       "description": "Instalação e configuração do sistema operacional com drivers atualizados.",
       "price": 99.9,
       "stock": null,
-      "sold": 15,
+      "sold": 16,
       "specs": {
         "durationHours": 2
       }
@@ -579,6 +593,23 @@
       "specs": {
         "durationHours": 1
       }
+    },
+    {
+      "name": "Mouse top",
+      "type": "product",
+      "category": "peripheral",
+      "brand": "Kingston",
+      "photo": "/products/placeholder-peripheral.svg",
+      "description": "Mouse mto legal",
+      "price": 20,
+      "oldPrice": 30,
+      "stock": 10,
+      "specs": {
+        "kind": "Mouse",
+        "connection": "Cabo"
+      },
+      "sold": 0,
+      "id": "8mTFV8SolBI"
     }
   ],
   "carts": [
@@ -586,9 +617,186 @@
       "userId": "cA8mNkunZSE",
       "items": [],
       "id": "-Up83eXUsoY"
+    },
+    {
+      "userId": "1",
+      "items": [],
+      "id": "VCM5h23IXUM"
     }
   ],
-  "orders": [],
-  "builds": [],
+  "orders": [
+    {
+      "userId": "1",
+      "items": [
+        {
+          "productId": "11",
+          "name": "Kingston Fury Beast 16GB (2x8) DDR4 3200MHz",
+          "price": 299.9,
+          "quantity": 1
+        }
+      ],
+      "total": 299.9,
+      "date": "2026-11-03T21:22:18.742Z",
+      "cardLast4": "1111",
+      "address": {
+        "street": "Av. Trabalhador São-carlense",
+        "number": "400",
+        "city": "São Carlos",
+        "zip": "13566-590"
+      },
+      "status": "Pago",
+      "id": "JdPy94B0qw4"
+    },
+    {
+      "userId": "1",
+      "items": [
+        {
+          "productId": "27",
+          "name": "Montagem de PC",
+          "price": 199.9,
+          "quantity": 1
+        },
+        {
+          "productId": "11",
+          "name": "Kingston Fury Beast 16GB (2x8) DDR4 3200MHz",
+          "price": 299.9,
+          "quantity": 1
+        },
+        {
+          "productId": "3",
+          "name": "AMD Ryzen 5 5600",
+          "price": 649.9,
+          "quantity": 1
+        },
+        {
+          "productId": "1",
+          "name": "AMD Ryzen 7 7800X3D",
+          "price": 2499.9,
+          "quantity": 1
+        }
+      ],
+      "total": 3649.6,
+      "date": "2026-11-03T21:25:09.484Z",
+      "cardLast4": "4343",
+      "address": {
+        "street": "Av. Trabalhador São-carlense",
+        "number": "400",
+        "city": "São Carlos",
+        "zip": "13566-590"
+      },
+      "status": "Pago",
+      "id": "CSOyFfloEdw"
+    },
+    {
+      "userId": "1",
+      "items": [
+        {
+          "productId": "11",
+          "name": "Kingston Fury Beast 16GB (2x8) DDR4 3200MHz",
+          "price": 299.9,
+          "quantity": 1
+        },
+        {
+          "productId": "3",
+          "name": "AMD Ryzen 5 5600",
+          "price": 649.9,
+          "quantity": 1
+        },
+        {
+          "productId": "7",
+          "name": "MSI B550M Pro-VDH",
+          "price": 699.9,
+          "quantity": 1
+        },
+        {
+          "productId": "12",
+          "name": "Corsair Vengeance LPX 32GB (2x16) DDR4 3600MHz",
+          "price": 549.9,
+          "quantity": 1
+        },
+        {
+          "productId": "14",
+          "name": "Sapphire Pulse Radeon RX 7600 8GB",
+          "price": 1799.9,
+          "quantity": 1
+        },
+        {
+          "productId": "17",
+          "name": "Samsung 990 Pro 2TB NVMe",
+          "price": 1299.9,
+          "quantity": 1
+        },
+        {
+          "productId": "19",
+          "name": "Corsair CX550 550W 80 Plus Bronze",
+          "price": 399.9,
+          "quantity": 1
+        },
+        {
+          "productId": "24",
+          "name": "Montech Air 100",
+          "price": 399.9,
+          "quantity": 1
+        },
+        {
+          "productId": "27",
+          "name": "Montagem de PC",
+          "price": 199.9,
+          "quantity": 1
+        },
+        {
+          "productId": "28",
+          "name": "Instalação de sistema operacional",
+          "price": 99.9,
+          "quantity": 1
+        }
+      ],
+      "total": 6399,
+      "date": "2026-11-17T20:28:04.257Z",
+      "cardLast4": "1111",
+      "address": {
+        "street": "Av. Trabalhador São-carlense",
+        "number": "400",
+        "city": "São Carlos",
+        "zip": "13566-590"
+      },
+      "status": "Pago",
+      "id": "m8-J50D_LWA"
+    }
+  ],
+  "builds": [
+    {
+      "userId": "1",
+      "name": "Montagem de 17 de novembro",
+      "parts": {
+        "cpu": "1",
+        "motherboard": "6",
+        "ram": "10",
+        "gpu": "14",
+        "storage": "18",
+        "psu": "19",
+        "case": "23"
+      },
+      "total": 7849.3,
+      "createdAt": "2026-11-17T17:10:47.278Z",
+      "id": "V427fGzo1po"
+    },
+    {
+      "userId": "1",
+      "name": "PC",
+      "parts": {
+        "cpu": "3",
+        "motherboard": "7",
+        "ram": "12",
+        "gpu": "14",
+        "storage": "17",
+        "psu": "19",
+        "case": "24"
+      },
+      "total": 5799.3,
+      "createdAt": "2026-11-17T20:26:04.830Z",
+      "id": "GB9kVEpNV9c"
+    }
+  ],
   "$schema": "./node_modules/json-server/schema.json"
 }
