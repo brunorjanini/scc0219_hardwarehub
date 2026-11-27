@@ -29,7 +29,13 @@ vi.mock("../../api/users", async (importOriginal) => ({
   updateUser: vi.fn(),
   findUsersByEmail: vi.fn(),
 }));
-vi.mock("../../api/builds", () => ({ listBuildsByUser: vi.fn(), createBuild: vi.fn(), deleteBuild: vi.fn() }));
+vi.mock("../../api/builds", () => ({
+  listBuildsByUser: vi.fn(),
+  createBuild: vi.fn(),
+  deleteBuild: vi.fn(),
+  getBuildAnalysisStatus: vi.fn(() => Promise.resolve({ enabled: false })),
+  analyzeBuild: vi.fn(),
+}));
 
 const STORED_CLIENT = { ...CLIENT, password: "Password123" };
 const byName = (name) => seed.products.find((p) => p.name === name);

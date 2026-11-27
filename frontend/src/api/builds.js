@@ -14,3 +14,14 @@ export function createBuild(build) {
 export function deleteBuild(id) {
   return http.delete(`/builds/${encodeURIComponent(id)}`);
 }
+
+// AI analysis of a build (backend only; json-server has no such route).
+// { enabled } tells whether the server has the feature turned on.
+export function getBuildAnalysisStatus() {
+  return http.get("/builds/analyze");
+}
+
+// parts: { slot: productId }. Returns { status, issues, analysis, model }.
+export function analyzeBuild(parts) {
+  return http.post("/builds/analyze", { parts });
+}

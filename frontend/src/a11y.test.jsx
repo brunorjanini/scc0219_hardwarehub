@@ -40,7 +40,13 @@ vi.mock("./api/users", async (importOriginal) => ({
   findUsersByEmail: vi.fn(),
   findUsersByUsername: vi.fn(),
 }));
-vi.mock("./api/builds", () => ({ listBuildsByUser: vi.fn(), createBuild: vi.fn(), deleteBuild: vi.fn() }));
+vi.mock("./api/builds", () => ({
+  listBuildsByUser: vi.fn(),
+  createBuild: vi.fn(),
+  deleteBuild: vi.fn(),
+  getBuildAnalysisStatus: vi.fn(() => Promise.resolve({ enabled: false })),
+  analyzeBuild: vi.fn(),
+}));
 
 const ORDER = {
   id: "o1",

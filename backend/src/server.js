@@ -8,6 +8,7 @@ const { connect } = require("./db");
 const models = require("./models");
 const { crud } = require("./crud");
 const checkout = require("./routes/checkout");
+const { createAnalyzeRouter } = require("./routes/analyze");
 const { errorHandler } = require("./errors");
 
 const app = express();
@@ -20,6 +21,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/checkout", checkout);
+// Before the CRUD routers, so /builds/analyze is not read as a build id
+app.use("/builds/analyze", createAnalyzeRouter());
 
 /**
  * Guard for user deletion: the default "admin" account must always exist

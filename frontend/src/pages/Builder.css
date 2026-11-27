@@ -614,3 +614,87 @@
     width: 100%;
   }
 }
+
+/* ---- AI analysis (optional, only when the backend enables it) ---- */
+.builder-analysis {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1.1rem 1.25rem;
+  border: 1px solid var(--borda);
+  border-radius: 0.7rem;
+  background-color: white;
+}
+
+.builder-analysis-header {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.builder-analysis-header > svg {
+  flex-shrink: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--azul);
+}
+
+/* The store's global p and h2 styles are small and light; set them here */
+.builder-analysis h2 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--escuro);
+}
+
+.builder-analysis-header p,
+.builder-analysis-note {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--cinza-texto);
+}
+
+.builder-analysis-result p,
+.builder-analysis-result li {
+  font-size: 0.92rem;
+  font-weight: 400;
+  line-height: 1.45;
+  color: var(--escuro);
+}
+
+.builder-analysis-result .builder-analysis-note {
+  font-size: 0.85rem;
+  color: var(--cinza-texto);
+}
+
+.builder-analysis-result {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.builder-analysis-result h3 {
+  font-size: 0.95rem;
+}
+
+.builder-analysis-result ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-left: 1.1rem;
+}
+
+.builder-analysis-result .builder-analysis-suggestions {
+  list-style: none;
+  padding-left: 0;
+}
+
+.builder-analysis-suggestions li {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35rem;
+  padding: 0.75rem;
+  border: 1px solid var(--borda);
+  border-radius: var(--raio-campo);
+  background-color: var(--cinza-claro);
+}
