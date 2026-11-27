@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "hardwarehub": {
+      "command": "node",
+      "args": ["mcp/src/index.js"],
+      "env": {
+        "HARDWAREHUB_API_URL": "http://localhost:3000",
+        "HARDWAREHUB_MODE": "readonly"
+      }
+    }
+  }
+}
