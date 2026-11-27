@@ -1,6 +1,6 @@
 // Human-readable technical specifications for the product page.
 // Each key of product.specs maps to a label and a formatter.
-import { formatNumber } from "./format";
+import { formatNumber } from "./format.js";
 
 const withUnit = (unit) => (value) => `${formatNumber(value)} ${unit}`;
 

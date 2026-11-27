@@ -1,8 +1,8 @@
 // Admin product form: the specs each category has, and how the form is
 // read, validated and turned into the record saved in /products.
 // The PC Builder (Task 8) depends on the specs marked `required`.
-import { CATEGORIES, placeholderPhoto } from "./categories";
-import { specLabel } from "./specs";
+import { CATEGORIES, placeholderPhoto } from "./categories.js";
+import { specLabel } from "./specs.js";
 
 export const FORM_FACTORS = ["ATX", "mATX", "ITX"];
 export const MEMORY_TYPES = ["DDR4", "DDR5"];

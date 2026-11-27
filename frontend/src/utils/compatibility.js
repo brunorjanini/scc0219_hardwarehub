@@ -13,8 +13,8 @@
 // Errors are reported as soon as both parts of a rule are chosen, because
 // adding more parts never fixes them. "error" wins over "incomplete";
 // "incomplete" wins over "warning".
-import { BUILDER_CATEGORIES } from "./categories";
-import { formatNumber } from "./format";
+import { BUILDER_CATEGORIES } from "./categories.js";
+import { formatNumber } from "./format.js";
 
 // Power of everything besides CPU and GPU (board, RAM, drives, fans)
 export const BASE_WATTS = 100;

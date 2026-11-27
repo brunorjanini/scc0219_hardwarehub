@@ -86,8 +86,6 @@ export function whereEquals(fields) {
   return { _where: JSON.stringify(where) };
 }
 
-// json-server v1 creates string ids while seed data may use numbers,
-// so ids are always compared as strings.
-export function sameId(a, b) {
-  return a !== undefined && a !== null && String(a) === String(b);
-}
+// Id comparison lives in utils/ids.js (pure, so the MCP server can use it);
+// re-exported here because pages import it from the API layer.
+export { sameId } from "../utils/ids.js";

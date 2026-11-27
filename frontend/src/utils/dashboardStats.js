@@ -1,8 +1,8 @@
 // Numbers of the admin dashboard, computed from /orders, /products and
 // /users. Pure functions: `now` is a parameter so tests can fix the date.
 // Months and days follow the browser's local time zone.
-import { formatNumber } from "./format";
-import { LOW_STOCK_THRESHOLD } from "./stock";
+import { formatNumber } from "./format.js";
+import { LOW_STOCK_THRESHOLD } from "./stock.js";
 
 export const RECENT_ORDERS = 6;
 export const CHART_DAYS = 7;
