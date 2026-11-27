@@ -2,11 +2,11 @@
 // localStorage, so the build survives a refresh or a visit to another
 // page), the specs shown in the picker, and how each option fits the
 // parts already chosen.
-import { BUILDER_CATEGORIES, categoryLabel } from "./categories";
-import { analyzeCompatibility } from "./compatibility";
-import { formatNumber } from "./format";
-import { formatSpecs } from "./specs";
-import { stockStatus } from "./stock";
+import { BUILDER_CATEGORIES, categoryLabel } from "./categories.js";
+import { analyzeCompatibility } from "./compatibility.js";
+import { formatNumber } from "./format.js";
+import { formatSpecs } from "./specs.js";
+import { stockStatus } from "./stock.js";
 
 export const BUILDER_STORAGE_KEY = "hardwarehub:builder";
 

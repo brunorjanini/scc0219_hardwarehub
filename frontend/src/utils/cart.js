@@ -1,8 +1,8 @@
 // Pure functions on cart items ([{ productId, quantity }]).
 // They never mutate the input and return either { items } or { error },
 // so CartContext only saves to the server when the change is valid.
-import { sameId } from "../api/http";
-import { MAX_QUANTITY_PER_ITEM, isService, maxPurchasable } from "./stock";
+import { sameId } from "./ids.js";
+import { MAX_QUANTITY_PER_ITEM, isService, maxPurchasable } from "./stock.js";
 
 // Total number of units in the cart (shown in the header badge)
 export function cartCount(items = []) {

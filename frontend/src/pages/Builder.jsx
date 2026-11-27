@@ -2,6 +2,7 @@ import "./Builder.css";
 import { useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 import { RotateCcw } from "lucide-react";
+import BuilderAnalysis from "../components/builder/BuilderAnalysis";
 import BuilderSlot from "../components/builder/BuilderSlot";
 import BuilderStatus from "../components/builder/BuilderStatus";
 import BuilderSummary from "../components/builder/BuilderSummary";
@@ -209,6 +210,11 @@ export default function Builder() {
                 Limpar montagem
               </button>
             )}
+
+            <BuilderAnalysis
+              selection={current}
+              onUse={(slot, productId) => byId[productId] && choose(slot, byId[productId])}
+            />
           </div>
 
           <BuilderSummary

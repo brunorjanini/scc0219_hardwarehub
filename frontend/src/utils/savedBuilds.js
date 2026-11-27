@@ -1,9 +1,9 @@
 // Saved PC builds (/builds): the record saved from the builder and how a
 // saved build compares with today's catalog (parts deleted, out of stock,
 // price changes).
-import { BUILDER_CATEGORIES, categoryLabel } from "./categories";
-import { buildTotal, cleanSelection, resolveParts } from "./builder";
-import { stockStatus } from "./stock";
+import { BUILDER_CATEGORIES, categoryLabel } from "./categories.js";
+import { buildTotal, cleanSelection, resolveParts } from "./builder.js";
+import { stockStatus } from "./stock.js";
 
 export const BUILD_NAME_MAX = 60;
 
