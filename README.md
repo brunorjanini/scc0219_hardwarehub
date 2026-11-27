@@ -43,7 +43,7 @@ Trabalho da disciplina **SCC0219 - Introduction to Web Development**.
 - Serviços não têm limite de estoque (exibidos como "Sob agendamento").
 - Catálogo com filtros (categoria, preço, marca, disponibilidade e specs) e ordenação.
 - Cada produto tem **especificações** (`specs`) que variam por categoria e são usadas nos filtros e no Montador.
-- **Funcionalidade própria — Montador de PC:** o cliente escolhe uma peça por categoria; o sistema valida a compatibilidade e, se tudo estiver correto, adiciona o conjunto ao carrinho (com opção de incluir o serviço de montagem). Montagens podem ser salvas na conta do cliente. Neste milestone a validação é feita por regras (ver 2.6); a análise com IA está planejada para a versão final.
+- **Funcionalidade própria — Montador de PC:** o cliente escolhe uma peça por categoria; o sistema valida a compatibilidade e, se tudo estiver correto, adiciona o conjunto ao carrinho (com opção de incluir o serviço de montagem). Montagens podem ser salvas na conta do cliente. A compatibilidade é decidida por regras; uma **análise opcional com IA** explica os problemas e sugere trocas (ver 2.6).
 - Login obrigatório para comprar: visitantes navegam pela loja e são levados ao login ao adicionar algo ao carrinho. Administradores não compram (não têm carrinho).
 - A conta `admin` padrão não pode ser excluída, e nenhum administrador pode excluir a própria conta.
 - Acessibilidade: contraste AA, rótulos visíveis nos campos, foco visível, alvos clicáveis ≥ 44 px, informação nunca só por cor (ícone + texto), texto alternativo nas imagens, navegação completa por teclado.
@@ -175,7 +175,27 @@ O Montador tem 7 posições (processador, placa-mãe, memória, placa de vídeo,
 - No seletor de cada posição, as peças compatíveis aparecem primeiro. Peças incompatíveis podem ser escolhidas (com o aviso); peças sem estoque, não.
 - O botão "Adicionar configuração ao carrinho" só fica habilitado com as 7 peças, sem erros e todas com estoque. Quando está desabilitado, o motivo aparece logo abaixo dele.
 
-O restante da aplicação chama apenas `analyzeCompatibility()`. Para a versão final, planejamos trocar ou complementar essas regras por uma **análise com IA** sem mudar a interface do Montador.
+O restante da aplicação chama apenas `analyzeCompatibility()`.
+
+**Análise com IA (opcional).** Com o backend configurado com uma chave da API da Anthropic, o Montador mostra o painel "Análise com IA". Ao clicar em "Analisar com IA", o backend (`POST /builds/analyze`, em `backend/src/ai/buildAnalysis.js`):
+
+1. calcula o resultado das regras (`analyzeCompatibility`) e escolhe, com `rankOptions`, até 3 peças compatíveis e com estoque para cada posição com problema ou vazia;
+2. faz **uma** chamada ao Claude (modelo `claude-opus-5-5`, resposta em JSON com formato fixo) pedindo um resumo, a explicação de cada problema e sugestões de troca;
+3. descarta qualquer sugestão fora da lista de candidatas e qualquer explicação de problema que as regras não apontaram.
+
+As regras continuam decidindo: a IA não muda o status nem libera o botão de adicionar ao carrinho. Cada sugestão tem um botão "Usar esta peça", que troca a peça no Montador; se a montagem mudar, o painel avisa que a análise ficou desatualizada. A análise só roda no clique (cada uma é uma chamada paga à API). Sem a chave, ou com o json-server, o painel não aparece e o Montador funciona como antes.
+
+### 2.7 Servidor MCP para agentes de IA (extra)
+
+A pasta `mcp/` tem um servidor [Model Context Protocol](https://modelcontextprotocol.io), que permite a agentes de IA (Claude Code, Claude Desktop ou qualquer cliente MCP) usar a loja diretamente. Ele consulta a mesma API REST do site e importa as **mesmas regras** do Montador (`analyzeCompatibility`, `rankOptions`), então um agente e a página do Montador sempre concordam sobre o que é compatível.
+
+O servidor tem três modos:
+
+- **`readonly`** (padrão): buscar no catálogo, ver detalhes, listar categorias e marcas, validar uma montagem (`check_build`) e sugerir peças compatíveis (`suggest_parts`). Também oferece as regras do Montador como recurso e o prompt `montar-pc`, que pede um PC dentro de um orçamento.
+- **`customer`**: o agente age como um cliente definido na configuração (nunca escolhido pelo agente) e pode usar o carrinho, salvar montagens, ver pedidos e comprar. Finalizar a compra e esvaziar o carrinho exigem duas etapas: uma prévia, que devolve um token de uso único, e a confirmação com esse token. O número do cartão vem da configuração e nunca passa pelo agente.
+- **`admin`**: o agente age como um administrador definido na configuração e pode ver os indicadores do painel, consultar o estoque baixo, alterar estoques, criar, editar e excluir produtos (com a mesma validação do formulário do admin) e consultar usuários, sem senhas. Excluir um produto também exige prévia e confirmação. Criar ou excluir contas continua só no painel web.
+
+Detalhes de uso em [mcp/README.md](mcp/README.md); o plano e as decisões estão em [docs/plano-mcp.md](docs/plano-mcp.md).
 
 ---
 
@@ -263,23 +283,25 @@ Executar no navegador com `npm run dev:all`, partindo dos dados iniciais (`npm r
 
 ### 5.1 Testes automáticos
 
-Saída de `npm run test:run` (26/11/2026):
+Saída de `npm run test:run` no frontend (26/11/2026, já com o painel de análise com IA):
 
 ```
- Test Files  40 passed (40)
-      Tests  500 passed (500)
+ Test Files  41 passed (41)
+      Tests  508 passed (508)
 ```
 
 | Grupo                                   | Testes |
 | --------------------------------------- | -----: |
 | Regras de negócio (`utils/`)            |    241 |
-| Páginas e componentes                   |    162 |
+| Páginas e componentes                   |    170 |
 | Camada de API (`api/`)                  |     38 |
 | Acessibilidade (`a11y.test.jsx`)        |     23 |
 | Contextos (sessão e carrinho)           |     16 |
 | Layouts (404, título, skip link, menu)  |     11 |
 | Dados iniciais (`seed.test.js`)         |      9 |
-| **Total**                               | **500** |
+| **Total**                               | **508** |
+
+Fora do frontend: `npm test` no `backend/` roda 5 testes da análise com IA (com um cliente falso da API da Anthropic, sem rede nem custo) e `npm run test:run` no `mcp/` roda 89 testes do servidor MCP.
 
 ### 5.2 Acessibilidade
 
@@ -383,6 +405,22 @@ npm run lint       # verificação de código com ESLint
 ### 6.6 Servidor Node.js + MongoDB (versão final, em desenvolvimento)
 
 A pasta `backend/` tem o servidor da versão final (Express + MongoDB), que substitui o json-server com os mesmos endpoints. As instruções estão em [backend/README.md](backend/README.md). Ele também usa a porta 3000, então não rode o json-server ao mesmo tempo.
+
+Para ligar a **análise com IA** do Montador (opcional), coloque uma chave da API da Anthropic em `ANTHROPIC_API_KEY`, no arquivo `backend/.env`, e reinicie o backend. Cada clique em "Analisar com IA" é uma chamada cobrada nessa chave. Sem a chave, o painel não aparece.
+
+### 6.7 Servidor MCP (opcional)
+
+Com a API rodando (6.3 ou 6.6):
+
+```bash
+cd mcp
+npm install
+npm run test:run   # testes automáticos (não precisam da API)
+npm run smoke      # verificação de ponta a ponta contra a API
+npm run inspect    # abre o MCP Inspector no navegador para chamar as ferramentas
+```
+
+No Claude Code, o arquivo `.mcp.json` da raiz já registra o servidor: basta aprová-lo ao abrir o projeto. Outras opções em [mcp/README.md](mcp/README.md).
 
 ---
 

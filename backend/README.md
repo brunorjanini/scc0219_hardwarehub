@@ -38,6 +38,7 @@ No Docker? Create a free MongoDB Atlas cluster and put its connection string in
 | `npm start`            | Starts the API                                  |
 | `npm run dev`          | Starts the API and restarts it on file changes  |
 | `npm run seed`         | Resets the database from the frontend seed file |
+| `npm test`             | Runs the tests (`node --test`; no database or network needed) |
 | `npm run format`       | Formats the code with Prettier                  |
 | `npm run format:check` | Fails if any file is not formatted              |
 
@@ -54,6 +55,8 @@ Resources: `users`, `products`, `carts`, `orders`, `builds`.
 | PATCH  | `/{resource}/:id` | Changes only the fields sent                                          |
 | DELETE | `/{resource}/:id` | Deletes a record (the default `admin` account cannot be deleted: 403) |
 | POST   | `/checkout`       | Completes a purchase atomically (see below)                           |
+| GET    | `/builds/analyze` | `{ enabled }`: whether the AI build analysis is turned on             |
+| POST   | `/builds/analyze` | AI analysis of a PC Builder build (optional, see below)               |
 
 ### Filtering, sorting and pagination (json-server v1 and v0 compatible)
 
@@ -97,18 +100,60 @@ changes), stores the order with a masked card (`cardLast4`), the client's addres
 and status `Pago`, and empties the cart. Services (`stock: null`) only increment
 `sold`.
 
+### AI build analysis (optional)
+
+Turned on by setting `ANTHROPIC_API_KEY` in `.env` (see `.env.example`). Without
+it, `GET /builds/analyze` answers `{ "enabled": false }`, `POST` answers 503, and
+the PC Builder hides its "Análise com IA" panel. Each analysis is one Claude API
+call billed to that key, and the store only makes it when the user clicks.
+
+`POST /builds/analyze` with:
+
+```json
+{ "parts": { "cpu": "4", "motherboard": "5" } }
+```
+
+The server runs the store's own rules (`analyzeCompatibility` and `rankOptions`,
+imported from `frontend/src/utils`), picks up to 3 compatible, in-stock
+candidates for each slot that has an issue or is empty, and asks Claude
+(`claude-opus-5-5`, structured JSON output, server-side refusal fallback) for a
+summary, an explanation of each issue and swap suggestions. Suggestions outside
+the candidate list and explanations of issues the rules did not report are
+dropped. The rules' `status` and `issues` are returned unchanged:
+
+```json
+{
+  "status": "error",
+  "issues": [{ "id": "socket", "level": "error", "slots": ["cpu", "motherboard"], "message": "..." }],
+  "analysis": {
+    "summary": "...",
+    "issues": [{ "slot": "cpu", "explanation": "..." }],
+    "suggestions": [{ "slot": "cpu", "productId": "2", "name": "AMD Ryzen 5 7600", "price": 1199.9, "reason": "..." }]
+  },
+  "model": "claude-opus-5-5"
+}
+```
+
+Errors: 400 for an empty build, an unknown slot or a product in the wrong slot;
+404 for an unknown product; 502 when the AI declines, answers incompletely or the
+Anthropic API fails; 503 when the feature is off.
+
 ## Project structure
 
 ```
 backend/
 ├── docker-compose.yml       MongoDB + mongo-express
 ├── .prettierrc.json         Code style (matches the frontend)
+├── test/
+│   └── buildAnalysis.test.js AI analysis with a fake Anthropic client
 └── src/
     ├── server.js            Express app and route wiring
     ├── db.js                MongoDB connection
     ├── models/index.js      Mongoose schemas (users, products, carts, orders, builds)
     ├── crud.js              Generic CRUD with json-server style queries
     ├── routes/checkout.js   Purchase with stock control
+    ├── routes/analyze.js    AI build analysis endpoints
+    ├── ai/buildAnalysis.js  Candidates, prompt, Claude call and result filtering
     ├── errors.js            Error helpers and middleware
     └── seed.js              Imports the frontend seed.json
 ```
